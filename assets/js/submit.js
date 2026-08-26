@@ -66,7 +66,15 @@ async function postOpaque(body) {
  * @returns {Promise<{ok:boolean, confirmed:boolean, queued?:boolean, error?:string}>}
  */
 export async function submitRow(sheet, data) {
-  const body = { token: SHEETS.token, sheet, data, clientAt: new Date().toISOString() };
+  const body = {
+    // Penanda unik per kiriman: dipakai flushOutbox untuk membuang tepat
+    // kiriman yang berhasil, tanpa menyentuh yang lain.
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    token: SHEETS.token,
+    sheet,
+    data,
+    clientAt: new Date().toISOString()
+  };
 
   if (!SHEETS.endpoint) {
     pushOutbox(body);
@@ -105,15 +113,19 @@ export async function flushOutbox() {
   const queue = outbox();
   if (!queue.length) return { sent: 0, left: 0 };
 
-  const left = [];
+  const terkirim = new Set();
   let sent = 0;
   for (let i = 0; i < queue.length; i++) {
     if (i > 0) await jeda(SHEETS.retryGapMs ?? 1500);
-    try { await post(queue[i]); sent++; }
-    catch { left.push(queue[i]); }
+    try { await post(queue[i]); terkirim.add(queue[i].id); sent++; }
+    catch { /* biarkan tetap di antrean */ }
   }
-  setOutbox(left);
-  return { sent, left: left.length };
+
+  // Baca ulang antrean sebelum menulis, lalu buang HANYA yang benar-benar
+  // terkirim. Menimpanya dengan salinan lama akan menghapus — atau malah
+  // membangkitkan kembali — kiriman yang masuk selagi flush berjalan.
+  setOutbox(outbox().filter((b) => !terkirim.has(b.id)));
+  return { sent, left: outbox().length };
 }
 
 /**

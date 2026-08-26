@@ -293,7 +293,18 @@ client-side), bukan bug yang bisa diperbaiki di implementasi ini.
    menampilkan pesan "gunakan laptop/PC"; materi dan capstone tetap bisa dibuka.
 8. **NISN adalah data pribadi.** Pastikan penggunaan Google Sheets ini sesuai
    kebijakan privasi data sekolah.
-9. **Contoh gambar memakai layanan luar.** Beberapa contoh materi dan template soal
+9. **Apps Script lambat, dan itu tidak bisa dihilangkan.** Diukur langsung pada
+   deployment ini: satu penulisan baris memakan **~7 detik** saat server senggang.
+   Google menjalankan permintaan web app milik satu akun **secara berurutan**, jadi
+   bila 30 siswa menekan Submit berbarengan, yang terakhir menunggu antrean panjang.
+   Mitigasinya sudah terpasang: timeout klien 30 detik, dan kiriman yang tetap gagal
+   masuk **antrean lokal** lalu dicoba ulang otomatis saat halaman dimuat — sudah
+   diuji, antrean berhasil terkuras. Datanya tidak hilang, hanya bisa telat masuk.
+10. **Baris ganda mungkin muncul.** Bila sebuah kiriman sebenarnya berhasil di server
+   tapi jawabannya tidak sempat sampai ke siswa, percobaan ulang akan menulis baris
+   kedua. Ini tidak merusak nilai: untuk rekap, filter `Jenis = Ringkasan` lalu ambil
+   baris terakhir per sesi — kolom `Sesi` membedakan satu sesi ujian dari yang lain.
+11. **Contoh gambar memakai layanan luar.** Beberapa contoh materi dan template soal
    merujuk `https://placehold.co/...`. Bila jaringan sekolah memblokir domain itu,
    gambarnya tidak tampil — ganti saja URL-nya di `data/*.json` dengan gambar milik
    sendiri. Ini **belum diuji** pada jaringan sekolah.
