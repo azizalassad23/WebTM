@@ -36,27 +36,62 @@ Lalu buka <http://localhost:4173>.
 
 ## Menyambungkan ke Google Sheets
 
-1. Buat Google Sheets baru → **Extensions → Apps Script**.
-2. Tempel isi [`apps-script/Code.gs`](apps-script/Code.gs), ganti nilai `TOKEN`.
-3. **Deploy → New deployment → Web app**
+Token bersama **sudah terisi** dan sama di kedua sisi
+(`apps-script/Code.gs` → `TOKEN`, `assets/js/config.js` → `SHEETS.token`),
+jadi yang perlu diisi guru hanya satu hal: URL `/exec`.
+
+1. Buka [sheets.new](https://sheets.new) untuk membuat spreadsheet baru, beri nama
+   mis. **WebTM — Rekap Nilai**.
+2. Di spreadsheet itu: **Extensions → Apps Script**.
+3. Hapus isi `Code.gs` bawaan, tempel seluruh isi
+   [`apps-script/Code.gs`](apps-script/Code.gs) dari repo ini, lalu simpan.
+4. **Deploy → New deployment → ⚙️ → Web app**
+   - Description: `WebTM`
    - Execute as: **Me**
    - Who has access: **Anyone**
-4. Salin URL `/exec` ke `assets/js/config.js`:
+   - klik **Deploy**, setujui izin yang diminta
+5. Salin **Web app URL** (berakhiran `/exec`).
+6. Tempel ke `assets/js/config.js`:
 
 ```js
 export const SHEETS = {
   endpoint: 'https://script.google.com/macros/s/AKfycb.../exec',
-  token: 'token-yang-sama-dengan-Code.gs',
   ...
 };
 ```
 
-Sheet `Latihan`, `Ujian`, dan `Capstone` dibuat otomatis beserta barisan
-judulnya saat kiriman pertama masuk.
+7. Commit & push — GitHub Pages membangun ulang sendiri dalam ~1 menit.
 
-Selama `endpoint` masih kosong, aplikasi tetap berjalan penuh: setiap kiriman
-masuk **antrean lokal** dan siswa diberi tahu bahwa datanya belum terkirim —
-bukan gagal diam-diam. Antrean dicoba ulang otomatis saat halaman dimuat.
+**Cara memastikan berhasil:** buka URL `/exec` itu langsung di browser. Kalau
+muncul `{"ok":true,"service":"WebTM",...}`, deployment-nya sudah benar.
+
+### Sheet yang terbentuk
+
+Ketiganya dibuat otomatis beserta baris judulnya saat kiriman pertama masuk —
+terpisah, tidak pernah bercampur:
+
+| Sheet | Isi | Kolom |
+|---|---|---|
+| **Latihan** | Tiap submit latihan (percobaan tak terbatas) | 15 |
+| **Ujian** | Tiap submit soal ujian **dan** baris ringkasan nilai akhir | 22 |
+| **Capstone** | Pengumpulan link CV | 6 |
+
+Sheet **Ujian** punya kolom **`Jenis`** yang membedakan dua macam baris:
+
+- `Per Soal` — satu baris tiap kali siswa submit sebuah soal (boleh berkali-kali)
+- `Ringkasan` — satu baris per sesi, berisi **nilai akhir**, rincian skor tiap soal,
+  durasi, jumlah pelanggaran, dan alasan selesai
+
+Untuk rekap nilai, filter kolom `Jenis` = `Ringkasan`; kolom `Skor` pada baris itu
+adalah nilai akhir siswa.
+
+Selama `endpoint` masih kosong, aplikasi tetap berjalan penuh: setiap kiriman masuk
+**antrean lokal** dan siswa diberi tahu datanya belum terkirim — bukan gagal
+diam-diam. Antrean dicoba ulang otomatis saat halaman dimuat.
+
+> **[Batasan keamanan]** Token ikut terbaca siapa pun yang membuka kode klien.
+> Ia menahan spam iseng, **bukan** pengaman. Jangan menaruh data sensitif di
+> spreadsheet ini selain yang memang dibutuhkan rekap nilai.
 
 ---
 
