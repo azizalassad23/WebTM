@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / tooling
+node_modules/
+*.log
+.vscode/
+.idea/
+
+# Berkas kerja lokal
+*.local
+scratch/

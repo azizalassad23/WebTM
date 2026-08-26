@@ -1,0 +1,540 @@
+[
+  {
+    "id": "css-dasar-001",
+    "modul": "CSS", "level": "Dasar", "chapterId": "css-01", "chapterModul": "css",
+    "topik": "Selector & Sintaks",
+    "editor": "css",
+    "instruksi": "Panel <code>index.html</code> terkunci — perhatikan bahwa <code>&lt;head&gt;</code>-nya sudah memuat <code>&lt;link rel=\"stylesheet\" href=\"style.css\"&gt;</code>, dan panel CSS inilah berkas itu. Buat <code>#judul</code> berwarna <code>#c67139</code> dan semua <code>.catatan</code> berwarna <code>#474238</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Selector</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <h1 id=\"judul\">Profil</h1>\n  <p class=\"catatan\">Paragraf pertama.</p>\n  <p class=\"catatan\">Paragraf kedua.</p>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": "#judul", "property": "color", "expected": "#c67139", "poin": 50, "label": "warna #judul = #c67139" },
+      { "type": "computed_style_equals", "selector": ".catatan", "property": "color", "expected": "#474238", "poin": 50, "label": "warna .catatan = #474238" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-dasar-002",
+    "modul": "CSS", "level": "Dasar", "chapterId": "css-01", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Selector & Sintaks",
+    "instruksi": "Warnai <strong>hanya</strong> paragraf yang berada di dalam <code>.kartu</code> menjadi <code>#8c491a</code>. Paragraf di luar kartu harus tetap hitam <code>#201e1d</code>. Perhatikan beda spasi dan koma pada selector.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Selector Keturunan</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kartu\">\n    <p id=\"dalam\">Paragraf di dalam kartu.</p>\n  </div>\n\n  <p id=\"luar\">Paragraf di luar kartu.</p>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": "#dalam", "property": "color", "expected": "#8c491a", "poin": 55, "label": "paragraf di dalam kartu = #8c491a" },
+      { "type": "computed_style_equals", "selector": "#luar", "property": "color", "expected": "#201e1d", "poin": 45, "label": "paragraf di luar kartu tetap #201e1d", "hint": "Pakai spasi (.kartu p), bukan koma (.kartu, p)." }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-dasar-003",
+    "modul": "CSS", "level": "Dasar", "chapterId": "css-01", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Selector & Sintaks",
+    "instruksi": "Pakai selector <strong>anak langsung</strong> agar hanya <code>&lt;li&gt;</code> tingkat pertama yang tebal (<code>font-weight: 700</code>). Item sub-daftar harus tetap normal (<code>400</code>). Warnai juga semua tautan ber-<code>target=\"_blank\"</code> menjadi <code>#7a8a5e</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Anak Langsung</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <ul class=\"menu\">\n    <li id=\"atas\">Materi\n      <ul>\n        <li id=\"anak\">Bab 1</li>\n      </ul>\n    </li>\n    <li><a id=\"tautan\" href=\"https://sekolah.sch.id\" target=\"_blank\">Situs sekolah</a></li>\n  </ul>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": "#atas", "property": "font-weight", "expected": "700", "poin": 40, "label": "li tingkat pertama tebal" },
+      { "type": "computed_style_equals", "selector": "#anak", "property": "font-weight", "expected": "400", "poin": 35, "label": "li sub-daftar tetap normal", "hint": "Gunakan .menu > li, bukan .menu li." },
+      { "type": "computed_style_equals", "selector": "#tautan", "property": "color", "expected": "#7a8a5e", "poin": 25, "label": "a[target=\"_blank\"] berwarna #7a8a5e" }
+    ],
+    "total_poin": 100
+  },
+
+  {
+    "id": "css-dasar-004",
+    "modul": "CSS", "level": "Dasar", "chapterId": "css-02", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Box Model",
+    "instruksi": "Atur <code>.kotak</code> agar memakai <code>box-sizing: border-box</code>, lebar <code>220px</code>, <code>padding</code> <code>20px</code>, dan border <code>3px solid #201e1d</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Box Model</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kotak\">Isi kotak</div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".kotak", "property": "box-sizing", "expected": "border-box", "poin": 25, "label": "box-sizing = border-box" },
+      { "type": "computed_style_equals", "selector": ".kotak", "property": "width", "expected": "220px", "tolerance": 1, "poin": 25, "label": "lebar 220px" },
+      { "type": "computed_style_equals", "selector": ".kotak", "property": "padding-top", "expected": "20px", "tolerance": 1, "poin": 25, "label": "padding 20px" },
+      { "type": "computed_style_equals", "selector": ".kotak", "property": "border-top-width", "expected": "3px", "tolerance": 0.5, "poin": 25, "label": "tebal border 3px" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-dasar-005",
+    "modul": "CSS", "level": "Dasar", "chapterId": "css-02", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Box Model",
+    "instruksi": "Tengahkan <code>.wadah</code> secara mendatar: beri <code>max-width: 400px</code> dan <code>margin</code> atas-bawah <code>0</code> dengan kiri-kanan <code>auto</code>. Terapkan juga <code>box-sizing: border-box</code> ke <strong>semua</strong> elemen memakai selector <code>*</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Menengahkan</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"wadah\">\n    <p>Kotak ini harus berada di tengah halaman.</p>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".wadah", "property": "max-width", "expected": "400px", "tolerance": 1, "poin": 30, "label": "max-width = 400px" },
+      { "type": "computed_style_equals", "selector": ".wadah", "property": "width", "expected": "400px", "tolerance": 1, "poin": 20, "label": "lebar wadah terbatas 400px" },
+      { "type": "computed_style_equals", "selector": "p", "property": "box-sizing", "expected": "border-box", "poin": 30, "label": "border-box berlaku ke semua elemen" },
+      { "type": "source_matches", "target": "css", "pattern": "margin\\s*:\\s*0\\s+auto|margin-left\\s*:\\s*auto", "poin": 20, "label": "margin kiri-kanan auto", "describe": "margin: 0 auto" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-dasar-006",
+    "modul": "CSS", "level": "Dasar", "chapterId": "css-02", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Box Model",
+    "instruksi": "Beri <code>.kartu</code> sudut melengkung <code>16px</code>, tinggi tetap <code>80px</code>, dan atur agar isi yang meluap tetap bisa digulir — <strong>bukan</strong> dipotong hilang. Gunakan <code>overflow: auto</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Overflow</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kartu\">\n    <p>Baris satu.</p>\n    <p>Baris dua.</p>\n    <p>Baris tiga.</p>\n    <p>Baris empat, sudah pasti meluap.</p>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "border-top-left-radius", "expected": "16px", "tolerance": 1, "poin": 30, "label": "border-radius = 16px" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "height", "expected": "80px", "tolerance": 1, "poin": 30, "label": "tinggi 80px" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "overflow-y", "expected": "auto", "poin": 40, "label": "overflow = auto", "hint": "hidden akan memotong isinya untuk selamanya." }
+    ],
+    "total_poin": 100
+  },
+
+  {
+    "id": "css-dasar-007",
+    "modul": "CSS", "level": "Dasar", "chapterId": "css-03", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Warna & Tipografi",
+    "instruksi": "Beri <code>.kotak</code> latar <strong>merah</strong> (bebas: <code>red</code>, <code>#ff0000</code>, atau <code>rgb(255,0,0)</code>). Atur <code>&lt;h1&gt;</code> menjadi <code>2rem</code> dan <code>line-height</code> paragraf menjadi <code>1.6</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Warna</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kotak\">Kotak</div>\n  <h1>Judul</h1>\n  <p>Paragraf contoh untuk mengecek line-height.</p>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".kotak", "property": "background-color", "expected": "rgb(255, 0, 0)", "poin": 40, "label": "background-color .kotak merah" },
+      { "type": "computed_style_equals", "selector": "h1", "property": "font-size", "expected": "32px", "tolerance": 1, "poin": 30, "label": "font-size h1 = 2rem (32px)" },
+      { "type": "computed_style_equals", "selector": "p", "property": "line-height", "expected": "25.6px", "tolerance": 1.5, "poin": 30, "label": "line-height paragraf = 1.6" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-dasar-008",
+    "modul": "CSS", "level": "Dasar", "chapterId": "css-03", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Warna & Tipografi",
+    "instruksi": "Buat <code>.peringatan</code> berwarna <code>#8c491a</code>, tebal (<code>700</code>), huruf kapital semua, dan jarak antarhuruf <code>0.14em</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Peringatan</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <p class=\"peringatan\">perhatian penting</p>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".peringatan", "property": "color", "expected": "#8c491a", "poin": 30, "label": "warna teks = #8c491a" },
+      { "type": "computed_style_equals", "selector": ".peringatan", "property": "font-weight", "expected": "700", "poin": 25, "label": "font-weight = 700" },
+      { "type": "computed_style_equals", "selector": ".peringatan", "property": "text-transform", "expected": "uppercase", "poin": 25, "label": "text-transform = uppercase" },
+      { "type": "computed_style_equals", "selector": ".peringatan", "property": "letter-spacing", "expected": "2.24px", "tolerance": 0.4, "poin": 20, "label": "letter-spacing = 0.14em" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-dasar-009",
+    "modul": "CSS", "level": "Dasar", "chapterId": "css-03", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Warna & Tipografi",
+    "instruksi": "Atur <code>&lt;body&gt;</code> memakai tumpukan font <code>Georgia, serif</code>. Batasi lebar baris <code>.tulisan</code> menjadi <code>60ch</code>, dan buat <code>.catatan</code> berukuran <code>0.75rem</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Keterbacaan</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <article class=\"tulisan\">\n    <p>Lebar baris yang terlalu panjang membuat mata sulit menemukan awal baris berikutnya.</p>\n    <p class=\"catatan\">Catatan kecil.</p>\n  </article>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_contains", "selector": "body", "property": "font-family", "contains": "georgia", "poin": 30, "label": "body memakai Georgia" },
+      { "type": "computed_style_contains", "selector": "body", "property": "font-family", "contains": "serif", "poin": 20, "label": "ada font cadangan serif" },
+      { "type": "source_matches", "target": "css", "pattern": "max-width\\s*:\\s*60ch", "poin": 25, "label": "max-width .tulisan = 60ch", "describe": "max-width: 60ch" },
+      { "type": "computed_style_equals", "selector": ".catatan", "property": "font-size", "expected": "12px", "tolerance": 0.5, "poin": 25, "label": "font-size .catatan = 0.75rem (12px)" }
+    ],
+    "total_poin": 100
+  },
+
+  {
+    "id": "css-menengah-010",
+    "modul": "CSS", "level": "Menengah", "chapterId": "css-04", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Positioning & Display",
+    "instruksi": "Jadikan <code>.induk</code> acuan posisi (<code>position: relative</code>), lalu tempelkan <code>.lencana</code> ke pojok kanan atas induknya dengan <code>position: absolute</code>, <code>top: 0</code>, dan <code>right: 0</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Positioning</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"induk\">\n    <span class=\"lencana\">Baru</span>\n    Kartu materi\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".induk", "property": "position", "expected": "relative", "poin": 30, "label": ".induk position = relative", "hint": "Tanpa ini, lencana menempel ke seluruh halaman." },
+      { "type": "computed_style_equals", "selector": ".lencana", "property": "position", "expected": "absolute", "poin": 30, "label": ".lencana position = absolute" },
+      { "type": "computed_style_equals", "selector": ".lencana", "property": "top", "expected": "0px", "tolerance": 1, "poin": 20, "label": "top = 0" },
+      { "type": "computed_style_equals", "selector": ".lencana", "property": "right", "expected": "0px", "tolerance": 1, "poin": 20, "label": "right = 0" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-menengah-011",
+    "modul": "CSS", "level": "Menengah", "chapterId": "css-04", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Positioning & Display",
+    "instruksi": "Sembunyikan <code>.rahasia</code> sepenuhnya dengan <code>display: none</code>. Buat <code>.lencana</code> menjadi <code>inline-block</code>. Sembunyikan <code>.samar</code> tetapi <strong>ruangnya tetap ada</strong> — pakai <code>visibility: hidden</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Display</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <span class=\"lencana\">Baru</span>\n  <div class=\"rahasia\">Hilang total</div>\n  <div class=\"samar\">Tak terlihat, tapi ruangnya tetap</div>\n  <p>Paragraf terakhir.</p>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".rahasia", "property": "display", "expected": "none", "poin": 35, "label": ".rahasia display = none" },
+      { "type": "computed_style_equals", "selector": ".lencana", "property": "display", "expected": "inline-block", "poin": 30, "label": ".lencana display = inline-block" },
+      { "type": "computed_style_equals", "selector": ".samar", "property": "visibility", "expected": "hidden", "poin": 35, "label": ".samar visibility = hidden" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-menengah-012",
+    "modul": "CSS", "level": "Menengah", "chapterId": "css-04", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Positioning & Display",
+    "instruksi": "Buat <code>.bar</code> menempel di atas layar dengan <code>position: fixed</code> dan <code>top: 0</code>. Beri <code>z-index: 10</code> agar berada di atas <code>.konten</code> — jangan lupa <code>.konten</code> juga perlu <code>position: relative</code> agar z-index-nya berlaku.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Fixed &amp; z-index</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"bar\">Bilah atas</div>\n  <div class=\"konten\">Konten halaman</div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".bar", "property": "position", "expected": "fixed", "poin": 30, "label": ".bar position = fixed" },
+      { "type": "computed_style_equals", "selector": ".bar", "property": "top", "expected": "0px", "tolerance": 1, "poin": 20, "label": "top = 0" },
+      { "type": "computed_style_equals", "selector": ".bar", "property": "z-index", "expected": "10", "poin": 25, "label": "z-index = 10" },
+      { "type": "computed_style_equals", "selector": ".konten", "property": "position", "expected": "relative", "poin": 25, "label": ".konten position = relative", "hint": "z-index hanya berlaku pada elemen yang bukan static." }
+    ],
+    "total_poin": 100
+  },
+
+  {
+    "id": "css-menengah-013",
+    "modul": "CSS", "level": "Menengah", "chapterId": "css-05", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Flexbox",
+    "instruksi": "Susun ketiga kotak mendatar: <code>.baris</code> harus <code>display: flex</code>, <code>flex-direction: row</code>, <code>justify-content: space-between</code>, dan <code>align-items: center</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Flexbox</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"baris\">\n    <div class=\"kotak\">1</div>\n    <div class=\"kotak\">2</div>\n    <div class=\"kotak\">3</div>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".baris", "property": "display", "expected": "flex", "poin": 30, "label": "display = flex" },
+      { "type": "computed_style_equals", "selector": ".baris", "property": "flex-direction", "expected": "row", "poin": 20, "label": "flex-direction = row" },
+      { "type": "computed_style_equals", "selector": ".baris", "property": "justify-content", "expected": "space-between", "poin": 25, "label": "justify-content = space-between" },
+      { "type": "computed_style_equals", "selector": ".baris", "property": "align-items", "expected": "center", "poin": 25, "label": "align-items = center" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-menengah-014",
+    "modul": "CSS", "level": "Menengah", "chapterId": "css-05", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Flexbox",
+    "instruksi": "Buat pola sidebar tetap + konten melar. <code>.tata</code> memakai <code>display: flex</code> dan <code>gap: 12px</code>; <code>.sidebar</code> tidak boleh melar atau menyusut (<code>flex: none</code>) dengan <code>width: 140px</code>; <code>.konten</code> mengisi sisa ruang (<code>flex: 1</code>).",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Sidebar</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"tata\">\n    <aside class=\"sidebar\">Sidebar</aside>\n    <main class=\"konten\">Konten utama</main>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".tata", "property": "display", "expected": "flex", "poin": 25, "label": "display = flex" },
+      { "type": "computed_style_equals", "selector": ".tata", "property": "column-gap", "expected": "12px", "tolerance": 1, "poin": 20, "label": "gap = 12px" },
+      { "type": "computed_style_equals", "selector": ".sidebar", "property": "flex-grow", "expected": "0", "poin": 20, "label": "sidebar tidak melar" },
+      { "type": "computed_style_equals", "selector": ".sidebar", "property": "width", "expected": "140px", "tolerance": 1, "poin": 15, "label": "sidebar selebar 140px" },
+      { "type": "computed_style_equals", "selector": ".konten", "property": "flex-grow", "expected": "1", "poin": 20, "label": "konten mengisi sisa ruang" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-menengah-015",
+    "modul": "CSS", "level": "Menengah", "chapterId": "css-05", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Flexbox",
+    "instruksi": "Susun menu: <code>.bar</code> memakai <code>display: flex</code>, <code>align-items: center</code>, dan <code>gap: 16px</code>. Dorong <code>.kanan</code> ke ujung kanan memakai <code>margin-left: auto</code>. Susun juga <code>.kolom</code> menurun dengan <code>flex-direction: column</code> dan izinkan membungkus (<code>flex-wrap: wrap</code>).",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Menu Flex</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <header class=\"bar\">\n    <span>WebTM</span>\n    <a href=\"#\">Materi</a>\n    <a class=\"kanan\" href=\"#\">Keluar</a>\n  </header>\n\n  <div class=\"kolom\">\n    <div>A</div>\n    <div>B</div>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".bar", "property": "display", "expected": "flex", "poin": 20, "label": ".bar display = flex" },
+      { "type": "computed_style_equals", "selector": ".bar", "property": "column-gap", "expected": "16px", "tolerance": 1, "poin": 20, "label": "gap = 16px" },
+      { "type": "source_matches", "target": "css", "pattern": "\\.kanan[^{]*\\{[^}]*margin-left\\s*:\\s*auto", "flags": "is", "poin": 25, "label": ".kanan didorong dengan margin-left: auto", "describe": "margin-left: auto pada .kanan" },
+      { "type": "computed_style_equals", "selector": ".kolom", "property": "flex-direction", "expected": "column", "poin": 20, "label": ".kolom flex-direction = column" },
+      { "type": "computed_style_equals", "selector": ".kolom", "property": "flex-wrap", "expected": "wrap", "poin": 15, "label": "flex-wrap = wrap" }
+    ],
+    "total_poin": 100
+  },
+
+  {
+    "id": "css-menengah-016",
+    "modul": "CSS", "level": "Menengah", "chapterId": "css-06", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Pseudo-class & Pseudo-element",
+    "instruksi": "Buat baris ganjil daftar berlatar <code>#e1eecc</code> memakai <code>:nth-child(odd)</code>, dan tambahkan tanda <code>&gt;</code> di depan setiap item memakai <code>::before</code> dengan properti <code>content</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Pseudo</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <ul class=\"daftar\">\n    <li>Fisika</li>\n    <li>Informatika</li>\n    <li>Matematika</li>\n  </ul>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".daftar li:nth-child(odd)", "property": "background-color", "expected": "#e1eecc", "poin": 40, "label": "baris ganjil berlatar #e1eecc" },
+      { "type": "source_matches", "target": "css", "pattern": "::before", "poin": 30, "label": "memakai pseudo-element ::before", "describe": "::before" },
+      { "type": "source_matches", "target": "css", "pattern": "content\\s*:", "poin": 30, "label": "properti content terisi", "describe": "content:" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-menengah-017",
+    "modul": "CSS", "level": "Menengah", "chapterId": "css-06", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Pseudo-class & Pseudo-element",
+    "instruksi": "Buat <code>.tombol</code> berubah latar menjadi <code>#ffe1d0</code> saat <code>:hover</code>, dan beri cincin fokus memakai <code>:focus-visible</code> dengan <code>outline: 3px solid #c67139</code>. Jangan memakai <code>outline: none</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Hover &amp; Fokus</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <a href=\"#\" class=\"tombol\">Lihat materi</a>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "source_matches", "target": "css", "pattern": "\\.tombol\\s*:hover", "poin": 25, "label": "aturan .tombol:hover ditulis", "describe": ".tombol:hover" },
+      { "type": "source_matches", "target": "css", "pattern": ":hover[^{]*\\{[^}]*background", "flags": "is", "poin": 25, "label": "hover mengubah background", "describe": "background di dalam :hover" },
+      { "type": "source_matches", "target": "css", "pattern": ":focus-visible", "poin": 30, "label": "memakai :focus-visible", "describe": ":focus-visible" },
+      { "type": "source_matches", "target": "css", "pattern": ":focus-visible[^{]*\\{[^}]*outline\\s*:\\s*3px", "flags": "is", "poin": 20, "label": "outline 3px pada fokus", "describe": "outline: 3px" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-menengah-018",
+    "modul": "CSS", "level": "Menengah", "chapterId": "css-06", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Pseudo-class & Pseudo-element",
+    "instruksi": "Hilangkan border bawah <strong>hanya</strong> pada item terakhir memakai <code>:last-child</code> (jadikan <code>border-bottom-width: 0</code>). Warnai semua item yang <strong>bukan</strong> <code>.aktif</code> menjadi <code>#645c50</code> memakai <code>:not()</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>last-child &amp; not</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <ul class=\"daftar\">\n    <li class=\"aktif\" id=\"satu\">Bab 1</li>\n    <li id=\"dua\">Bab 2</li>\n    <li id=\"tiga\">Bab 3</li>\n  </ul>\n\n</body>\n</html>",
+      "css": ".daftar li {\n  border-bottom: 2px solid #201e1d;\n  padding: 8px;\n}\n\n/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": "#tiga", "property": "border-bottom-width", "expected": "0px", "tolerance": 0.5, "poin": 35, "label": "item terakhir tanpa border bawah" },
+      { "type": "computed_style_equals", "selector": "#dua", "property": "border-bottom-width", "expected": "2px", "tolerance": 0.5, "poin": 20, "label": "item tengah tetap ber-border" },
+      { "type": "computed_style_equals", "selector": "#dua", "property": "color", "expected": "#645c50", "poin": 25, "label": "item non-aktif berwarna #645c50" },
+      { "type": "computed_style_equals", "selector": "#satu", "property": "color", "expected": "#201e1d", "poin": 20, "label": "item .aktif tidak ikut berubah", "hint": "Pakai :not(.aktif) agar item aktif dikecualikan." }
+    ],
+    "total_poin": 100
+  },
+
+  {
+    "id": "css-lanjutan-019",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-07", "chapterModul": "css",
+    "editor": "css",
+    "topik": "CSS Grid",
+    "instruksi": "Susun keenam kotak menjadi grid <strong>tiga kolom sama lebar</strong> dengan jarak antarsel <code>12px</code>. Gunakan <code>display: grid</code> dan <code>grid-template-columns</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Grid</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"grid\">\n    <div>A</div><div>B</div><div>C</div>\n    <div>D</div><div>E</div><div>F</div>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".grid", "property": "display", "expected": "grid", "poin": 35, "label": "display = grid" },
+      { "type": "grid_column_count", "selector": ".grid", "count": 3, "poin": 40, "label": "tersusun 3 kolom" },
+      { "type": "computed_style_equals", "selector": ".grid", "property": "column-gap", "expected": "12px", "tolerance": 1, "poin": 25, "label": "gap = 12px" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-lanjutan-020",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-07", "chapterModul": "css",
+    "editor": "css",
+    "topik": "CSS Grid",
+    "instruksi": "Buat dua kolom dengan kolom kedua dua kali lebih lebar (<code>1fr 2fr</code>) dan <code>gap: 20px</code>. Buat juga <code>.penuh</code> merentang dari kiri sampai kanan memakai <code>grid-column: 1 / -1</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Grid 1fr 2fr</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"tata\">\n    <aside>Sidebar</aside>\n    <main>Konten utama</main>\n    <footer class=\"penuh\">Footer selebar penuh</footer>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".tata", "property": "display", "expected": "grid", "poin": 25, "label": "display = grid" },
+      { "type": "grid_column_count", "selector": ".tata", "count": 2, "poin": 25, "label": "tersusun 2 kolom" },
+      { "type": "computed_style_equals", "selector": ".tata", "property": "column-gap", "expected": "20px", "tolerance": 1, "poin": 20, "label": "gap = 20px" },
+      { "type": "source_matches", "target": "css", "pattern": "1fr\\s+2fr", "poin": 15, "label": "perbandingan kolom 1fr 2fr", "describe": "1fr 2fr" },
+      { "type": "source_matches", "target": "css", "pattern": "grid-column\\s*:\\s*1\\s*/\\s*-1", "poin": 15, "label": ".penuh merentang 1 / -1", "describe": "grid-column: 1 / -1" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-lanjutan-021",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-07", "chapterModul": "css",
+    "editor": "css",
+    "topik": "CSS Grid",
+    "instruksi": "Buat galeri responsif tanpa satu pun media query: <code>grid-template-columns: repeat(auto-fit, minmax(120px, 1fr))</code> dengan <code>gap: 12px</code>. Panel penilaian berukuran 1000px, jadi harus terbentuk beberapa kolom.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Galeri Responsif</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"galeri\">\n    <div>A</div><div>B</div><div>C</div><div>D</div>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".galeri", "property": "display", "expected": "grid", "poin": 25, "label": "display = grid" },
+      { "type": "source_matches", "target": "css", "pattern": "auto-fit", "poin": 30, "label": "memakai auto-fit", "describe": "auto-fit" },
+      { "type": "source_matches", "target": "css", "pattern": "minmax\\s*\\(\\s*120px", "poin": 25, "label": "minmax(120px, 1fr)", "describe": "minmax(120px, …)" },
+      { "type": "computed_style_equals", "selector": ".galeri", "property": "column-gap", "expected": "12px", "tolerance": 1, "poin": 20, "label": "gap = 12px" }
+    ],
+    "total_poin": 100
+  },
+
+  {
+    "id": "css-lanjutan-022",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-08", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Transition & Animation",
+    "instruksi": "Beri <code>.tombol</code> transisi <code>0.2s</code> pada properti <code>transform</code> (tulis di keadaan normal, bukan di dalam <code>:hover</code>). Lalu buat animasi bernama <code>denyut</code> lewat <code>@keyframes</code> dan pasang pada <code>.titik</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Animasi</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <button class=\"tombol\">Arahkan kursor ke sini</button>\n  <div class=\"titik\"></div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".tombol", "property": "transition-duration", "expected": "0.2s", "poin": 30, "label": "transition-duration = 0.2s" },
+      { "type": "computed_style_contains", "selector": ".tombol", "property": "transition-property", "contains": "transform", "poin": 20, "label": "transisi pada transform" },
+      { "type": "source_matches", "target": "css", "pattern": "@keyframes\\s+denyut", "poin": 25, "label": "@keyframes denyut didefinisikan", "describe": "@keyframes denyut" },
+      { "type": "computed_style_equals", "selector": ".titik", "property": "animation-name", "expected": "denyut", "poin": 25, "label": ".titik memakai animasi denyut" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-lanjutan-023",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-08", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Transition & Animation",
+    "instruksi": "Buat animasi <code>masuk</code> yang berjalan <code>0.6s</code> pada <code>.kartu</code> dengan <code>animation-fill-mode: forwards</code> agar kartu bertahan di keadaan akhir. Animasikan <code>opacity</code> dan <code>transform</code> saja — bukan <code>width</code> atau <code>margin</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Fill Mode</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kartu\">Kartu yang muncul perlahan</div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "source_matches", "target": "css", "pattern": "@keyframes\\s+masuk", "poin": 25, "label": "@keyframes masuk didefinisikan", "describe": "@keyframes masuk" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "animation-name", "expected": "masuk", "poin": 25, "label": ".kartu memakai animasi masuk" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "animation-duration", "expected": "0.6s", "poin": 25, "label": "durasi 0.6s" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "animation-fill-mode", "expected": "forwards", "poin": 25, "label": "animation-fill-mode = forwards" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-lanjutan-024",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-08", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Transition & Animation",
+    "instruksi": "Buat <code>.kartu</code> terangkat saat <code>:hover</code> memakai <code>transform: translate(-4px, -4px)</code> dan <code>box-shadow</code>. Tambahkan blok <code>@media (prefers-reduced-motion: reduce)</code> yang mematikan gerakan bagi pengguna yang memilihnya.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Reduced Motion</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kartu\">Arahkan kursor ke kartu ini</div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "source_matches", "target": "css", "pattern": "\\.kartu\\s*:hover[^{]*\\{[^}]*transform", "flags": "is", "poin": 30, "label": "hover mengubah transform", "describe": "transform di dalam :hover" },
+      { "type": "source_matches", "target": "css", "pattern": ":hover[^{]*\\{[^}]*box-shadow", "flags": "is", "poin": 20, "label": "hover mengubah box-shadow", "describe": "box-shadow di dalam :hover" },
+      { "type": "computed_style_contains", "selector": ".kartu", "property": "transition-property", "contains": "transform", "poin": 20, "label": "transisi ditulis di keadaan normal" },
+      { "type": "source_matches", "target": "css", "pattern": "prefers-reduced-motion", "poin": 30, "label": "menghormati prefers-reduced-motion", "describe": "@media prefers-reduced-motion" }
+    ],
+    "total_poin": 100
+  },
+
+  {
+    "id": "css-lanjutan-025",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-09", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Responsive Design",
+    "instruksi": "Panel penilaian berukuran <strong>1000px</strong>. Buat <code>.kartu</code> berlatar <code>#e1eecc</code> secara umum, lalu lewat <code>@media (min-width: 600px)</code> ubah latarnya menjadi <code>#ffe1d0</code> dan <code>padding</code>-nya menjadi <code>40px</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Media Query</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kartu\">Ubah lebar untuk melihat efeknya.</div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "source_matches", "target": "css", "pattern": "@media[^{]*min-width\\s*:\\s*600px", "poin": 30, "label": "@media (min-width: 600px) ditulis", "describe": "@media min-width 600px" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "background-color", "expected": "#ffe1d0", "poin": 40, "label": "pada 1000px latar = #ffe1d0" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "padding-top", "expected": "40px", "tolerance": 1, "poin": 30, "label": "pada 1000px padding = 40px" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-lanjutan-026",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-09", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Responsive Design",
+    "instruksi": "Atur ukuran <code>&lt;h1&gt;</code> memakai <code>clamp(1.5rem, 5vw, 3rem)</code>. Pada panel 1000px, <code>5vw</code> = 50px sehingga hasilnya harus terpangkas ke batas atas <code>3rem</code> (48px).",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Clamp</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <h1>Judul yang melar dalam batas aman</h1>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "source_matches", "target": "css", "pattern": "clamp\\s*\\(", "poin": 35, "label": "memakai fungsi clamp()", "describe": "clamp()" },
+      { "type": "computed_style_equals", "selector": "h1", "property": "font-size", "expected": "48px", "tolerance": 1, "poin": 45, "label": "pada 1000px font-size = 48px", "hint": "5vw pada 1000px = 50px, terpangkas ke batas atas 3rem." },
+      { "type": "source_matches", "target": "css", "pattern": "5vw", "poin": 20, "label": "nilai ideal 5vw", "describe": "5vw" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-lanjutan-027",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-09", "chapterModul": "css",
+    "editor": "css",
+    "topik": "Responsive Design",
+    "instruksi": "Tulis gaya <strong>mobile-first</strong>: <code>.galeri</code> satu kolom secara dasar, lalu <code>@media (min-width: 900px)</code> menjadikannya tiga kolom grid. Panel penilaian 1000px, jadi hasil akhirnya harus tiga kolom.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Mobile First</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"galeri\">\n    <div>A</div><div>B</div><div>C</div>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ".galeri", "property": "display", "expected": "grid", "poin": 25, "label": "display = grid" },
+      { "type": "source_matches", "target": "css", "pattern": "@media[^{]*min-width\\s*:\\s*900px", "poin": 35, "label": "@media (min-width: 900px) ditulis", "describe": "@media min-width 900px" },
+      { "type": "grid_column_count", "selector": ".galeri", "count": 3, "poin": 40, "label": "pada 1000px menjadi 3 kolom" }
+    ],
+    "total_poin": 100
+  },
+
+  {
+    "id": "css-lanjutan-028",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-10", "chapterModul": "css",
+    "editor": "css",
+    "topik": "CSS Variables",
+    "instruksi": "Definisikan <code>--warna-utama: #c67139</code> pada <code>:root</code>, lalu pakai <code>var(--warna-utama)</code> untuk warna border kartu dan warna teks judulnya.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Variabel</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kartu\">\n    <h2>Kartu</h2>\n    <p>Warna kartu ini diatur satu tempat.</p>\n  </div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ":root", "property": "--warna-utama", "expected": "#c67139", "poin": 30, "label": "--warna-utama = #c67139" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "border-top-color", "expected": "#c67139", "poin": 30, "label": "border kartu memakai variabel" },
+      { "type": "computed_style_equals", "selector": ".kartu h2", "property": "color", "expected": "#c67139", "poin": 25, "label": "judul kartu memakai variabel" },
+      { "type": "source_matches", "target": "css", "pattern": "var\\(\\s*--warna-utama", "poin": 15, "label": "memanggil var(--warna-utama)", "describe": "var(--warna-utama)" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-lanjutan-029",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-10", "chapterModul": "css",
+    "editor": "css",
+    "topik": "CSS Variables",
+    "instruksi": "Definisikan <code>--jarak: 24px</code> dan <code>--radius: 16px</code> di <code>:root</code>, lalu pakai keduanya untuk <code>padding</code> dan <code>border-radius</code> <code>.kartu</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Jarak &amp; Radius</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kartu\">Kartu dengan jarak dan sudut dari variabel.</div>\n\n</body>\n</html>",
+      "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": ":root", "property": "--jarak", "expected": "24px", "poin": 25, "label": "--jarak = 24px" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "padding-top", "expected": "24px", "tolerance": 1, "poin": 30, "label": "padding kartu = 24px" },
+      { "type": "computed_style_equals", "selector": ":root", "property": "--radius", "expected": "16px", "poin": 20, "label": "--radius = 16px" },
+      { "type": "computed_style_equals", "selector": ".kartu", "property": "border-top-left-radius", "expected": "16px", "tolerance": 1, "poin": 25, "label": "border-radius kartu = 16px" }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "css-lanjutan-030",
+    "modul": "CSS", "level": "Lanjutan", "chapterId": "css-10", "chapterModul": "css",
+    "editor": "css",
+    "topik": "CSS Variables",
+    "instruksi": "Definisikan <code>--aksen: #c67139</code> di dalam <code>.kartu</code> dan pakai untuk <code>border-left-color</code>. Lalu <strong>timpa satu variabel saja</strong> di <code>.kartu.hijau</code> menjadi <code>#7a8a5e</code> — tanpa menulis ulang deklarasi border.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Menimpa Variabel</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kartu\" id=\"satu\">Kartu terracotta</div>\n  <div class=\"kartu hijau\" id=\"dua\">Kartu sage</div>\n\n</body>\n</html>",
+      "css": ".kartu {\n  border-left: 8px solid;\n  padding: 16px;\n  margin-bottom: 12px;\n}\n\n/* ✏️ TULIS CSS ANDA DI SINI */\n"
+    },
+    "assertions": [
+      { "type": "computed_style_equals", "selector": "#satu", "property": "border-left-color", "expected": "#c67139", "poin": 35, "label": "kartu pertama berbatas #c67139" },
+      { "type": "computed_style_equals", "selector": "#dua", "property": "border-left-color", "expected": "#7a8a5e", "poin": 40, "label": "kartu .hijau berbatas #7a8a5e" },
+      { "type": "source_matches", "target": "css", "pattern": "\\.hijau\\s*\\{[^}]*--aksen", "flags": "is", "poin": 25, "label": ".hijau hanya menimpa --aksen", "describe": "--aksen di dalam .hijau" }
+    ],
+    "total_poin": 100
+  }
+]

@@ -1,0 +1,11 @@
+# Simpan semua berkas teks dengan LF di repository,
+# agar tidak muncul diff palsu saat dibuka di Windows/macOS/Linux.
+* text=auto eol=lf
+
+# Berkas biner (bila nanti ada gambar/font ditambahkan)
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary

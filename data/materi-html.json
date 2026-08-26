@@ -1,0 +1,690 @@
+{
+  "modul": "html",
+  "nama": "HTML",
+  "deskripsi": "Struktur dokumen, teks, list, tabel, form, semantik, hingga aksesibilitas dan meta dasar.",
+  "chapters": [
+    {
+      "id": "html-01",
+      "no": "01",
+      "level": "Dasar",
+      "title": "Pengenalan HTML",
+      "lead": "HTML (<em>HyperText Markup Language</em>) adalah bahasa penanda yang memberi <strong>arti</strong> pada isi halaman web. HTML tidak mengatur keindahan tampilan — itu tugas CSS. Yang HTML lakukan adalah memberi tahu browser: bagian ini judul, bagian ini paragraf, bagian ini tautan.",
+      "concepts": [
+        { "title": "Elemen", "body": "Satu elemen terdiri dari tag pembuka, isi, dan tag penutup: <code>&lt;p&gt;isi&lt;/p&gt;</code>." },
+        { "title": "Atribut", "body": "Informasi tambahan yang ditulis di tag pembuka: <code>&lt;a href=\"...\" target=\"_blank\"&gt;</code>." },
+        { "title": "Tag kosong", "body": "Beberapa tag tidak punya isi dan tidak ditutup: <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;meta&gt;</code>." }
+      ],
+      "sections": [
+        {
+          "heading": "Anatomi sebuah elemen",
+          "body": "<p>Perhatikan potongan berikut, lalu cocokkan tiap bagiannya:</p><pre class=\"snippet\">&lt;a href=\"profil.html\" class=\"tautan\"&gt;Lihat profil&lt;/a&gt;\n│  │                    │            │            │\n│  └ atribut href       └ atribut class\n└ nama tag                            └ isi elemen └ tag penutup</pre><p>Dua hal yang sering tertukar: <strong>nama tag</strong> menentukan <em>apa</em> elemen itu, sedangkan <strong>atribut</strong> menentukan <em>bagaimana</em> elemen itu berperilaku atau ditandai.</p>"
+        },
+        {
+          "heading": "Bagaimana browser membaca berkas Anda",
+          "body": "<p>Browser membaca berkas <code>.html</code> dari atas ke bawah, membangun struktur pohon bernama <strong>DOM</strong> (<em>Document Object Model</em>), lalu menggambarnya ke layar. Struktur pohon inilah yang nanti dibaca CSS untuk mewarnai, dan dibaca sistem penilaian WebTM untuk memeriksa jawaban Anda.</p><p>Kesalahan penulisan tag jarang membuat halaman gagal total — browser akan <em>menebak</em> maksud Anda dan tetap menggambar sesuatu. Masalahnya, tebakan itu sering tidak sesuai maksud Anda, dan bug seperti ini sulit dilacak. Karena itu kerapian penulisan bukan soal estetika, tapi soal kendali.</p>"
+        },
+        {
+          "heading": "Aturan penulisan yang wajib dipatuhi",
+          "body": "<ul class=\"prose-list\"><li>Tag ditulis <strong>huruf kecil</strong>. <code>&lt;DIV&gt;</code> memang jalan, tapi tidak lazim.</li><li>Setiap tag yang dibuka harus ditutup, kecuali tag kosong.</li><li>Elemen bersarang harus ditutup dengan urutan terbalik — yang dibuka terakhir, ditutup pertama.</li><li>Nilai atribut selalu dibungkus tanda kutip: <code>class=\"kartu\"</code>, bukan <code>class=kartu</code>.</li><li>Satu <code>id</code> hanya boleh dipakai sekali per halaman; <code>class</code> boleh berulang.</li></ul>"
+        },
+        {
+          "heading": "Komentar",
+          "body": "<p>Komentar ditulis dengan <code>&lt;!-- ... --&gt;</code> dan tidak ikut tampil di halaman. Gunakan untuk menandai bagian panjang atau menyimpan catatan.</p><p><strong>Perlu diketahui:</strong> komentar HTML tetap terkirim ke browser dan bisa dibaca siapa pun lewat <em>View Source</em>. Jangan pernah menaruh kunci, kata sandi, atau catatan pribadi di sana.</p>"
+        }
+      ],
+      "referenceHead": ["Tag", "Kegunaan"],
+      "reference": [
+        { "kode": "<h1>–<h6>", "arti": "Judul, dari tingkat tertinggi ke terendah" },
+        { "kode": "<p>", "arti": "Paragraf teks" },
+        { "kode": "<a>", "arti": "Tautan ke halaman lain" },
+        { "kode": "<img>", "arti": "Gambar (tag kosong)" },
+        { "kode": "<div>", "arti": "Wadah block tanpa arti khusus" },
+        { "kode": "<span>", "arti": "Wadah inline tanpa arti khusus" },
+        { "kode": "<!-- -->", "arti": "Komentar, tidak tampil di halaman" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<p>Halo <strong>dunia</p></strong>",
+          "benar": "<p>Halo <strong>dunia</strong></p>",
+          "kenapa": "Sarang elemen harus ditutup dengan urutan terbalik. Yang dibuka belakangan (<code>strong</code>) wajib ditutup lebih dulu."
+        },
+        {
+          "salah": "<img src=foto.jpg>",
+          "benar": "<img src=\"foto.jpg\" alt=\"Foto profil\">",
+          "kenapa": "Nilai atribut harus dikutip, dan <code>&lt;img&gt;</code> selalu butuh <code>alt</code>."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Halaman Pertama Saya</title>\n</head>\n<body>\n\n  <h1>Halaman Pertama Saya</h1>\n\n  <p>Ini paragraf biasa.</p>\n  <p>Ini paragraf dengan <strong>teks tebal</strong> dan <em>teks miring</em>.</p>\n\n  <!-- Komentar tidak muncul di halaman -->\n  <hr>\n  <p>Di bawah garis pemisah.</p>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-dasar-001"
+    },
+    {
+      "id": "html-02",
+      "no": "02",
+      "level": "Dasar",
+      "title": "Struktur Dokumen",
+      "lead": "Setiap halaman web punya kerangka yang sama, dan kerangka inilah yang Anda lihat sebagai kode awal di setiap soal WebTM. <code>&lt;!DOCTYPE html&gt;</code> memberi tahu browser versi HTML yang dipakai, <code>&lt;head&gt;</code> berisi informasi <em>tentang</em> halaman, dan <code>&lt;body&gt;</code> berisi semua yang <em>terlihat</em> pengunjung.",
+      "concepts": [
+        { "title": "head tidak terlihat", "body": "Isi <code>&lt;head&gt;</code> tidak digambar ke layar. Judul tab, encoding, dan tautan CSS tinggal di sini." },
+        { "title": "body yang terlihat", "body": "Semua teks, gambar, dan tombol yang dilihat pengunjung harus berada di dalam <code>&lt;body&gt;</code>." },
+        { "title": "Elemen block", "body": "Memakai satu baris penuh dan menumpuk ke bawah: <code>div, p, h1, section</code>." },
+        { "title": "Elemen inline", "body": "Mengikuti alur teks dalam satu baris: <code>span, a, strong, em</code>." }
+      ],
+      "sections": [
+        {
+          "heading": "Kerangka lengkap yang selalu sama",
+          "body": "<p>Hafalkan bentuk ini — Anda akan menuliskannya di setiap proyek:</p><pre class=\"snippet\">&lt;!DOCTYPE html&gt;              ← wajib, selalu baris pertama\n&lt;html lang=\"id\"&gt;              ← akar dokumen, sebutkan bahasanya\n&lt;head&gt;                        ← informasi tentang halaman\n  &lt;meta charset=\"utf-8\"&gt;      ← agar huruf beraksen tampil benar\n  &lt;meta name=\"viewport\" ...&gt;  ← agar rapi di layar ponsel\n  &lt;title&gt;Judul Tab&lt;/title&gt;    ← muncul di tab browser\n&lt;/head&gt;\n&lt;body&gt;                        ← isi yang terlihat\n  &lt;h1&gt;Halo&lt;/h1&gt;\n&lt;/body&gt;\n&lt;/html&gt;</pre>"
+        },
+        {
+          "heading": "Kenapa soal latihan sudah menyertakan kerangkanya",
+          "body": "<p>Di WebTM, setiap soal latihan dan ujian memberi Anda dokumen utuh ini sebagai titik awal, dengan penanda tempat Anda harus menulis:</p><pre class=\"snippet\">&lt;body&gt;\n\n  &lt;!-- ✏️ TULIS JAWABAN ANDA DI SINI --&gt;\n\n&lt;/body&gt;</pre><p>Tujuannya agar yang Anda latih adalah kebiasaan menulis halaman lengkap, bukan potongan yang menggantung. Kerangka itu boleh Anda ubah bila soal memintanya — misalnya soal yang menyuruh mengganti <code>&lt;title&gt;</code>.</p>"
+        },
+        {
+          "heading": "Isi &lt;head&gt; yang sebaiknya selalu ada",
+          "body": "<ul class=\"prose-list\"><li><code>&lt;meta charset=\"utf-8\"&gt;</code> — tanpa ini, huruf seperti é, ü, dan emoji bisa berubah jadi simbol aneh. Tulis sedini mungkin di dalam <code>&lt;head&gt;</code>.</li><li><code>&lt;title&gt;</code> — judul di tab browser, judul di hasil pencarian, dan nama default saat halaman di-bookmark.</li><li><code>&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"&gt;</code> — tanpa ini, ponsel akan memperkecil seluruh halaman desktop sampai tulisan tak terbaca.</li><li><code>&lt;link rel=\"stylesheet\" href=\"style.css\"&gt;</code> — menyambungkan berkas CSS.</li></ul>"
+        },
+        {
+          "heading": "Block vs inline, dan kenapa ini penting",
+          "body": "<p>Elemen <strong>block</strong> selalu memulai baris baru dan mengambil selebar wadahnya. Elemen <strong>inline</strong> hanya selebar isinya dan mengalir bersama teks.</p><p>Konsekuensi yang sering mengejutkan: <code>width</code>, <code>height</code>, dan <code>margin</code> atas-bawah <strong>tidak berpengaruh</strong> pada elemen inline murni seperti <code>&lt;span&gt;</code>. Kalau ingin mengaturnya, ubah dulu dengan CSS <code>display: inline-block</code> atau <code>display: block</code> — dibahas di modul CSS bab 04.</p><p>Aturan bersarang: elemen inline boleh berada di dalam block, tetapi block <strong>tidak boleh</strong> berada di dalam inline. <code>&lt;span&gt;&lt;div&gt;…&lt;/div&gt;&lt;/span&gt;</code> akan diperbaiki paksa oleh browser dengan hasil yang tak terduga.</p>"
+        }
+      ],
+      "referenceHead": ["Bagian", "Kegunaan"],
+      "reference": [
+        { "kode": "<!DOCTYPE html>", "arti": "Menyatakan dokumen HTML5. Selalu baris pertama" },
+        { "kode": "<html lang=\"id\">", "arti": "Akar dokumen; <code>lang</code> membantu pembaca layar dan mesin terjemah" },
+        { "kode": "<head>", "arti": "Wadah informasi tentang halaman, tidak digambar" },
+        { "kode": "<meta charset>", "arti": "Menentukan pengkodean karakter" },
+        { "kode": "<title>", "arti": "Judul tab dan judul hasil pencarian" },
+        { "kode": "<link>", "arti": "Menyambungkan berkas luar, umumnya CSS" },
+        { "kode": "<body>", "arti": "Seluruh isi yang terlihat pengunjung" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<head> <h1>Judul</h1> </head>",
+          "benar": "<body> <h1>Judul</h1> </body>",
+          "kenapa": "Apa pun yang harus terlihat pengunjung wajib berada di dalam <code>&lt;body&gt;</code>. Browser biasanya memindahkannya sendiri, tetapi hasilnya tidak bisa diandalkan."
+        },
+        {
+          "salah": "<span><div>Kotak</div></span>",
+          "benar": "<div><span>Teks</span></div>",
+          "kenapa": "Elemen block tidak boleh berada di dalam elemen inline. Browser akan memecah struktur Anda diam-diam."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Halaman Saya</title>\n</head>\n<body>\n\n  <h1>Halo, dunia!</h1>\n\n  <div>Ini elemen block — memakai satu baris penuh.</div>\n  <div>Ini block kedua, tetap turun ke baris baru.</div>\n\n  <p>\n    Ini paragraf dengan <span>elemen inline</span> dan\n    <span>satu lagi</span> yang tetap mengalir dalam satu baris.\n  </p>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-dasar-004"
+    },
+    {
+      "id": "html-03",
+      "no": "03",
+      "level": "Dasar",
+      "title": "Teks & Heading",
+      "lead": "Heading <code>&lt;h1&gt;</code> sampai <code>&lt;h6&gt;</code> menyusun <strong>hierarki isi</strong>, bukan sekadar mengatur besar huruf. Anggap heading sebagai daftar isi sebuah buku: kalau daftar isinya berantakan, isinya sulit diikuti — dan itu berlaku baik untuk manusia maupun mesin pencari.",
+      "concepts": [
+        { "title": "Satu h1 per halaman", "body": "Judul utama halaman. Bab-bab di bawahnya memakai <code>&lt;h2&gt;</code>, sub-babnya <code>&lt;h3&gt;</code>, dan seterusnya." },
+        { "title": "Penekanan bermakna", "body": "<code>&lt;strong&gt;</code> = penting, <code>&lt;em&gt;</code> = penekanan nada. Keduanya punya arti, bukan sekadar tebal/miring." },
+        { "title": "Pemisah", "body": "<code>&lt;br&gt;</code> memaksa pindah baris di dalam satu paragraf, <code>&lt;hr&gt;</code> menandai pergantian topik." }
+      ],
+      "sections": [
+        {
+          "heading": "Jangan melompati tingkat",
+          "body": "<p>Setelah <code>&lt;h1&gt;</code> gunakan <code>&lt;h2&gt;</code>, bukan langsung <code>&lt;h4&gt;</code> hanya karena ukurannya terlihat pas. Pembaca layar (<em>screen reader</em>) menyediakan daftar heading agar penggunanya bisa melompat antarbagian; urutan yang bolong membuat daftar itu membingungkan.</p><p>Kalau ukurannya tidak sesuai selera, ubah dengan CSS <code>font-size</code> — jangan ubah tingkat headingnya.</p>"
+        },
+        {
+          "heading": "strong dan em bukan b dan i",
+          "body": "<p>Secara tampilan <code>&lt;b&gt;</code> sama tebalnya dengan <code>&lt;strong&gt;</code>, dan <code>&lt;i&gt;</code> sama miringnya dengan <code>&lt;em&gt;</code>. Bedanya di <strong>arti</strong>: <code>&lt;strong&gt;</code> dan <code>&lt;em&gt;</code> memberi tahu pembaca layar untuk mengubah intonasi, sedangkan <code>&lt;b&gt;</code> dan <code>&lt;i&gt;</code> murni visual.</p><p>Aturan praktis: pakai <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code> untuk penekanan makna, dan <code>&lt;b&gt;</code>/<code>&lt;i&gt;</code> hanya untuk konvensi tipografi seperti nama ilmiah atau istilah asing.</p>"
+        },
+        {
+          "heading": "Spasi dan baris baru diabaikan HTML",
+          "body": "<p>Berapa pun spasi atau enter yang Anda tulis, HTML memampatkannya menjadi <strong>satu spasi</strong>. Menulis:</p><pre class=\"snippet\">&lt;p&gt;Baris satu\nBaris dua&lt;/p&gt;</pre><p>menghasilkan <em>“Baris satu Baris dua”</em> dalam satu baris. Untuk benar-benar memisah baris, gunakan <code>&lt;br&gt;</code> — atau lebih baik lagi, buat dua paragraf terpisah.</p><p>Pengecualian: elemen <code>&lt;pre&gt;</code> mempertahankan spasi dan baris apa adanya, cocok untuk menampilkan kode.</p>"
+        },
+        {
+          "heading": "Karakter khusus",
+          "body": "<p>Karakter <code>&lt;</code>, <code>&gt;</code>, dan <code>&amp;</code> punya arti khusus dalam HTML, jadi kalau ingin menampilkannya sebagai teks biasa, tulis sebagai <em>entitas</em>: <code>&amp;lt;</code>, <code>&amp;gt;</code>, dan <code>&amp;amp;</code>. Yang sering dipakai juga: <code>&amp;nbsp;</code> (spasi yang tidak boleh dipatahkan) dan <code>&amp;copy;</code> (©).</p>"
+        }
+      ],
+      "referenceHead": ["Tag", "Kegunaan"],
+      "reference": [
+        { "kode": "<h1>–<h6>", "arti": "Enam tingkat heading; jangan melompat" },
+        { "kode": "<p>", "arti": "Satu paragraf" },
+        { "kode": "<br>", "arti": "Pindah baris di dalam paragraf" },
+        { "kode": "<hr>", "arti": "Pergantian topik, digambar sebagai garis" },
+        { "kode": "<strong>", "arti": "Isi yang penting" },
+        { "kode": "<em>", "arti": "Penekanan nada bicara" },
+        { "kode": "<blockquote>", "arti": "Kutipan panjang" },
+        { "kode": "<pre>", "arti": "Teks pra-format; spasi dipertahankan" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<h1>Judul</h1> <h4>Subjudul</h4>",
+          "benar": "<h1>Judul</h1> <h2>Subjudul</h2>",
+          "kenapa": "Melompat dari h1 ke h4 hanya karena ukurannya pas akan merusak navigasi pembaca layar. Atur ukurannya lewat CSS."
+        },
+        {
+          "salah": "<p>Baris satu<br><br><br>Baris dua</p>",
+          "benar": "<p>Baris satu</p> <p>Baris dua</p>",
+          "kenapa": "Menumpuk <code>&lt;br&gt;</code> untuk membuat jarak adalah pekerjaan CSS (<code>margin</code>), bukan HTML."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Catatan Harian</title>\n</head>\n<body>\n\n  <h1>Profil Saya</h1>\n\n  <h2>Tentang</h2>\n  <p>Saya siswa kelas sebelas jurusan elektronika.</p>\n\n  <h2>Minat</h2>\n  <p>Hobi saya <strong>merakit robot</strong> dan <em>membaca</em> buku teknik.</p>\n\n  <hr>\n\n  <blockquote>\n    Belajar sedikit tiap hari lebih baik daripada banyak sekaligus.\n  </blockquote>\n\n  <p>Menulis tag: &lt;p&gt; dan &lt;h1&gt; &mdash; &copy; 2026</p>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-dasar-007"
+    },
+    {
+      "id": "html-04",
+      "no": "04",
+      "level": "Dasar",
+      "title": "List & Link",
+      "lead": "Gunakan <code>&lt;ul&gt;</code> untuk daftar yang urutannya tidak penting dan <code>&lt;ol&gt;</code> untuk daftar berurutan. Tautan — yang membuat web disebut <em>hyper</em>text — dibuat dengan <code>&lt;a&gt;</code> dan atribut <code>href</code>.",
+      "concepts": [
+        { "title": "href", "body": "Alamat tujuan. Bisa URL penuh, berkas lain di proyek, atau <code>#id</code> di halaman yang sama." },
+        { "title": "target", "body": "<code>target=\"_blank\"</code> membuka di tab baru. Sertakan <code>rel=\"noopener\"</code> untuk keamanan." },
+        { "title": "li hanya di dalam list", "body": "<code>&lt;li&gt;</code> harus jadi anak langsung <code>&lt;ul&gt;</code> atau <code>&lt;ol&gt;</code>, tidak boleh berdiri sendiri." }
+      ],
+      "sections": [
+        {
+          "heading": "Tiga jenis alamat pada href",
+          "body": "<ul class=\"prose-list\"><li><strong>Absolut</strong> — <code>https://sekolah.sch.id/jadwal</code>. Menunjuk ke situs lain, harus lengkap dengan <code>https://</code>.</li><li><strong>Relatif</strong> — <code>tentang.html</code> atau <code>halaman/kontak.html</code>. Dicari relatif terhadap lokasi berkas saat ini. Ini yang Anda pakai untuk berpindah antarhalaman dalam proyek sendiri.</li><li><strong>Jangkar</strong> — <code>#kontak</code>. Melompat ke elemen ber-<code>id=\"kontak\"</code> di halaman yang sama.</li></ul><p>Kesalahan klasik: menulis <code>href=\"sekolah.sch.id\"</code> tanpa <code>https://</code>. Browser akan menganggapnya berkas lokal bernama <em>sekolah.sch.id</em> dan tautannya rusak.</p>"
+        },
+        {
+          "heading": "Daftar bersarang",
+          "body": "<p>Sub-daftar ditulis <strong>di dalam</strong> <code>&lt;li&gt;</code> induknya, bukan sebagai saudara:</p><pre class=\"snippet\">&lt;ul&gt;\n  &lt;li&gt;Kelas X\n    &lt;ul&gt;\n      &lt;li&gt;TEI 1&lt;/li&gt;\n      &lt;li&gt;TEI 2&lt;/li&gt;\n    &lt;/ul&gt;\n  &lt;/li&gt;\n&lt;/ul&gt;</pre><p>Perhatikan <code>&lt;/li&gt;</code> induk baru ditutup setelah sub-daftarnya selesai.</p>"
+        },
+        {
+          "heading": "Daftar definisi",
+          "body": "<p>Untuk pasangan istilah dan penjelasannya — glosarium, spesifikasi produk, metadata — ada <code>&lt;dl&gt;</code> dengan <code>&lt;dt&gt;</code> (istilah) dan <code>&lt;dd&gt;</code> (definisi). Sering terlupakan, padahal jauh lebih tepat daripada memaksakan tabel dua kolom.</p>"
+        },
+        {
+          "heading": "Teks tautan yang baik",
+          "body": "<p>Tulis tujuan tautan pada teksnya, bukan “klik di sini”. Bandingkan <em>“lihat <u>jadwal ujian</u>”</em> dengan <em>“jadwal ujian, <u>klik di sini</u>”</em> — yang pertama tetap masuk akal ketika dibacakan terpisah dari kalimatnya.</p><p>Ini bukan sekadar gaya bahasa: pembaca layar punya fitur “bacakan semua tautan di halaman ini”. Kalau seluruh daftarnya berbunyi “klik di sini, klik di sini, klik di sini”, halaman itu praktis tidak bisa dinavigasi.</p><p><strong>Kenapa <code>rel=\"noopener\"</code>?</strong> Tanpa itu, halaman yang Anda buka lewat <code>target=\"_blank\"</code> mendapat rujukan ke halaman asal lewat <code>window.opener</code> dan bisa mengalihkannya ke situs palsu. Browser modern sudah menerapkannya otomatis, tetapi menuliskannya tetap kebiasaan yang benar.</p>"
+        }
+      ],
+      "referenceHead": ["Tag / Atribut", "Kegunaan"],
+      "reference": [
+        { "kode": "<ul>", "arti": "Daftar tanpa urutan (bullet)" },
+        { "kode": "<ol>", "arti": "Daftar berurutan (angka)" },
+        { "kode": "<li>", "arti": "Satu item daftar" },
+        { "kode": "<dl> <dt> <dd>", "arti": "Daftar definisi: istilah dan penjelasannya" },
+        { "kode": "<a href>", "arti": "Tautan; <code>href</code> adalah alamat tujuan" },
+        { "kode": "target=\"_blank\"", "arti": "Buka di tab baru" },
+        { "kode": "rel=\"noopener\"", "arti": "Putuskan rujukan ke halaman asal" },
+        { "kode": "start / reversed", "arti": "Atribut <code>&lt;ol&gt;</code>: mulai dari angka tertentu / urutan mundur" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<a href=\"sekolah.sch.id\">Situs sekolah</a>",
+          "benar": "<a href=\"https://sekolah.sch.id\">Situs sekolah</a>",
+          "kenapa": "Tanpa <code>https://</code>, browser mencarinya sebagai berkas lokal bernama <em>sekolah.sch.id</em>."
+        },
+        {
+          "salah": "<ul> <li>A</li> <ul><li>A1</li></ul> </ul>",
+          "benar": "<ul> <li>A <ul><li>A1</li></ul> </li> </ul>",
+          "kenapa": "Sub-daftar harus berada <em>di dalam</em> <code>&lt;li&gt;</code> induknya, bukan menjadi saudaranya."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Mata Pelajaran</title>\n</head>\n<body>\n\n  <h1>Mata Pelajaran Favorit</h1>\n\n  <ul>\n    <li>Fisika</li>\n    <li>Informatika\n      <ul>\n        <li>Pemrograman Web</li>\n        <li>Jaringan</li>\n      </ul>\n    </li>\n    <li><a href=\"https://sekolah.sch.id\" target=\"_blank\" rel=\"noopener\">Situs sekolah</a></li>\n  </ul>\n\n  <h2>Langkah Mendaftar</h2>\n  <ol>\n    <li>Isi formulir</li>\n    <li>Unggah berkas</li>\n    <li>Tunggu verifikasi</li>\n  </ol>\n\n  <h2>Istilah</h2>\n  <dl>\n    <dt>HTML</dt>\n    <dd>Bahasa penanda untuk menyusun isi halaman.</dd>\n    <dt>CSS</dt>\n    <dd>Bahasa untuk mengatur tampilan halaman.</dd>\n  </dl>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-dasar-010"
+    },
+    {
+      "id": "html-05",
+      "no": "05",
+      "level": "Dasar",
+      "title": "Gambar & Atribut",
+      "lead": "<code>&lt;img&gt;</code> adalah tag kosong: tidak punya isi dan tidak punya penutup. Dua atribut wajibnya adalah <code>src</code> (alamat gambar) dan <code>alt</code> (teks pengganti). Bab ini juga membahas <code>id</code> dan <code>class</code> — dua atribut yang akan Anda pakai terus-menerus begitu masuk modul CSS.",
+      "concepts": [
+        { "title": "alt bukan hiasan", "body": "Dibacakan pembaca layar, tampil saat gambar gagal dimuat, dan dibaca mesin pencari." },
+        { "title": "id unik", "body": "Satu <code>id</code> hanya boleh muncul sekali per halaman. Jadi target jangkar <code>#id</code> dan selector CSS <code>#id</code>." },
+        { "title": "class berulang", "body": "Boleh dipakai banyak elemen sekaligus, dan satu elemen boleh punya beberapa class dipisah spasi." }
+      ],
+      "sections": [
+        {
+          "heading": "Menulis alt yang benar",
+          "body": "<ul class=\"prose-list\"><li><strong>Gambar informatif</strong> — jelaskan isinya secara ringkas: <code>alt=\"Grafik nilai ujian naik dari 60 ke 85\"</code>.</li><li><strong>Gambar dekoratif</strong> — tulis <code>alt=\"\"</code> (kosong, <em>bukan</em> dihilangkan). Itu memberi tahu pembaca layar untuk melewatinya.</li><li><strong>Gambar di dalam tautan</strong> — <code>alt</code> menjelaskan tujuan tautan, bukan rupa gambarnya.</li></ul><p>Jangan mengawali dengan “gambar…” — pembaca layar sudah mengumumkan bahwa itu gambar.</p>"
+        },
+        {
+          "heading": "width dan height mencegah halaman meloncat",
+          "body": "<p>Tulis <code>width</code> dan <code>height</code> asli gambar sebagai atribut HTML. Browser memakainya untuk menyediakan ruang <em>sebelum</em> gambar selesai diunduh, sehingga teks di bawahnya tidak meloncat tiba-tiba saat gambar muncul.</p><p>Ukuran tampilannya tetap boleh diatur CSS — atribut ini soal perbandingan sisi, bukan ukuran akhir.</p>"
+        },
+        {
+          "heading": "figure dan figcaption",
+          "body": "<p>Bila gambar butuh keterangan, bungkus dengan <code>&lt;figure&gt;</code> dan beri <code>&lt;figcaption&gt;</code>. Ini mengikat gambar dengan keterangannya secara semantik, bukan hanya menaruhnya berdekatan.</p><p>Bedanya dengan <code>alt</code>: <code>alt</code> adalah <em>pengganti</em> gambar bagi yang tidak bisa melihatnya; <code>figcaption</code> adalah keterangan yang dibaca <strong>semua orang</strong>.</p>"
+        },
+        {
+          "heading": "id, class, dan atribut global lain",
+          "body": "<p>Beberapa atribut boleh dipasang di elemen apa pun:</p><ul class=\"prose-list\"><li><code>id</code> — penanda unik. Dipakai untuk jangkar <code>#id</code>, label form, dan target JavaScript.</li><li><code>class</code> — pengelompokan. <code>class=\"kartu besar\"</code> memberi dua class sekaligus.</li><li><code>title</code> — tooltip saat kursor berhenti. Jangan diandalkan: tidak muncul di perangkat sentuh.</li><li><code>data-*</code> — atribut buatan sendiri untuk menyimpan data, dibahas di bab 12.</li></ul><p>Aturan penamaan <code>id</code>: tidak boleh diawali angka, tidak boleh mengandung spasi. Gunakan huruf kecil dan tanda hubung: <code>foto-profil</code>.</p>"
+        }
+      ],
+      "referenceHead": ["Tag / Atribut", "Kegunaan"],
+      "reference": [
+        { "kode": "<img src alt>", "arti": "Menyisipkan gambar; keduanya wajib" },
+        { "kode": "width / height", "arti": "Ukuran asli gambar, mencegah layout meloncat" },
+        { "kode": "loading=\"lazy\"", "arti": "Tunda unduhan sampai gambar mendekati layar" },
+        { "kode": "<figure>", "arti": "Membungkus gambar beserta keterangannya" },
+        { "kode": "<figcaption>", "arti": "Keterangan gambar yang dibaca semua orang" },
+        { "kode": "id", "arti": "Penanda unik satu halaman" },
+        { "kode": "class", "arti": "Pengelompokan; boleh berulang dan boleh lebih dari satu" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<img src=\"logo.png\" alt=\"gambar logo\">",
+          "benar": "<img src=\"logo.png\" alt=\"Logo SMK Negeri 1\">",
+          "kenapa": "Pembaca layar sudah mengumumkan bahwa itu gambar. Isi <code>alt</code> dengan informasinya, bukan jenisnya."
+        },
+        {
+          "salah": "<div id=\"kartu\"> … <div id=\"kartu\">",
+          "benar": "<div class=\"kartu\"> … <div class=\"kartu\">",
+          "kenapa": "<code>id</code> harus unik satu halaman. Untuk sesuatu yang berulang, gunakan <code>class</code>."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Galeri</title>\n</head>\n<body>\n\n  <h1 id=\"atas\">Galeri Proyek</h1>\n\n  <figure>\n    <img src=\"https://placehold.co/320x180\"\n         alt=\"Purwarupa robot line follower di atas meja kerja\"\n         width=\"320\" height=\"180\" class=\"foto utama\">\n    <figcaption>Purwarupa pertama, dirakit bulan lalu.</figcaption>\n  </figure>\n\n  <p class=\"catatan\">Gambar berikut hanya hiasan, jadi alt-nya kosong.</p>\n  <img src=\"https://placehold.co/240x40/e1eecc/201e1d\" alt=\"\" width=\"240\" height=\"40\">\n\n  <p><a href=\"#atas\">Kembali ke atas</a></p>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-dasar-013"
+    },
+    {
+      "id": "html-06",
+      "no": "06",
+      "level": "Menengah",
+      "title": "Tabel",
+      "lead": "Tabel dipakai untuk <strong>data</strong> — sesuatu yang punya baris dan kolom bermakna, seperti jadwal atau daftar nilai. Tabel <em>bukan</em> alat untuk mengatur tata letak halaman; itu pekerjaan CSS Grid dan Flexbox.",
+      "concepts": [
+        { "title": "tr, th, td", "body": "<code>&lt;tr&gt;</code> satu baris, <code>&lt;th&gt;</code> sel judul, <code>&lt;td&gt;</code> sel data." },
+        { "title": "colspan", "body": "Menggabungkan sel ke arah samping: <code>&lt;td colspan=\"2\"&gt;</code>." },
+        { "title": "rowspan", "body": "Menggabungkan sel ke arah bawah: <code>&lt;td rowspan=\"2\"&gt;</code>." }
+      ],
+      "sections": [
+        {
+          "heading": "Bagian-bagian tabel yang rapi",
+          "body": "<p>Tabel yang benar punya struktur bertingkat:</p><pre class=\"snippet\">&lt;table&gt;\n  &lt;caption&gt;Judul tabel&lt;/caption&gt;\n  &lt;thead&gt;   ← baris judul kolom\n    &lt;tr&gt;&lt;th&gt;…&lt;/th&gt;&lt;/tr&gt;\n  &lt;/thead&gt;\n  &lt;tbody&gt;   ← isi data\n    &lt;tr&gt;&lt;td&gt;…&lt;/td&gt;&lt;/tr&gt;\n  &lt;/tbody&gt;\n  &lt;tfoot&gt;   ← baris ringkasan (opsional)\n  &lt;/tfoot&gt;\n&lt;/table&gt;</pre><p><code>&lt;caption&gt;</code> harus jadi anak <strong>pertama</strong> <code>&lt;table&gt;</code>. Ia berfungsi seperti judul tabel dan langsung dibacakan pembaca layar sebelum isinya.</p>"
+        },
+        {
+          "heading": "Menggabungkan sel tanpa merusak hitungan",
+          "body": "<p>Ini bagian yang paling sering salah. Aturannya: <strong>setiap baris harus punya jumlah kolom yang sama</strong> setelah penggabungan dihitung.</p><p>Kalau baris pertama punya 3 kolom dan salah satu selnya <code>colspan=\"2\"</code>, maka baris itu hanya perlu <strong>2</strong> tag <code>&lt;td&gt;</code> — bukan 3. Menulis 3 tag akan membuat tabel bocor satu kolom ke kanan.</p><p>Hal yang sama berlaku untuk <code>rowspan</code>: baris di bawahnya kehilangan satu sel, karena tempatnya sudah diambil sel dari atas.</p>"
+        },
+        {
+          "heading": "scope membuat tabel bisa dinavigasi",
+          "body": "<p>Pada tabel dengan judul di baris <em>dan</em> di kolom, pembaca layar perlu tahu arah tiap judul. Tambahkan <code>scope</code>:</p><ul class=\"prose-list\"><li><code>&lt;th scope=\"col\"&gt;</code> — judul untuk kolom di bawahnya.</li><li><code>&lt;th scope=\"row\"&gt;</code> — judul untuk baris di sampingnya.</li></ul><p>Tanpa ini, pengguna pembaca layar mendengar deretan angka tanpa tahu angka itu milik kolom apa.</p>"
+        },
+        {
+          "heading": "Kenapa tabel tidak boleh untuk tata letak",
+          "body": "<p>Sebelum CSS matang, orang menyusun halaman dengan tabel tak terlihat. Warisan itu masih terlihat di situs-situs lama. Jangan diikuti, karena: pembaca layar akan mengumumkan “tabel 5 baris 3 kolom” untuk sesuatu yang bukan data; urutan bacanya jadi kacau; dan tata letaknya kaku di layar ponsel.</p>"
+        }
+      ],
+      "referenceHead": ["Tag / Atribut", "Kegunaan"],
+      "reference": [
+        { "kode": "<table>", "arti": "Wadah tabel" },
+        { "kode": "<caption>", "arti": "Judul tabel; harus anak pertama <code>&lt;table&gt;</code>" },
+        { "kode": "<thead> <tbody> <tfoot>", "arti": "Kelompok baris: judul, isi, ringkasan" },
+        { "kode": "<tr>", "arti": "Satu baris" },
+        { "kode": "<th>", "arti": "Sel judul; tebal dan rata tengah secara bawaan" },
+        { "kode": "<td>", "arti": "Sel data" },
+        { "kode": "colspan / rowspan", "arti": "Menggabungkan sel ke samping / ke bawah" },
+        { "kode": "scope=\"col|row\"", "arti": "Arah cakupan sebuah <code>&lt;th&gt;</code>" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<tr><td colspan=\"2\">A</td><td>B</td><td>C</td></tr>",
+          "benar": "<tr><td colspan=\"2\">A</td><td>B</td></tr>",
+          "kenapa": "Sel ber-<code>colspan=\"2\"</code> sudah memakan jatah dua kolom. Pada tabel 3 kolom, sisanya cukup satu <code>&lt;td&gt;</code>."
+        },
+        {
+          "salah": "<table><tr><td>Menu</td><td>Konten</td></tr></table>",
+          "benar": "<div class=\"tata\"><nav>Menu</nav><main>Konten</main></div>",
+          "kenapa": "Tabel hanya untuk data. Untuk tata letak, gunakan CSS Grid atau Flexbox."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Nilai Ujian</title>\n  <style>\n    table { border-collapse: collapse; }\n    th, td { border: 1px solid #201e1d; padding: 8px 12px; }\n    caption { font-weight: 700; padding-bottom: 8px; }\n  </style>\n</head>\n<body>\n\n  <table>\n    <caption>Nilai Ujian Semester Ganjil</caption>\n    <thead>\n      <tr>\n        <th scope=\"col\">Mata Pelajaran</th>\n        <th scope=\"col\">Tulis</th>\n        <th scope=\"col\">Praktik</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th scope=\"row\">Fisika</th>\n        <td>88</td>\n        <td>90</td>\n      </tr>\n      <tr>\n        <th scope=\"row\">Informatika</th>\n        <td>92</td>\n        <td>95</td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td colspan=\"3\">Rata-rata keseluruhan: 91</td>\n      </tr>\n    </tfoot>\n  </table>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-menengah-016"
+    },
+    {
+      "id": "html-07",
+      "no": "07",
+      "level": "Menengah",
+      "title": "Form Dasar",
+      "lead": "Form adalah pintu masuk data dari pengguna ke sistem. Tiga hal yang menentukan form Anda benar atau tidak: setiap isian punya <code>&lt;label&gt;</code> yang terhubung, setiap isian punya <code>name</code>, dan tombol kirimnya bertipe <code>submit</code>.",
+      "concepts": [
+        { "title": "name menentukan data", "body": "Tanpa <code>name</code>, isian tidak ikut terkirim sama sekali — meski terlihat normal di layar." },
+        { "title": "label for = input id", "body": "<code>&lt;label for=\"nama\"&gt;</code> harus cocok dengan <code>&lt;input id=\"nama\"&gt;</code>." },
+        { "title": "action & method", "body": "<code>action</code> ke mana data dikirim, <code>method</code> caranya (<code>get</code> atau <code>post</code>)." }
+      ],
+      "sections": [
+        {
+          "heading": "Kenapa label wajib, bukan opsional",
+          "body": "<p>Label yang terhubung memberi tiga keuntungan sekaligus:</p><ul class=\"prose-list\"><li>Pembaca layar membacakan labelnya saat fokus masuk ke isian.</li><li>Mengklik teks labelnya langsung memindahkan fokus ke isian — target klik jadi jauh lebih besar, penting di layar sentuh.</li><li>Browser bisa menawarkan isian otomatis yang lebih tepat.</li></ul><p>Ada dua cara menghubungkannya. Yang eksplisit lewat <code>for</code>/<code>id</code>, atau implisit dengan membungkus isiannya:</p><pre class=\"snippet\">&lt;label&gt;Nama &lt;input type=\"text\" name=\"nama\"&gt;&lt;/label&gt;</pre><p>Cara eksplisit lebih dianjurkan karena tetap bekerja walau tata letaknya dipisah CSS.</p>"
+        },
+        {
+          "heading": "Tipe input yang sering dipakai",
+          "body": "<p>Atribut <code>type</code> mengubah bukan hanya tampilan, tetapi juga papan ketik yang muncul di ponsel dan validasi bawaan browser. Memilih tipe yang tepat adalah cara termurah memperbaiki pengalaman pengguna.</p><p>Untuk pilihan tunggal dari beberapa opsi, gunakan <code>radio</code> dengan <code>name</code> yang <strong>sama</strong> — itulah yang membuat mereka saling meniadakan. Untuk pilihan ganda, gunakan <code>checkbox</code>.</p>"
+        },
+        {
+          "heading": "select, textarea, dan button",
+          "body": "<p><code>&lt;select&gt;</code> berisi <code>&lt;option&gt;</code>. Tambahkan <code>selected</code> pada opsi yang aktif dari awal, dan <code>&lt;optgroup&gt;</code> untuk mengelompokkan opsi yang banyak.</p><p><code>&lt;textarea&gt;</code> untuk teks panjang. Perhatikan: nilai awalnya ditulis <strong>di antara tag</strong>, bukan lewat atribut <code>value</code>. Atur ukurannya dengan <code>rows</code> dan <code>cols</code>.</p><p><code>&lt;button&gt;</code> punya tiga tipe. <code>submit</code> mengirim form, <code>reset</code> mengosongkannya, <code>button</code> tidak melakukan apa-apa sampai diberi JavaScript. <strong>Bila <code>type</code> tidak ditulis, nilainya otomatis <code>submit</code></strong> — sumber bug klasik berupa halaman yang tiba-tiba ter-<em>reload</em>.</p>"
+        },
+        {
+          "heading": "Mengelompokkan isian dengan fieldset",
+          "body": "<p>Untuk sekumpulan isian yang berkaitan — terutama grup radio — bungkus dengan <code>&lt;fieldset&gt;</code> dan beri <code>&lt;legend&gt;</code> sebagai judulnya. Pembaca layar akan membacakan legenda itu bersama tiap pilihannya, sehingga pengguna tahu pertanyaannya apa.</p>"
+        }
+      ],
+      "referenceHead": ["Tipe / Tag", "Kegunaan"],
+      "reference": [
+        { "kode": "type=\"text\"", "arti": "Teks satu baris" },
+        { "kode": "type=\"email\"", "arti": "Alamat surel; papan ketik ponsel menampilkan @" },
+        { "kode": "type=\"number\"", "arti": "Angka; menerima <code>min</code>, <code>max</code>, <code>step</code>" },
+        { "kode": "type=\"date\"", "arti": "Pemilih tanggal bawaan browser" },
+        { "kode": "type=\"radio\"", "arti": "Pilihan tunggal; samakan <code>name</code>-nya" },
+        { "kode": "type=\"checkbox\"", "arti": "Pilihan ganda" },
+        { "kode": "<select> <option>", "arti": "Daftar pilihan dropdown" },
+        { "kode": "<textarea rows>", "arti": "Teks banyak baris" },
+        { "kode": "<fieldset> <legend>", "arti": "Mengelompokkan isian dan memberinya judul" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<input type=\"text\" id=\"nama\">",
+          "benar": "<input type=\"text\" id=\"nama\" name=\"nama\">",
+          "kenapa": "Tanpa <code>name</code>, isian ini tidak pernah ikut terkirim — meski di layar terlihat normal."
+        },
+        {
+          "salah": "<button>Hapus</button>",
+          "benar": "<button type=\"button\">Hapus</button>",
+          "kenapa": "Tanpa <code>type</code>, tombol di dalam form otomatis bertipe <code>submit</code> dan akan mengirim form."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Formulir Pendaftaran</title>\n</head>\n<body>\n\n  <h1>Formulir Pendaftaran</h1>\n\n  <form action=\"#\" method=\"post\">\n\n    <p>\n      <label for=\"nama\">Nama Lengkap</label><br>\n      <input type=\"text\" id=\"nama\" name=\"nama\">\n    </p>\n\n    <p>\n      <label for=\"kelas\">Kelas</label><br>\n      <select id=\"kelas\" name=\"kelas\">\n        <option value=\"tei1\">XI TEI 1</option>\n        <option value=\"tei2\" selected>XI TEI 2</option>\n      </select>\n    </p>\n\n    <fieldset>\n      <legend>Pilih ekstrakurikuler</legend>\n      <label><input type=\"radio\" name=\"eskul\" value=\"robotik\"> Robotik</label>\n      <label><input type=\"radio\" name=\"eskul\" value=\"pmr\"> PMR</label>\n    </fieldset>\n\n    <p>\n      <label for=\"pesan\">Alasan mendaftar</label><br>\n      <textarea id=\"pesan\" name=\"pesan\" rows=\"4\" cols=\"30\"></textarea>\n    </p>\n\n    <button type=\"submit\">Kirim</button>\n    <button type=\"reset\">Kosongkan</button>\n\n  </form>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-menengah-019"
+    },
+    {
+      "id": "html-08",
+      "no": "08",
+      "level": "Menengah",
+      "title": "Elemen Semantik",
+      "lead": "Elemen semantik menamai bagian halaman sesuai <strong>perannya</strong>. <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, dan <code>&lt;footer&gt;</code> menggantikan tumpukan <code>&lt;div&gt;</code> yang tidak berarti apa-apa.",
+      "concepts": [
+        { "title": "section vs article", "body": "<code>&lt;article&gt;</code> berdiri sendiri dan tetap bermakna bila dipindah. <code>&lt;section&gt;</code> adalah bagian dari sesuatu yang lebih besar." },
+        { "title": "main hanya satu", "body": "Satu halaman punya tepat satu <code>&lt;main&gt;</code>, berisi konten utama tanpa header/footer situs." },
+        { "title": "div masih boleh", "body": "Kalau tidak ada elemen semantik yang cocok dan Anda hanya butuh wadah untuk CSS, <code>&lt;div&gt;</code> tetap jawaban yang benar." }
+      ],
+      "sections": [
+        {
+          "heading": "Peta satu halaman yang semantik",
+          "body": "<pre class=\"snippet\">&lt;body&gt;\n  &lt;header&gt;      ← identitas situs + navigasi utama\n    &lt;nav&gt;\n  &lt;main&gt;        ← isi khas halaman ini (hanya satu)\n    &lt;article&gt;   ← satu tulisan utuh\n      &lt;section&gt; ← bagian dari tulisan itu\n    &lt;aside&gt;     ← isi sampingan, tidak esensial\n  &lt;footer&gt;      ← hak cipta, kontak, tautan sekunder\n&lt;/body&gt;</pre><p>Perhatikan <code>&lt;header&gt;</code> dan <code>&lt;footer&gt;</code> boleh muncul lebih dari sekali: satu untuk situs, dan satu lagi di dalam tiap <code>&lt;article&gt;</code> untuk judul dan tanggal tulisan itu.</p>"
+        },
+        {
+          "heading": "Uji sederhana: section atau article?",
+          "body": "<p>Tanyakan: <em>kalau potongan ini saya salin ke situs lain, apakah masih masuk akal sendirian?</em></p><ul class=\"prose-list\"><li><strong>Ya</strong> — satu tulisan blog, satu ulasan produk, satu komentar → <code>&lt;article&gt;</code>.</li><li><strong>Tidak</strong> — bagian “Kontak” pada halaman profil → <code>&lt;section&gt;</code>.</li></ul><p>Aturan tambahan: <code>&lt;section&gt;</code> hampir selalu punya heading sendiri. Kalau sebuah bagian tidak layak diberi judul, kemungkinan besar yang Anda butuhkan hanya <code>&lt;div&gt;</code>.</p>"
+        },
+        {
+          "heading": "nav bukan untuk semua kumpulan tautan",
+          "body": "<p><code>&lt;nav&gt;</code> khusus untuk blok navigasi <strong>utama</strong>: menu situs, daftar isi, breadcrumb. Deretan tautan di dalam paragraf atau daftar tautan kecil di footer tidak perlu dibungkus <code>&lt;nav&gt;</code>.</p><p>Bila ada lebih dari satu <code>&lt;nav&gt;</code> di satu halaman, beri pembeda dengan <code>aria-label</code>: <code>&lt;nav aria-label=\"Menu utama\"&gt;</code> dan <code>&lt;nav aria-label=\"Navigasi bab\"&gt;</code>.</p>"
+        },
+        {
+          "heading": "Manfaat nyatanya",
+          "body": "<p>Pembaca layar menyediakan pintasan “lompat ke konten utama” yang bekerja karena ada <code>&lt;main&gt;</code>. Mesin pencari memakai struktur ini untuk memahami mana isi dan mana pelengkap. Dan bagi Anda sendiri, membuka kembali kode ini sebulan kemudian akan jauh lebih mudah dibaca daripada dua belas <code>&lt;div&gt;</code> beruntun.</p>"
+        }
+      ],
+      "referenceHead": ["Tag", "Peran"],
+      "reference": [
+        { "kode": "<header>", "arti": "Bagian pembuka situs atau artikel" },
+        { "kode": "<nav>", "arti": "Blok navigasi utama" },
+        { "kode": "<main>", "arti": "Konten utama halaman; hanya satu" },
+        { "kode": "<article>", "arti": "Isi yang utuh dan bisa berdiri sendiri" },
+        { "kode": "<section>", "arti": "Bagian bertema dari sesuatu yang lebih besar" },
+        { "kode": "<aside>", "arti": "Isi sampingan: sidebar, catatan kaki, iklan" },
+        { "kode": "<footer>", "arti": "Bagian penutup situs atau artikel" },
+        { "kode": "<time datetime>", "arti": "Tanggal/waktu yang bisa dibaca mesin" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<main>…</main> <main>…</main>",
+          "benar": "<main> <section>…</section> <section>…</section> </main>",
+          "kenapa": "Hanya boleh ada satu <code>&lt;main&gt;</code> per halaman. Bagilah isinya dengan <code>&lt;section&gt;</code>."
+        },
+        {
+          "salah": "<section><p>Hanya sebaris teks.</p></section>",
+          "benar": "<div><p>Hanya sebaris teks.</p></div>",
+          "kenapa": "<code>&lt;section&gt;</code> menyiratkan adanya bagian berjudul. Untuk wadah tanpa arti, <code>&lt;div&gt;</code> justru lebih tepat."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Blog Saya</title>\n</head>\n<body>\n\n  <header>\n    <h1>Blog Saya</h1>\n    <nav aria-label=\"Menu utama\">\n      <a href=\"#tulisan\">Tulisan</a> |\n      <a href=\"#tentang\">Tentang</a>\n    </nav>\n  </header>\n\n  <main>\n    <article id=\"tulisan\">\n      <header>\n        <h2>Belajar HTML Semantik</h2>\n        <p><time datetime=\"2026-08-26\">26 Agustus 2026</time></p>\n      </header>\n\n      <section>\n        <h3>Kenapa penting</h3>\n        <p>Struktur yang bermakna memudahkan mesin dan manusia.</p>\n      </section>\n\n      <footer>\n        <p>Ditulis oleh Aisyah.</p>\n      </footer>\n    </article>\n\n    <aside>\n      <h2>Tulisan lain</h2>\n      <p>Belum ada.</p>\n    </aside>\n  </main>\n\n  <footer>\n    <p>&copy; 2026</p>\n  </footer>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-menengah-022"
+    },
+    {
+      "id": "html-09",
+      "no": "09",
+      "level": "Menengah",
+      "title": "Media",
+      "lead": "<code>&lt;audio&gt;</code> dan <code>&lt;video&gt;</code> menyisipkan berkas media dengan pemutar bawaan browser — tanpa plugin, tanpa JavaScript. <code>&lt;iframe&gt;</code> menyisipkan halaman lain ke dalam halaman Anda, dan justru karena itu perlu diperlakukan hati-hati.",
+      "concepts": [
+        { "title": "controls", "body": "Tanpa atribut <code>controls</code>, pemutar tidak menampilkan tombol apa pun dan terlihat seperti kotak kosong." },
+        { "title": "source berlapis", "body": "Beberapa <code>&lt;source&gt;</code> di dalam satu elemen media; browser memakai format pertama yang didukungnya." },
+        { "title": "iframe title", "body": "Selalu beri <code>title</code> pada <code>&lt;iframe&gt;</code> agar isinya bisa dikenali pembaca layar." }
+      ],
+      "sections": [
+        {
+          "heading": "Atribut yang mengubah perilaku pemutar",
+          "body": "<ul class=\"prose-list\"><li><code>controls</code> — menampilkan tombol putar, jeda, dan volume. Hampir selalu Anda butuhkan.</li><li><code>autoplay</code> — memutar otomatis. <strong>Browser modern memblokirnya</strong> kecuali videonya juga <code>muted</code>, karena suara yang tiba-tiba menyala sangat mengganggu.</li><li><code>loop</code> — mengulang dari awal setelah selesai.</li><li><code>poster</code> — gambar yang tampil sebelum video diputar.</li><li><code>preload=\"none\"</code> — jangan unduh apa pun sampai pengguna menekan putar. Hemat kuota.</li></ul>"
+        },
+        {
+          "heading": "Teks cadangan dan beberapa format",
+          "body": "<p>Tidak semua browser mendukung format yang sama. Sediakan beberapa <code>&lt;source&gt;</code>, lalu tulis teks cadangan di antaranya untuk browser yang tidak mendukung sama sekali:</p><pre class=\"snippet\">&lt;video controls&gt;\n  &lt;source src=\"video.webm\" type=\"video/webm\"&gt;\n  &lt;source src=\"video.mp4\" type=\"video/mp4\"&gt;\n  Browser Anda tidak mendukung video.\n  &lt;a href=\"video.mp4\"&gt;Unduh videonya&lt;/a&gt;\n&lt;/video&gt;</pre><p>Urutannya penting: browser memakai <code>&lt;source&gt;</code> pertama yang bisa ia putar, jadi taruh format paling efisien di atas.</p>"
+        },
+        {
+          "heading": "Takarir dengan track",
+          "body": "<p>Video yang berisi ucapan sebaiknya punya takarir. Tambahkan <code>&lt;track kind=\"captions\" src=\"teks.vtt\" srclang=\"id\" label=\"Indonesia\" default&gt;</code> di dalam <code>&lt;video&gt;</code>.</p><p>Ini bukan hanya untuk penyandang tunarungu: takarir juga menolong siapa pun yang menonton di tempat ramai atau tanpa pengeras suara.</p>"
+        },
+        {
+          "heading": "iframe: kekuatan sekaligus risiko",
+          "body": "<p><code>&lt;iframe&gt;</code> menampilkan halaman lain — peta, video YouTube, formulir pihak ketiga — di dalam halaman Anda. Halaman yang dimuat berjalan di <em>origin</em>-nya sendiri dan tidak bisa membaca isi halaman Anda.</p><p>Dua kebiasaan yang benar: selalu isi <code>title</code>, dan untuk isi yang tidak sepenuhnya Anda percayai, batasi kemampuannya dengan atribut <code>sandbox</code>. Persis itulah yang WebTM lakukan pada panel preview di kanan layar latihan — kode Anda berjalan di dalam iframe ber-<code>sandbox</code> agar tidak bisa menyentuh sesi ujian.</p>"
+        }
+      ],
+      "referenceHead": ["Tag / Atribut", "Kegunaan"],
+      "reference": [
+        { "kode": "<audio> / <video>", "arti": "Menyisipkan berkas suara / video" },
+        { "kode": "controls", "arti": "Tampilkan tombol pemutar" },
+        { "kode": "muted / loop", "arti": "Bisukan / ulangi terus" },
+        { "kode": "poster", "arti": "Gambar pratinjau video" },
+        { "kode": "<source type>", "arti": "Satu alternatif format berkas" },
+        { "kode": "<track kind>", "arti": "Takarir atau subtitle" },
+        { "kode": "<iframe title>", "arti": "Menyisipkan halaman lain; <code>title</code> wajib" },
+        { "kode": "sandbox", "arti": "Membatasi kemampuan isi iframe" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<video src=\"a.mp4\" autoplay></video>",
+          "benar": "<video src=\"a.mp4\" controls muted></video>",
+          "kenapa": "Tanpa <code>controls</code> pengguna tidak bisa berbuat apa-apa, dan <code>autoplay</code> bersuara diblokir browser modern."
+        },
+        {
+          "salah": "<iframe src=\"peta.html\"></iframe>",
+          "benar": "<iframe src=\"peta.html\" title=\"Peta lokasi sekolah\"></iframe>",
+          "kenapa": "Tanpa <code>title</code>, pembaca layar hanya mengumumkan “bingkai” tanpa petunjuk isinya."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Media</title>\n</head>\n<body>\n\n  <h1>Dokumentasi Proyek</h1>\n\n  <video controls muted width=\"320\" poster=\"https://placehold.co/320x180\">\n    <source src=\"video.webm\" type=\"video/webm\">\n    <source src=\"video.mp4\" type=\"video/mp4\">\n    Browser Anda tidak mendukung video.\n  </video>\n\n  <h2>Rekaman presentasi</h2>\n  <audio controls>\n    <source src=\"rekaman.mp3\" type=\"audio/mpeg\">\n    Browser Anda tidak mendukung audio.\n  </audio>\n\n  <h2>Lokasi</h2>\n  <iframe title=\"Peta lokasi sekolah\" src=\"about:blank\"\n          width=\"320\" height=\"180\" sandbox></iframe>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-menengah-025"
+    },
+    {
+      "id": "html-10",
+      "no": "10",
+      "level": "Lanjutan",
+      "title": "Form Validasi & Aksesibilitas",
+      "lead": "HTML5 bisa memvalidasi isian tanpa satu baris JavaScript: <code>required</code>, <code>pattern</code>, <code>min</code>/<code>max</code>, serta tipe khusus seperti <code>email</code>, <code>url</code>, dan <code>date</code>. Digabung dengan atribut ARIA seadanya, form Anda jadi lebih sulit diisi salah dan lebih mudah dipakai semua orang.",
+      "concepts": [
+        { "title": "required", "body": "Form menolak dikirim bila isian bertanda <code>required</code> masih kosong." },
+        { "title": "pattern", "body": "Pola regex yang harus dipenuhi. Selalu pasangkan dengan <code>title</code> berisi penjelasan polanya." },
+        { "title": "aria-describedby", "body": "Menghubungkan isian dengan teks bantuan atau pesan error di elemen lain." }
+      ],
+      "sections": [
+        {
+          "heading": "Validasi klien bukan pengganti validasi server",
+          "body": "<p>Semua atribut di bab ini berjalan di browser dan bisa dilewati siapa pun yang membuka DevTools atau mengirim permintaan langsung. Fungsinya membantu pengguna jujur mengisi dengan benar dan memberi umpan balik seketika — <strong>bukan</strong> mengamankan data.</p><p>Sistem yang sesungguhnya wajib memeriksa ulang di sisi server. Ini contoh nyata prinsip yang sama dengan anti-cheat di WebTM: apa pun yang berjalan di browser siswa berada di bawah kendali siswa.</p>"
+        },
+        {
+          "heading": "Batas dan pola",
+          "body": "<ul class=\"prose-list\"><li><code>minlength</code> / <code>maxlength</code> — jumlah karakter teks.</li><li><code>min</code> / <code>max</code> — nilai terkecil dan terbesar untuk <code>number</code> dan <code>date</code>.</li><li><code>step</code> — kelipatan yang diizinkan; <code>step=\"0.5\"</code> menerima 1, 1.5, 2.</li><li><code>pattern</code> — regex. <code>pattern=\"[0-9]{10}\"</code> berarti tepat sepuluh angka.</li></ul><p><code>pattern</code> selalu dicocokkan ke <strong>seluruh</strong> isi, jadi tidak perlu menulis <code>^</code> dan <code>$</code>. Dan karena pesan bawaan browser hanya berbunyi “sesuaikan dengan format yang diminta”, tambahkan <code>title=\"Isi 10 angka tanpa spasi\"</code> agar penggunanya tahu formatnya apa.</p>"
+        },
+        {
+          "heading": "autocomplete: fitur kecil yang berdampak besar",
+          "body": "<p>Atribut <code>autocomplete</code> memberi tahu browser jenis data yang diminta, sehingga isian otomatis bekerja akurat: <code>autocomplete=\"name\"</code>, <code>\"email\"</code>, <code>\"tel\"</code>, <code>\"street-address\"</code>.</p><p>Bagi pengguna dengan keterbatasan motorik, mengurangi jumlah ketikan bukan sekadar kenyamanan — itu perbedaan antara form yang bisa diisi dan yang tidak.</p>"
+        },
+        {
+          "heading": "ARIA: dipakai seperlunya",
+          "body": "<p>ARIA menambahkan informasi untuk teknologi bantu <em>bila</em> HTML biasa belum cukup:</p><ul class=\"prose-list\"><li><code>aria-label</code> — memberi nama saat tidak ada label terlihat, misalnya tombol berikon.</li><li><code>aria-describedby</code> — menunjuk <code>id</code> elemen berisi keterangan tambahan.</li><li><code>aria-live=\"polite\"</code> — mengumumkan isi yang berubah, misalnya pesan “Data tersimpan”.</li><li><code>aria-invalid=\"true\"</code> — menandai isian yang bermasalah.</li></ul><p><strong>Aturan pertama ARIA: jangan pakai ARIA kalau ada elemen HTML yang sudah tepat.</strong> <code>&lt;button&gt;</code> asli selalu lebih baik daripada <code>&lt;div role=\"button\"&gt;</code>, karena tombol asli sudah bisa difokus, ditekan dengan Enter dan spasi, tanpa kode tambahan.</p>"
+        }
+      ],
+      "referenceHead": ["Atribut", "Kegunaan"],
+      "reference": [
+        { "kode": "required", "arti": "Wajib diisi sebelum form bisa dikirim" },
+        { "kode": "pattern + title", "arti": "Pola regex; <code>title</code> menjelaskan polanya" },
+        { "kode": "minlength / maxlength", "arti": "Batas jumlah karakter" },
+        { "kode": "min / max / step", "arti": "Batas dan kelipatan nilai" },
+        { "kode": "readonly", "arti": "Tidak bisa diubah, tapi tetap terkirim" },
+        { "kode": "disabled", "arti": "Tidak bisa diubah dan <strong>tidak</strong> terkirim" },
+        { "kode": "autocomplete", "arti": "Jenis data agar isian otomatis akurat" },
+        { "kode": "novalidate", "arti": "Atribut <code>&lt;form&gt;</code>: matikan validasi bawaan" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<input pattern=\"[0-9]{10}\">",
+          "benar": "<input pattern=\"[0-9]{10}\" title=\"Isi 10 angka tanpa spasi\">",
+          "kenapa": "Tanpa <code>title</code>, pesan error browser hanya berbunyi “sesuaikan dengan format yang diminta” tanpa menyebut formatnya."
+        },
+        {
+          "salah": "<div role=\"button\" onclick=\"…\">Kirim</div>",
+          "benar": "<button type=\"submit\">Kirim</button>",
+          "kenapa": "Tombol asli sudah bisa difokus dengan Tab dan ditekan dengan Enter atau spasi. Meniru itu dengan <code>div</code> menambah kerja dan hampir selalu tidak lengkap."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Pendaftaran Ujian</title>\n</head>\n<body>\n\n  <h1>Pendaftaran Ujian</h1>\n\n  <form>\n\n    <p>\n      <label for=\"nama\">Nama Lengkap</label><br>\n      <input type=\"text\" id=\"nama\" name=\"nama\"\n             required minlength=\"3\" autocomplete=\"name\">\n    </p>\n\n    <p>\n      <label for=\"surel\">Email</label><br>\n      <input type=\"email\" id=\"surel\" name=\"surel\"\n             required autocomplete=\"email\">\n    </p>\n\n    <p>\n      <label for=\"nisn\">NISN</label><br>\n      <input type=\"text\" id=\"nisn\" name=\"nisn\"\n             pattern=\"[0-9]{10}\" title=\"Isi 10 angka tanpa spasi\"\n             required aria-describedby=\"bantuan-nisn\">\n      <small id=\"bantuan-nisn\">Sepuluh angka, tanpa spasi atau tanda hubung.</small>\n    </p>\n\n    <p>\n      <label for=\"lahir\">Tanggal Lahir</label><br>\n      <input type=\"date\" id=\"lahir\" name=\"lahir\"\n             min=\"2004-01-01\" max=\"2012-12-31\" required>\n    </p>\n\n    <button type=\"submit\">Daftar</button>\n\n  </form>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-lanjutan-028"
+    },
+    {
+      "id": "html-11",
+      "no": "11",
+      "level": "Lanjutan",
+      "title": "Meta & SEO Dasar",
+      "lead": "Elemen di dalam <code>&lt;head&gt;</code> tidak terlihat pengunjung, tapi menentukan bagaimana halaman Anda muncul di hasil pencarian, saat dibagikan di media sosial, dan saat disimpan sebagai pintasan di layar utama ponsel.",
+      "concepts": [
+        { "title": "title", "body": "Judul di tab dan di hasil pencarian. Buat spesifik, sekitar 50–60 karakter." },
+        { "title": "meta description", "body": "Ringkasan satu-dua kalimat yang sering ditampilkan di bawah judul pada hasil pencarian." },
+        { "title": "Open Graph", "body": "Sekelompok <code>&lt;meta property=\"og:…\"&gt;</code> yang menentukan tampilan kartu saat tautan dibagikan." }
+      ],
+      "sections": [
+        {
+          "heading": "Menulis title yang bekerja",
+          "body": "<p>Taruh informasi paling khas di depan, karena hasil pencarian memotong judul yang panjang. Pola yang lazim:</p><pre class=\"snippet\">&lt;title&gt;CV Aisyah Ramadhani — Siswa Elektronika&lt;/title&gt;</pre><p>Hindari judul seragam seperti “Beranda” di setiap halaman. Kalau seseorang membuka sepuluh tab dari situs Anda, semuanya akan terlihat sama persis.</p>"
+        },
+        {
+          "heading": "description bukan faktor peringkat, tapi tetap penting",
+          "body": "<p>Mesin pencari tidak menaikkan peringkat berdasarkan <code>description</code>. Yang ia pengaruhi adalah <strong>apakah orang mengklik</strong> hasil pencarian Anda — dan itu berdampak nyata.</p><p>Tulis satu-dua kalimat jujur tentang isi halaman, sekitar 150 karakter. Bila dikosongkan, mesin pencari akan mengarang cuplikan sendiri dari isi halaman, dan hasilnya sering janggal.</p>"
+        },
+        {
+          "heading": "Open Graph untuk berbagi tautan",
+          "body": "<p>Saat tautan dibagikan ke WhatsApp, X, atau LinkedIn, aplikasi itu membaca meta Open Graph untuk membuat kartu pratinjau:</p><pre class=\"snippet\">&lt;meta property=\"og:title\" content=\"CV Aisyah Ramadhani\"&gt;\n&lt;meta property=\"og:description\" content=\"Profil, keahlian, dan proyek.\"&gt;\n&lt;meta property=\"og:image\" content=\"https://…/pratinjau.png\"&gt;\n&lt;meta property=\"og:url\" content=\"https://…/\"&gt;</pre><p>Perhatikan <code>og:image</code> harus URL <strong>absolut</strong> — alamat relatif tidak akan terbaca aplikasi lain.</p>"
+        },
+        {
+          "heading": "Struktur juga bagian dari SEO",
+          "body": "<p>Mesin pencari membaca hierarki heading, elemen semantik, dan teks <code>alt</code>. Halaman dengan satu <code>&lt;h1&gt;</code> yang jelas, heading berurutan, dan <code>alt</code> terisi jauh lebih mudah dipahami daripada halaman penuh <code>&lt;div&gt;</code>.</p><p>Artinya: sebagian besar pekerjaan SEO dasar sudah Anda selesaikan di bab 03 dan bab 08 — bukan lewat trik meta tag.</p><p>Satu tag lagi yang berguna: <code>&lt;link rel=\"canonical\" href=\"…\"&gt;</code> untuk menyatakan alamat resmi sebuah halaman, bila isi yang sama bisa diakses lewat beberapa URL.</p>"
+        }
+      ],
+      "referenceHead": ["Tag", "Kegunaan"],
+      "reference": [
+        { "kode": "<title>", "arti": "Judul tab dan judul hasil pencarian" },
+        { "kode": "meta description", "arti": "Cuplikan di bawah judul hasil pencarian" },
+        { "kode": "meta viewport", "arti": "Tata letak menyesuaikan lebar perangkat" },
+        { "kode": "meta charset", "arti": "Pengkodean karakter; tulis paling awal" },
+        { "kode": "og:title / og:image", "arti": "Kartu pratinjau saat tautan dibagikan" },
+        { "kode": "link rel=\"canonical\"", "arti": "Alamat resmi halaman ini" },
+        { "kode": "link rel=\"icon\"", "arti": "Ikon di tab browser" },
+        { "kode": "meta name=\"robots\"", "arti": "<code>noindex</code> mencegah halaman diindeks" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<meta property=\"og:image\" content=\"gambar.png\">",
+          "benar": "<meta property=\"og:image\" content=\"https://situs.saya/gambar.png\">",
+          "kenapa": "Aplikasi lain membaca meta ini dari servernya sendiri, jadi alamat relatif tidak bisa diterjemahkan."
+        },
+        {
+          "salah": "<title>Beranda</title> di setiap halaman",
+          "benar": "<title>Proyek — CV Aisyah Ramadhani</title>",
+          "kenapa": "Judul yang seragam membuat tab dan riwayat browser tidak bisa dibedakan, dan hasil pencarian jadi tidak informatif."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n  <title>CV Aisyah Ramadhani — Siswa Elektronika</title>\n  <meta name=\"description\"\n        content=\"CV pribadi berisi profil, keahlian, dan proyek robotika.\">\n\n  <meta property=\"og:title\" content=\"CV Aisyah Ramadhani\">\n  <meta property=\"og:description\" content=\"Profil, keahlian, dan proyek.\">\n  <meta property=\"og:image\" content=\"https://placehold.co/1200x630\">\n  <meta property=\"og:url\" content=\"https://aisyahr.github.io/cv-saya/\">\n\n  <link rel=\"canonical\" href=\"https://aisyahr.github.io/cv-saya/\">\n</head>\n<body>\n\n  <h1>Aisyah Ramadhani</h1>\n  <p>Siswa kelas XI TEI 2, tertarik pada elektronika dan pemrograman web.</p>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-lanjutan-031"
+    },
+    {
+      "id": "html-12",
+      "no": "12",
+      "level": "Lanjutan",
+      "title": "HTML5 API Ringan",
+      "lead": "Beberapa kemampuan HTML5 bekerja <strong>tanpa JavaScript sama sekali</strong>: <code>data-*</code> untuk menempelkan data pada elemen, <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> untuk panel lipat, <code>&lt;dialog&gt;</code> untuk kotak dialog, dan <code>&lt;template&gt;</code> untuk cetakan HTML yang belum dirender.",
+      "concepts": [
+        { "title": "data-*", "body": "Atribut bebas berawalan <code>data-</code>, misalnya <code>data-level=\"dasar\"</code>. Terbaca dari CSS dan JavaScript." },
+        { "title": "details/summary", "body": "Panel buka-tutup bawaan browser. <code>&lt;summary&gt;</code> menjadi judul yang bisa diklik." },
+        { "title": "template", "body": "Isinya ada di dokumen tetapi tidak digambar dan tidak memuat gambarnya." }
+      ],
+      "sections": [
+        {
+          "heading": "data-* : menempelkan data pada elemen",
+          "body": "<p>Namanya bebas asal diawali <code>data-</code> dan ditulis huruf kecil. Kegunaannya: menyimpan informasi yang dibutuhkan kode, tanpa menyalahgunakan <code>class</code> atau <code>id</code>.</p><p>Dari CSS, atribut ini bisa dipilih dan bahkan ditampilkan:</p><pre class=\"snippet\">li[data-level=\"lanjutan\"] { border-color: crimson; }\nli::after { content: attr(data-level); }</pre><p>Dari JavaScript, semuanya tersedia lewat <code>element.dataset</code> — <code>data-nilai-akhir</code> menjadi <code>dataset.nilaiAkhir</code>.</p>"
+        },
+        {
+          "heading": "details dan summary",
+          "body": "<p>Panel FAQ, spoiler, atau bagian “selengkapnya” — semuanya bisa dibuat tanpa JavaScript. Tambahkan atribut <code>open</code> agar panelnya terbuka sejak awal.</p><p>Bila beberapa <code>&lt;details&gt;</code> diberi atribut <code>name</code> yang sama, browser modern memperlakukannya sebagai akordeon: membuka satu akan menutup yang lain.</p><p>Nilai lebihnya dibanding buatan sendiri: pencarian di halaman (Ctrl+F) bisa menemukan teks di dalam panel yang tertutup, dan browser membukanya otomatis.</p>"
+        },
+        {
+          "heading": "template: cetakan yang belum hidup",
+          "body": "<p>Isi <code>&lt;template&gt;</code> ada di dokumen tetapi tidak digambar, tidak menjalankan script, dan tidak mengunduh gambarnya. Itulah gunanya: menyimpan cetakan HTML untuk digandakan lewat JavaScript nanti.</p><p>Konsekuensi yang perlu diingat: karena isinya berada di luar DOM utama, <code>document.querySelector(\"template li\")</code> tidak akan menemukan apa pun. Isinya diakses lewat <code>template.content</code>.</p>"
+        },
+        {
+          "heading": "Elemen bawaan lain yang jarang dipakai",
+          "body": "<ul class=\"prose-list\"><li><code>&lt;dialog&gt;</code> — kotak dialog asli, lengkap dengan latar gelap dan jebakan fokus, dibuka lewat <code>showModal()</code>.</li><li><code>&lt;progress value max&gt;</code> — bilah kemajuan.</li><li><code>&lt;meter value min max&gt;</code> — pengukuran dalam rentang, misalnya kapasitas disk.</li><li><code>&lt;datalist&gt;</code> — daftar saran untuk <code>&lt;input&gt;</code>, berbeda dari <code>&lt;select&gt;</code> karena pengguna tetap boleh mengetik nilai lain.</li></ul><p>Memakai elemen bawaan hampir selalu lebih baik daripada meniru perilakunya sendiri: aksesibilitas, dukungan papan ketik, dan perilaku di ponsel sudah ditangani browser.</p>"
+        }
+      ],
+      "referenceHead": ["Tag / Atribut", "Kegunaan"],
+      "reference": [
+        { "kode": "data-nama", "arti": "Data khusus pada elemen; dibaca CSS dan JS" },
+        { "kode": "<details open>", "arti": "Panel lipat; <code>open</code> membukanya sejak awal" },
+        { "kode": "<summary>", "arti": "Judul panel yang bisa diklik" },
+        { "kode": "<template>", "arti": "Cetakan HTML yang tidak dirender" },
+        { "kode": "<dialog>", "arti": "Kotak dialog bawaan browser" },
+        { "kode": "<progress value max>", "arti": "Bilah kemajuan" },
+        { "kode": "<meter value min max>", "arti": "Pengukuran dalam rentang" },
+        { "kode": "<datalist>", "arti": "Saran isian yang tetap bisa diketik bebas" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "<div data-Level=\"Dasar\">",
+          "benar": "<div data-level=\"dasar\">",
+          "kenapa": "Nama atribut <code>data-*</code> harus huruf kecil. Huruf besar akan diubah browser dan selector CSS Anda tidak lagi cocok."
+        },
+        {
+          "salah": "document.querySelector(\"template li\")",
+          "benar": "template.content.querySelector(\"li\")",
+          "kenapa": "Isi <code>&lt;template&gt;</code> berada di luar DOM utama, jadi tidak terjangkau pencarian dokumen biasa."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>HTML5 Ringan</title>\n  <style>\n    li[data-level=\"lanjutan\"] { font-weight: 700; }\n    li::after { content: \" (\" attr(data-level) \")\"; color: #8c491a; }\n  </style>\n</head>\n<body>\n\n  <h1>Tanya Jawab</h1>\n\n  <details open>\n    <summary>Apa itu HTML?</summary>\n    <p>Bahasa penanda untuk menyusun isi halaman web.</p>\n  </details>\n\n  <details>\n    <summary>Apa itu CSS?</summary>\n    <p>Bahasa untuk mengatur tampilan halaman.</p>\n  </details>\n\n  <h2>Daftar Materi</h2>\n  <ul>\n    <li data-level=\"dasar\">Struktur Dokumen</li>\n    <li data-level=\"menengah\">Tabel</li>\n    <li data-level=\"lanjutan\">HTML5 API</li>\n  </ul>\n\n  <h2>Progres</h2>\n  <progress value=\"7\" max=\"12\"></progress>\n\n  <template id=\"cetakan-item\">\n    <li data-level=\"\"></li>\n  </template>\n\n</body>\n</html>"
+      },
+      "practiceId": "html-lanjutan-034"
+    }
+  ]
+}

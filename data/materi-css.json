@@ -1,0 +1,595 @@
+{
+  "modul": "css",
+  "nama": "CSS",
+  "deskripsi": "Selector, box model, tipografi, positioning, Flexbox, Grid, transition, responsive, variables.",
+  "chapters": [
+    {
+      "id": "css-01",
+      "no": "01",
+      "level": "Dasar",
+      "title": "Selector & Sintaks",
+      "lead": "Satu aturan CSS terdiri dari <strong>selector</strong> (elemen mana yang dipilih) dan <strong>blok deklarasi</strong> (apa yang diubah). Di dalam blok, setiap baris berbentuk <code>properti: nilai;</code>. Sesederhana itu — yang butuh latihan adalah memilih selector yang tepat.",
+      "concepts": [
+        { "title": "Selector elemen", "body": "<code>p</code> memilih semua paragraf. Paling luas jangkauannya, paling lemah kekhususannya." },
+        { "title": "Selector class", "body": "Diawali titik: <code>.kartu</code> memilih semua elemen dengan <code>class=\"kartu\"</code>." },
+        { "title": "Selector id", "body": "Diawali pagar: <code>#judul</code> memilih elemen ber-<code>id=\"judul\"</code>. Hanya satu per halaman." }
+      ],
+      "sections": [
+        {
+          "heading": "Tiga cara menghubungkan CSS ke HTML",
+          "body": "<ul class=\"prose-list\"><li><strong>Eksternal</strong> — berkas <code>.css</code> terpisah, dipanggil dari <code>&lt;head&gt;</code> dengan <code>&lt;link rel=\"stylesheet\" href=\"style.css\"&gt;</code>. <em>Ini cara yang dianjurkan</em>, dan inilah yang dipakai di setiap soal CSS WebTM: panel <code>index.html</code> sudah memuat tautan itu, panel <code>style.css</code> adalah berkas yang Anda tulis.</li><li><strong>Internal</strong> — di dalam <code>&lt;style&gt;</code> pada <code>&lt;head&gt;</code>. Berguna untuk halaman tunggal atau contoh cepat.</li><li><strong>Inline</strong> — atribut <code>style</code> langsung di elemen. Hindari: tidak bisa dipakai ulang, sulit ditimpa, dan mencampur isi dengan tampilan.</li></ul>"
+        },
+        {
+          "heading": "Selector gabungan",
+          "body": "<p>Kekuatan CSS muncul saat selector digabung:</p><ul class=\"prose-list\"><li><code>.kartu p</code> — semua <code>&lt;p&gt;</code> <strong>di dalam</strong> <code>.kartu</code>, sedalam apa pun.</li><li><code>.kartu &gt; p</code> — hanya <code>&lt;p&gt;</code> yang jadi <strong>anak langsung</strong>.</li><li><code>h2 + p</code> — <code>&lt;p&gt;</code> yang tepat berada setelah <code>&lt;h2&gt;</code>.</li><li><code>h1, h2, h3</code> — koma berarti “atau”: ketiganya sekaligus.</li><li><code>a[target=\"_blank\"]</code> — memilih berdasarkan atribut.</li><li><code>*</code> — semua elemen.</li></ul><p>Perhatikan beda spasi dan koma. <code>h1 h2</code> berarti “h2 di dalam h1” (hampir tak pernah ada), sedangkan <code>h1, h2</code> berarti keduanya.</p>"
+        },
+        {
+          "heading": "Kalau dua aturan bertabrakan: kekhususan",
+          "body": "<p>Yang menang adalah yang <strong>lebih khusus</strong>. Hitung dengan tiga angka:</p><pre class=\"snippet\">jumlah id , jumlah class/atribut/pseudo-class , jumlah elemen\n\np                → 0,0,1\n.catatan         → 0,1,0\n.kartu p         → 0,1,1\n#judul           → 1,0,0\n#judul .catatan  → 1,1,0   ← paling khusus</pre><p>Bandingkan dari kiri: satu <code>id</code> mengalahkan berapa pun <code>class</code>. Bila kekhususannya sama persis, aturan yang ditulis <strong>paling bawah</strong> yang berlaku.</p><p><code>!important</code> menembus semua perhitungan itu — dan justru karena itu sebaiknya dihindari. Sekali dipakai, satu-satunya cara menimpanya adalah <code>!important</code> lain, dan stylesheet Anda mulai berperang dengan dirinya sendiri.</p>"
+        },
+        {
+          "heading": "Pewarisan",
+          "body": "<p>Sebagian properti diturunkan otomatis ke elemen anak — terutama yang berkaitan dengan teks: <code>color</code>, <code>font-family</code>, <code>font-size</code>, <code>line-height</code>. Karena itu menulis <code>font-family</code> sekali di <code>body</code> sudah cukup untuk seluruh halaman.</p><p>Properti kotak seperti <code>border</code>, <code>padding</code>, dan <code>background</code> <strong>tidak</strong> diturunkan. Kalau menginginkannya, tulis nilai <code>inherit</code> secara eksplisit.</p>"
+        }
+      ],
+      "referenceHead": ["Selector", "Memilih"],
+      "reference": [
+        { "kode": "p", "arti": "Semua elemen <code>&lt;p&gt;</code>" },
+        { "kode": ".kartu", "arti": "Semua elemen dengan <code>class=\"kartu\"</code>" },
+        { "kode": "#judul", "arti": "Elemen dengan <code>id=\"judul\"</code>" },
+        { "kode": ".kartu p", "arti": "Keturunan: <code>p</code> di dalam <code>.kartu</code>" },
+        { "kode": ".kartu > p", "arti": "Anak langsung saja" },
+        { "kode": "h2 + p", "arti": "Saudara tepat sesudahnya" },
+        { "kode": "h1, h2", "arti": "Keduanya sekaligus" },
+        { "kode": "a[target]", "arti": "Yang punya atribut <code>target</code>" }
+      ],
+      "pitfalls": [
+        {
+          "salah": ".kartu, p { color: red; }",
+          "benar": ".kartu p { color: red; }",
+          "kenapa": "Koma berarti “atau” — versi salah mewarnai <em>semua</em> paragraf di halaman. Spasi berarti “di dalam”."
+        },
+        {
+          "salah": "p { color: red !important; }",
+          "benar": ".artikel p { color: red; }",
+          "kenapa": "Naikkan kekhususan selector alih-alih memakai <code>!important</code>, yang hanya bisa ditimpa oleh <code>!important</code> lain."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Selector</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <h1 id=\"judul\">Profil</h1>\n\n  <div class=\"kartu\">\n    <p class=\"catatan\">Paragraf di dalam kartu.</p>\n    <p>Paragraf kedua di dalam kartu.</p>\n  </div>\n\n  <p>Paragraf di luar kartu.</p>\n\n</body>\n</html>",
+        "css": "body {\n  font-family: system-ui, sans-serif;\n}\n\n#judul {\n  color: #c67139;\n}\n\n.kartu {\n  border: 2px solid #201e1d;\n  padding: 16px;\n}\n\n/* Semua p di dalam .kartu */\n.kartu p {\n  color: #474238;\n}\n\n/* Lebih khusus: menang atas aturan di atas */\n#judul + .kartu .catatan {\n  color: #8c491a;\n  font-weight: 700;\n}"
+      },
+      "practiceId": "css-dasar-001"
+    },
+    {
+      "id": "css-02",
+      "no": "02",
+      "level": "Dasar",
+      "title": "Box Model",
+      "lead": "Setiap elemen adalah sebuah kotak berlapis: isi (<em>content</em>), lalu <code>padding</code>, lalu <code>border</code>, lalu <code>margin</code> di paling luar. Memahami lapisan ini menjelaskan hampir semua kejadian “kenapa jaraknya tidak sesuai” yang akan Anda temui.",
+      "concepts": [
+        { "title": "padding vs margin", "body": "<code>padding</code> ruang <em>di dalam</em> border dan ikut berwarna latar; <code>margin</code> ruang <em>di luar</em> border dan selalu transparan." },
+        { "title": "box-sizing", "body": "<code>border-box</code> membuat <code>width</code> sudah termasuk padding dan border — jauh lebih mudah dihitung." },
+        { "title": "Nilai singkat", "body": "<code>padding: 10px 20px</code> = atas-bawah 10, kiri-kanan 20. Empat nilai searah jarum jam dari atas." }
+      ],
+      "sections": [
+        {
+          "heading": "Kebiasaan yang menyelamatkan: border-box",
+          "body": "<p>Secara bawaan, <code>width: 200px</code> hanya mengatur lebar <strong>isi</strong>. Tambahkan <code>padding: 20px</code> dan <code>border: 3px</code>, dan kotak itu jadi 200 + 40 + 6 = <strong>246px</strong>. Inilah sumber pusing paling umum bagi pemula.</p><p>Karena itu hampir semua proyek modern mengawali stylesheet-nya dengan:</p><pre class=\"snippet\">*, *::before, *::after { box-sizing: border-box; }</pre><p>Setelah itu <code>width: 200px</code> berarti kotaknya benar-benar 200px, dan padding dimakan dari dalam. Jauh lebih mudah diramalkan.</p>"
+        },
+        {
+          "heading": "Margin yang menciut",
+          "body": "<p>Perilaku yang sering dikira bug: dua margin vertikal yang bersentuhan <strong>tidak dijumlahkan</strong>, melainkan diambil yang terbesar. Paragraf dengan <code>margin-bottom: 20px</code> di atas paragraf dengan <code>margin-top: 30px</code> menghasilkan jarak <strong>30px</strong>, bukan 50px.</p><p>Ini disebut <em>margin collapsing</em>, dan hanya terjadi pada margin vertikal. Margin kiri-kanan tidak pernah menciut. Penciutan juga berhenti bila di antara keduanya ada <code>padding</code>, <code>border</code>, atau bila induknya memakai Flexbox atau Grid.</p>"
+        },
+        {
+          "heading": "margin: auto untuk menengahkan",
+          "body": "<p>Cara klasik menengahkan elemen block: beri lebar, lalu <code>margin-left</code> dan <code>margin-right</code> bernilai <code>auto</code>. Browser membagi sisa ruang sama rata.</p><pre class=\"snippet\">.wadah {\n  max-width: 800px;\n  margin: 0 auto;   /* atas-bawah 0, kiri-kanan auto */\n}</pre><p>Ini hanya bekerja secara mendatar dan hanya bila elemennya punya lebar terbatas. Untuk penengahan vertikal, gunakan Flexbox (bab 05).</p><p>Gunakan <code>max-width</code>, bukan <code>width</code>: dengan <code>max-width</code>, kotak itu otomatis menyusut di layar sempit alih-alih memaksa halaman menggulir ke samping.</p>"
+        },
+        {
+          "heading": "Batas dan luapan",
+          "body": "<ul class=\"prose-list\"><li><code>min-width</code> / <code>min-height</code> — batas terkecil, tidak boleh lebih kecil dari ini.</li><li><code>max-width</code> / <code>max-height</code> — batas terbesar; menang atas <code>width</code> bila keduanya ditulis.</li><li><code>overflow: hidden | auto | scroll</code> — apa yang terjadi bila isi lebih besar dari kotaknya.</li></ul><p><code>overflow: hidden</code> memang menghilangkan luapan, tetapi juga <strong>memotong isi yang tidak terlihat itu untuk selamanya</strong>. Pakai <code>auto</code> bila isinya masih perlu dijangkau lewat gulir.</p>"
+        }
+      ],
+      "referenceHead": ["Properti", "Kegunaan"],
+      "reference": [
+        { "kode": "box-sizing", "arti": "<code>border-box</code> membuat <code>width</code> mencakup padding dan border" },
+        { "kode": "padding", "arti": "Ruang di dalam border; ikut berwarna latar" },
+        { "kode": "border", "arti": "Garis tepi: <code>tebal jenis warna</code>" },
+        { "kode": "margin", "arti": "Ruang di luar border; selalu transparan" },
+        { "kode": "width / height", "arti": "Ukuran kotak" },
+        { "kode": "max-width", "arti": "Batas terbesar; kunci layout responsif" },
+        { "kode": "overflow", "arti": "Perlakuan terhadap isi yang meluap" },
+        { "kode": "border-radius", "arti": "Kelengkungan sudut" }
+      ],
+      "pitfalls": [
+        {
+          "salah": ".kotak { width: 100%; padding: 20px; }",
+          "benar": ".kotak { width: 100%; padding: 20px; box-sizing: border-box; }",
+          "kenapa": "Tanpa <code>border-box</code>, lebar total menjadi 100% + 40px dan halaman menggulir ke samping."
+        },
+        {
+          "salah": ".wadah { width: 800px; margin: 0 auto; }",
+          "benar": ".wadah { max-width: 800px; margin: 0 auto; }",
+          "kenapa": "<code>width</code> tetap memaksa 800px di layar 360px. <code>max-width</code> membiarkannya menyusut."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Box Model</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"wadah\">\n    <div class=\"kotak\">Kotak dengan border-box</div>\n    <div class=\"kotak kecil\">Kotak kedua</div>\n  </div>\n\n</body>\n</html>",
+        "css": "*, *::before, *::after {\n  box-sizing: border-box;\n}\n\n.wadah {\n  max-width: 420px;\n  margin: 0 auto;\n}\n\n.kotak {\n  width: 100%;\n  padding: 20px;\n  border: 3px solid #201e1d;\n  border-radius: 12px;\n  margin-bottom: 16px;\n  background: #ffe1d0;\n}\n\n.kecil {\n  padding: 10px 20px;\n  background: #e1eecc;\n}"
+      },
+      "practiceId": "css-dasar-004"
+    },
+    {
+      "id": "css-03",
+      "no": "03",
+      "level": "Dasar",
+      "title": "Warna & Tipografi",
+      "lead": "Warna bisa ditulis sebagai nama (<code>red</code>), heksadesimal (<code>#ff0000</code>), atau fungsi (<code>rgb(255 0 0)</code>) — ketiganya menghasilkan warna yang persis sama. Tipografi menentukan apakah tulisan Anda nyaman dibaca, dan sebagian besar kerjanya ada pada tiga properti saja.",
+      "concepts": [
+        { "title": "color vs background-color", "body": "<code>color</code> mengatur warna teks; <code>background-color</code> mengatur warna latar kotaknya." },
+        { "title": "Satuan", "body": "<code>px</code> tetap, <code>%</code> relatif ke induk, <code>em</code> relatif ke font induk, <code>rem</code> relatif ke ukuran root." },
+        { "title": "line-height tanpa satuan", "body": "Tulis <code>line-height: 1.6</code>, bukan <code>1.6em</code> — agar tiap elemen menghitungnya dari ukuran fontnya sendiri." }
+      ],
+      "sections": [
+        {
+          "heading": "Empat cara menulis warna",
+          "body": "<ul class=\"prose-list\"><li><strong>Nama</strong> — <code>red</code>, <code>tomato</code>. Ada 148 nama; enak untuk coba-coba, kurang tepat untuk desain sungguhan.</li><li><strong>Heksadesimal</strong> — <code>#c67139</code>. Dua digit untuk merah, hijau, biru. Bentuk pendek <code>#f00</code> sama dengan <code>#ff0000</code>. Delapan digit menambahkan transparansi: <code>#c6713980</code>.</li><li><strong>rgb()</strong> — <code>rgb(198 113 57)</code>, dan <code>rgb(198 113 57 / 50%)</code> untuk setengah tembus pandang.</li><li><strong>hsl()</strong> — <code>hsl(26 55% 50%)</code>: rona, kejenuhan, kecerahan. Paling enak dipakai saat ingin membuat versi lebih terang atau lebih gelap dari satu warna — cukup ubah angka ketiganya.</li></ul><p>Penting: <code>background: transparent</code> berbeda dari <code>opacity: 0</code>. <code>opacity</code> memudarkan <strong>seluruh elemen beserta isinya</strong>, termasuk teks di dalamnya.</p>"
+        },
+        {
+          "heading": "px, em, atau rem?",
+          "body": "<p>Ini keputusan yang berdampak pada aksesibilitas, bukan sekadar selera:</p><ul class=\"prose-list\"><li><code>px</code> — ukuran mati. Untuk <code>font-size</code>, ini mengabaikan pengaturan ukuran huruf yang dipilih pengguna di browsernya.</li><li><code>em</code> — relatif terhadap font <strong>induk</strong>. Bertumpuk: <code>1.2em</code> di dalam <code>1.2em</code> menjadi 1.44×. Berguna untuk <code>padding</code> yang ikut membesar bersama teks, merepotkan untuk <code>font-size</code> bersarang.</li><li><code>rem</code> — relatif terhadap ukuran <strong>root</strong> (biasanya 16px). Tidak bertumpuk, jadi selalu bisa diramalkan. <strong>Ini pilihan bawaan yang tepat untuk <code>font-size</code>.</strong></li></ul><p>Karena root default 16px, <code>1rem</code> = 16px, <code>1.5rem</code> = 24px, <code>2rem</code> = 32px.</p>"
+        },
+        {
+          "heading": "Tumpukan font",
+          "body": "<p><code>font-family</code> ditulis sebagai daftar cadangan, dipisah koma. Browser memakai yang pertama tersedia di perangkat itu:</p><pre class=\"snippet\">font-family: \"Figtree\", system-ui, sans-serif;</pre><p>Nama yang mengandung spasi dibungkus tanda kutip. Nama terakhir harus berupa keluarga umum — <code>sans-serif</code>, <code>serif</code>, atau <code>monospace</code> — sebagai jaring pengaman terakhir.</p><p><code>system-ui</code> memakai font antarmuka sistem: Segoe UI di Windows, San Francisco di macOS. Cepat karena tidak perlu diunduh sama sekali.</p>"
+        },
+        {
+          "heading": "Keterbacaan: tiga angka yang menentukan",
+          "body": "<ul class=\"prose-list\"><li><strong><code>line-height</code> 1.5–1.7</strong> untuk teks panjang. Terlalu rapat membuat mata kehilangan baris; terlalu renggang memutus hubungan antarbaris.</li><li><strong>Lebar baris 45–75 karakter.</strong> Atur dengan <code>max-width: 65ch</code> — satuan <code>ch</code> berarti selebar karakter “0”.</li><li><strong>Kontras minimal 4.5:1</strong> antara warna teks dan latar. Abu-abu muda di atas putih terlihat elegan di layar desainer, dan tidak terbaca di layar ponsel yang kena matahari.</li></ul>"
+        }
+      ],
+      "referenceHead": ["Properti", "Kegunaan"],
+      "reference": [
+        { "kode": "color", "arti": "Warna teks" },
+        { "kode": "background-color", "arti": "Warna latar kotak" },
+        { "kode": "font-family", "arti": "Daftar font beserta cadangannya" },
+        { "kode": "font-size", "arti": "Ukuran huruf; utamakan <code>rem</code>" },
+        { "kode": "font-weight", "arti": "Ketebalan: 400 normal, 700 tebal" },
+        { "kode": "line-height", "arti": "Jarak antarbaris; tulis tanpa satuan" },
+        { "kode": "text-align", "arti": "Perataan: <code>left</code>, <code>center</code>, <code>right</code>" },
+        { "kode": "letter-spacing", "arti": "Jarak antarhuruf" },
+        { "kode": "text-transform", "arti": "<code>uppercase</code>, <code>lowercase</code>, <code>capitalize</code>" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "body { line-height: 1.6em; }",
+          "benar": "body { line-height: 1.6; }",
+          "kenapa": "Dengan satuan, nilainya dihitung sekali di <code>body</code> lalu diwariskan sebagai angka mati — heading besar jadi bertumpuk."
+        },
+        {
+          "salah": ".pudar { opacity: 0.5; }",
+          "benar": ".pudar { background: rgb(0 0 0 / 50%); }",
+          "kenapa": "<code>opacity</code> memudarkan seluruh elemen termasuk teksnya. Untuk latar semi-transparan, pakai warna beralfa."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Tipografi</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <article class=\"tulisan\">\n    <h1>Judul Besar</h1>\n    <p class=\"pengantar\">Paragraf pengantar yang sedikit lebih besar.</p>\n    <p>\n      Paragraf biasa dengan lebar baris yang dibatasi agar tetap nyaman dibaca.\n      Mata manusia kesulitan menemukan awal baris berikutnya kalau barisnya\n      terlalu panjang.\n    </p>\n    <p class=\"catatan\">CATATAN KECIL</p>\n  </article>\n\n</body>\n</html>",
+        "css": "body {\n  font-family: Georgia, \"Times New Roman\", serif;\n  background-color: #f5ead8;\n  color: #201e1d;\n  line-height: 1.6;\n}\n\n.tulisan {\n  max-width: 60ch;\n  margin: 0 auto;\n  padding: 24px;\n}\n\nh1 {\n  font-size: 2.5rem;\n  color: #8c491a;\n  line-height: 1.15;\n}\n\n.pengantar {\n  font-size: 1.125rem;\n  color: #474238;\n}\n\n.catatan {\n  font-size: 0.75rem;\n  font-weight: 700;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: #645c50;\n}"
+      },
+      "practiceId": "css-dasar-007"
+    },
+    {
+      "id": "css-04",
+      "no": "04",
+      "level": "Menengah",
+      "title": "Positioning & Display",
+      "lead": "<code>display</code> menentukan bagaimana elemen ikut mengalir di halaman; <code>position</code> menentukan terhadap apa posisinya dihitung. Dua properti ini menjelaskan sebagian besar kejadian “kenapa elemen saya ada di sana”.",
+      "concepts": [
+        { "title": "display", "body": "<code>block</code> memakai baris penuh, <code>inline</code> mengikuti teks, <code>inline-block</code> gabungan keduanya, <code>none</code> menghilangkan sepenuhnya." },
+        { "title": "position", "body": "<code>static</code> (bawaan), <code>relative</code> bergeser dari posisi asli, <code>absolute</code> menempel ke induk berposisi, <code>fixed</code> menempel ke layar, <code>sticky</code> gabungan." },
+        { "title": "z-index", "body": "Menentukan siapa di atas siapa. Hanya bekerja pada elemen yang <code>position</code>-nya bukan <code>static</code>." }
+      ],
+      "sections": [
+        {
+          "heading": "inline, block, dan yang di antaranya",
+          "body": "<p>Elemen <code>inline</code> punya batasan yang sering mengejutkan: <code>width</code>, <code>height</code>, serta <code>margin</code> dan <code>padding</code> atas-bawah <strong>tidak berpengaruh</strong> padanya. Ia hanya selebar isinya dan mengalir bersama teks.</p><p><code>inline-block</code> memecahkan itu: tetap mengalir menyamping seperti teks, tetapi menerima semua properti ukuran seperti block. Cocok untuk tombol, lencana, dan item menu mendatar.</p><p>Perbedaan penting <code>display: none</code> vs <code>visibility: hidden</code>: yang pertama menghapus elemen dari alur — ruangnya ikut hilang dan pembaca layar melewatinya. Yang kedua menyembunyikan tampilannya tapi <strong>ruangnya tetap kosong</strong> di sana.</p>"
+        },
+        {
+          "heading": "Lima nilai position",
+          "body": "<ul class=\"prose-list\"><li><code>static</code> — bawaan. Mengikuti alur normal; <code>top</code>/<code>left</code> diabaikan.</li><li><code>relative</code> — tetap memakan ruang aslinya, tapi digambar bergeser. Perannya yang paling sering: menjadi <strong>acuan</strong> bagi anak ber-<code>absolute</code>.</li><li><code>absolute</code> — keluar dari alur; ruangnya hilang. Diposisikan terhadap induk terdekat yang berposisi.</li><li><code>fixed</code> — menempel ke jendela browser dan tidak ikut menggulir.</li><li><code>sticky</code> — normal sampai batas <code>top</code> tercapai, lalu menempel. Wajib disertai nilai <code>top</code>, dan tidak bekerja bila ada induk ber-<code>overflow: hidden</code>.</li></ul>"
+        },
+        {
+          "heading": "Jebakan absolute yang paling sering",
+          "body": "<p><code>position: absolute</code> mencari induk terdekat yang <code>position</code>-nya <strong>bukan</strong> <code>static</code>. Bila tidak ada satu pun, ia menempel ke seluruh halaman — inilah penyebab elemen yang tiba-tiba “kabur” ke pojok kiri atas.</p><p>Obatnya satu baris: beri induknya <code>position: relative</code>. Induk itu tidak akan bergeser sedikit pun (karena tidak diberi <code>top</code>/<code>left</code>), tapi kini menjadi acuan.</p><pre class=\"snippet\">.induk   { position: relative; }\n.lencana { position: absolute; top: 0; right: 0; }</pre>"
+        },
+        {
+          "heading": "z-index dan konteks penumpukan",
+          "body": "<p>Bila elemen saling menimpa, <code>z-index</code> menentukan urutannya — angka lebih besar di atas. Dua syaratnya sering terlupa:</p><ul class=\"prose-list\"><li>Hanya bekerja bila <code>position</code> bukan <code>static</code> (atau elemennya anak Flex/Grid).</li><li>Nilainya <strong>hanya dibandingkan dalam satu konteks penumpukan</strong>. Anak dengan <code>z-index: 9999</code> tetap tidak bisa naik di atas elemen yang mengalahkan induknya.</li></ul><p>Karena itu, <code>z-index: 9999</code> yang tidak berefek biasanya bukan soal angka, melainkan soal induk.</p>"
+        }
+      ],
+      "referenceHead": ["Nilai", "Perilaku"],
+      "reference": [
+        { "kode": "display: block", "arti": "Baris penuh, menerima semua ukuran" },
+        { "kode": "display: inline", "arti": "Mengikuti teks; menolak width/height" },
+        { "kode": "display: inline-block", "arti": "Mengalir menyamping, tapi menerima ukuran" },
+        { "kode": "display: none", "arti": "Hilang total; ruangnya ikut hilang" },
+        { "kode": "visibility: hidden", "arti": "Tak terlihat, tapi ruangnya tetap ada" },
+        { "kode": "position: relative", "arti": "Bergeser dari posisi asli; jadi acuan anak" },
+        { "kode": "position: absolute", "arti": "Keluar alur, menempel ke induk berposisi" },
+        { "kode": "position: fixed", "arti": "Menempel ke layar, tidak ikut menggulir" },
+        { "kode": "position: sticky", "arti": "Menempel setelah batas gulir tertentu" },
+        { "kode": "z-index", "arti": "Urutan tumpukan dalam satu konteks" }
+      ],
+      "pitfalls": [
+        {
+          "salah": ".lencana { position: absolute; top: 0; }",
+          "benar": ".induk { position: relative; } .lencana { position: absolute; top: 0; }",
+          "kenapa": "Tanpa induk berposisi, elemen absolut menempel ke seluruh halaman dan kabur ke pojok atas."
+        },
+        {
+          "salah": ".menu { z-index: 9999; }",
+          "benar": ".menu { position: relative; z-index: 10; }",
+          "kenapa": "<code>z-index</code> tidak berpengaruh pada elemen <code>static</code>. Memperbesar angkanya tidak akan menolong."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Positioning</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"induk\">\n    <span class=\"lencana\">Baru</span>\n    <h2>Kartu Materi</h2>\n    <p>Lencana di pojok kanan atas diposisikan absolut terhadap kartu ini.</p>\n    <a class=\"tombol\" href=\"#\">Buka</a>\n    <a class=\"tombol\" href=\"#\">Bagikan</a>\n  </div>\n\n  <p class=\"rahasia\">Paragraf ini disembunyikan.</p>\n  <p>Paragraf terakhir.</p>\n\n</body>\n</html>",
+        "css": "*, *::before, *::after { box-sizing: border-box; }\n\nbody {\n  font-family: system-ui, sans-serif;\n  padding: 40px 24px;\n}\n\n.induk {\n  position: relative;\n  max-width: 320px;\n  padding: 24px;\n  border: 2px solid #201e1d;\n  background: #fff;\n}\n\n.lencana {\n  position: absolute;\n  top: -12px;\n  right: -12px;\n  display: inline-block;\n  padding: 4px 12px;\n  border: 2px solid #201e1d;\n  border-radius: 999px;\n  background: #c67139;\n  color: #fff;\n  font-size: 0.75rem;\n}\n\n.tombol {\n  display: inline-block;\n  margin-top: 8px;\n  padding: 8px 16px;\n  border: 2px solid #201e1d;\n  background: #e1eecc;\n  color: #201e1d;\n  text-decoration: none;\n}\n\n.rahasia {\n  display: none;\n}"
+      },
+      "practiceId": "css-menengah-010"
+    },
+    {
+      "id": "css-05",
+      "no": "05",
+      "level": "Menengah",
+      "title": "Flexbox",
+      "lead": "Flexbox menyusun elemen dalam <strong>satu garis</strong> — mendatar atau menurun. Cukup beri <code>display: flex</code> pada wadahnya, dan anak-anaknya langsung tersusun sebaris. Inilah alat yang menyelesaikan sebagian besar masalah tata letak sehari-hari.",
+      "concepts": [
+        { "title": "justify-content", "body": "Perataan pada sumbu <strong>utama</strong> (mendatar bila <code>flex-direction: row</code>)." },
+        { "title": "align-items", "body": "Perataan pada sumbu <strong>silang</strong> (menurun bila arahnya <code>row</code>)." },
+        { "title": "gap", "body": "Jarak antaranak. Menggantikan trik margin yang merepotkan." }
+      ],
+      "sections": [
+        {
+          "heading": "Sumbu berganti mengikuti arah",
+          "body": "<p>Ini sumber kebingungan nomor satu saat belajar Flexbox. Begitu <code>flex-direction</code> diubah menjadi <code>column</code>, kedua properti perataan <strong>bertukar peran</strong>:</p><pre class=\"snippet\">flex-direction: row      (bawaan)\n  justify-content → kiri-kanan\n  align-items     → atas-bawah\n\nflex-direction: column\n  justify-content → atas-bawah\n  align-items     → kiri-kanan</pre><p>Cara mengingatnya: <code>justify-content</code> selalu bekerja <strong>searah</strong> aliran, <code>align-items</code> selalu <strong>tegak lurus</strong> terhadapnya.</p>"
+        },
+        {
+          "heading": "Menengahkan apa pun, arah mana pun",
+          "body": "<p>Masalah yang dulu butuh trik rumit kini selesai dengan tiga baris:</p><pre class=\"snippet\">.wadah {\n  display: flex;\n  justify-content: center;  /* tengah mendatar */\n  align-items: center;      /* tengah menurun  */\n  min-height: 100vh;\n}</pre><p>Perhatikan <code>min-height</code>: tanpa tinggi yang jelas, tidak ada ruang vertikal untuk ditengahkan.</p>"
+        },
+        {
+          "heading": "flex-grow, flex-shrink, flex-basis",
+          "body": "<p>Properti ini dipasang pada <strong>anak</strong>, bukan wadah, dan menentukan bagaimana ruang dibagi:</p><ul class=\"prose-list\"><li><code>flex-grow</code> — seberapa rakus mengambil sisa ruang. <code>0</code> berarti tidak melar.</li><li><code>flex-shrink</code> — seberapa rela menyusut saat ruang kurang. <code>0</code> berarti menolak menyusut.</li><li><code>flex-basis</code> — ukuran awal sebelum sisa ruang dibagi.</li></ul><p>Singkatannya <code>flex</code>. Dua pola yang menutupi hampir semua kebutuhan:</p><pre class=\"snippet\">flex: 1;      /* isi sisa ruang, boleh menyusut */\nflex: none;   /* pertahankan ukuran, jangan diutak-atik */</pre><p>Pola sidebar tetap + konten melar: beri sidebar <code>flex: none; width: 240px</code> dan konten <code>flex: 1</code>.</p>"
+        },
+        {
+          "heading": "flex-wrap dan margin-left: auto",
+          "body": "<p>Secara bawaan Flexbox <strong>memaksa semuanya muat dalam satu baris</strong>, memampatkan anak-anaknya sampai gepeng. <code>flex-wrap: wrap</code> mengizinkannya turun ke baris berikutnya — hampir selalu yang Anda inginkan pada tata letak responsif.</p><p>Satu trik yang sangat berguna: <code>margin-left: auto</code> pada salah satu anak akan mendorong anak itu dan seterusnya ke ujung kanan. Inilah cara termudah membuat menu dengan logo di kiri dan tombol di kanan.</p>"
+        }
+      ],
+      "referenceHead": ["Properti", "Dipasang di", "Kegunaan"],
+      "reference": [
+        { "kode": "display: flex", "arti": "<em>wadah</em> — mengaktifkan Flexbox" },
+        { "kode": "flex-direction", "arti": "<em>wadah</em> — <code>row</code> / <code>column</code> / <code>*-reverse</code>" },
+        { "kode": "justify-content", "arti": "<em>wadah</em> — perataan sumbu utama" },
+        { "kode": "align-items", "arti": "<em>wadah</em> — perataan sumbu silang" },
+        { "kode": "flex-wrap", "arti": "<em>wadah</em> — izinkan turun ke baris baru" },
+        { "kode": "gap", "arti": "<em>wadah</em> — jarak antaranak" },
+        { "kode": "flex: 1", "arti": "<em>anak</em> — isi sisa ruang" },
+        { "kode": "flex: none", "arti": "<em>anak</em> — pertahankan ukuran asli" },
+        { "kode": "align-self", "arti": "<em>anak</em> — timpa <code>align-items</code> untuk satu anak" }
+      ],
+      "pitfalls": [
+        {
+          "salah": ".baris { display: flex; align-items: center; } /* ingin tengah mendatar */",
+          "benar": ".baris { display: flex; justify-content: center; }",
+          "kenapa": "Pada arah <code>row</code>, <code>align-items</code> mengatur atas-bawah. Untuk kiri-kanan gunakan <code>justify-content</code>."
+        },
+        {
+          "salah": ".kartu-list { display: flex; }",
+          "benar": ".kartu-list { display: flex; flex-wrap: wrap; gap: 16px; }",
+          "kenapa": "Tanpa <code>flex-wrap</code>, semua kartu dipaksa muat dalam satu baris dan menjadi gepeng di layar sempit."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Flexbox</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <header class=\"bar\">\n    <span class=\"logo\">WebTM</span>\n    <a href=\"#\">Materi</a>\n    <a href=\"#\">Latihan</a>\n    <a class=\"kanan\" href=\"#\">Keluar</a>\n  </header>\n\n  <div class=\"tata\">\n    <aside class=\"sidebar\">Sidebar tetap 140px</aside>\n    <main class=\"konten\">Konten mengisi sisa ruang</main>\n  </div>\n\n  <div class=\"baris\">\n    <div class=\"kotak\">1</div>\n    <div class=\"kotak\">2</div>\n    <div class=\"kotak\">3</div>\n  </div>\n\n</body>\n</html>",
+        "css": "*, *::before, *::after { box-sizing: border-box; }\n\nbody { font-family: system-ui, sans-serif; padding: 20px; }\n\n/* Menu: logo kiri, satu tautan didorong ke kanan */\n.bar {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  padding: 12px 16px;\n  border: 2px solid #201e1d;\n  background: #201e1d;\n  color: #f5ead8;\n}\n.bar a { color: #dcd3c4; }\n.logo { font-weight: 700; }\n.kanan { margin-left: auto; }\n\n/* Sidebar tetap + konten melar */\n.tata {\n  display: flex;\n  gap: 12px;\n  margin-top: 20px;\n}\n.sidebar {\n  flex: none;\n  width: 140px;\n  padding: 16px;\n  background: #e1eecc;\n  border: 2px solid #201e1d;\n}\n.konten {\n  flex: 1;\n  padding: 16px;\n  background: #fff;\n  border: 2px solid #201e1d;\n}\n\n/* Tiga kotak, jarak merata */\n.baris {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 12px;\n  margin-top: 20px;\n  padding: 16px;\n  border: 2px solid #201e1d;\n}\n.kotak {\n  padding: 18px 24px;\n  background: #ffe1d0;\n  border: 2px solid #201e1d;\n}"
+      },
+      "practiceId": "css-menengah-013"
+    },
+    {
+      "id": "css-06",
+      "no": "06",
+      "level": "Menengah",
+      "title": "Pseudo-class & Pseudo-element",
+      "lead": "Pseudo-<strong>class</strong> (satu titik dua) memilih elemen berdasarkan <em>keadaannya</em>, seperti <code>:hover</code>. Pseudo-<strong>element</strong> (dua titik dua) membuat bagian semu di dalam elemen, seperti <code>::before</code>. Keduanya memperluas jangkauan CSS tanpa menambah satu tag pun di HTML.",
+      "concepts": [
+        { "title": ":hover, :focus, :active", "body": "Keadaan interaksi: kursor di atasnya, sedang difokus, dan sedang ditekan." },
+        { "title": ":nth-child", "body": "Memilih anak ke-n. <code>:nth-child(odd)</code> untuk baris ganjil, <code>2n</code> untuk kelipatan dua." },
+        { "title": "::before / ::after", "body": "Menyisipkan isi semu. Wajib punya <code>content</code>, walau hanya <code>content: \"\"</code>." }
+      ],
+      "sections": [
+        {
+          "heading": "Jangan lupakan :focus-visible",
+          "body": "<p>Hampir semua orang menulis <code>:hover</code>, dan lupa bahwa pengguna papan ketik tidak punya kursor. Mereka bergerak dengan Tab, dan yang menandai posisinya adalah cincin fokus.</p><p><strong>Jangan pernah menulis <code>outline: none</code></strong> tanpa menyediakan penanda pengganti — itu membuat halaman mustahil dinavigasi tanpa tetikus.</p><p><code>:focus-visible</code> adalah jalan tengahnya: cincin fokus hanya muncul saat pengguna memakai papan ketik, tidak saat mengklik dengan tetikus.</p><pre class=\"snippet\">.tombol:focus-visible {\n  outline: 3px solid #c67139;\n  outline-offset: 2px;\n}</pre>"
+        },
+        {
+          "heading": "Pola :nth-child",
+          "body": "<ul class=\"prose-list\"><li><code>:nth-child(3)</code> — anak ketiga.</li><li><code>:nth-child(odd)</code> / <code>(even)</code> — ganjil / genap, untuk tabel belang.</li><li><code>:nth-child(3n)</code> — kelipatan tiga.</li><li><code>:nth-child(n+4)</code> — anak keempat dan seterusnya.</li><li><code>:first-child</code>, <code>:last-child</code>, <code>:only-child</code>.</li></ul><p>Perbedaan halus tapi penting: <code>:nth-child</code> menghitung <strong>semua</strong> saudara, sedangkan <code>:nth-of-type</code> hanya menghitung yang jenisnya sama. Kalau <code>p:nth-child(2)</code> tidak berefek, biasanya karena elemen kedua di sana ternyata bukan <code>&lt;p&gt;</code>.</p>"
+        },
+        {
+          "heading": "content: lebih dari sekadar teks",
+          "body": "<p><code>::before</code> dan <code>::after</code> menyisipkan isi semu sebagai anak pertama dan terakhir. Nilai <code>content</code> bisa berupa:</p><ul class=\"prose-list\"><li>Teks: <code>content: \"→ \";</code></li><li>Kosong, untuk bentuk murni: <code>content: \"\";</code> lalu diberi ukuran dan latar.</li><li>Isi atribut: <code>content: attr(data-level);</code></li></ul><p>Tanpa <code>content</code>, pseudo-element <strong>tidak muncul sama sekali</strong> — ini penyebab paling umum “kenapa ::after saya tidak kelihatan”.</p><p>Batasannya: isi semu ini tidak ada di DOM, tidak bisa dipilih JavaScript, dan sering dilewati pembaca layar. Gunakan untuk hiasan, jangan untuk informasi penting.</p>"
+        },
+        {
+          "heading": "Pseudo-class struktural lain yang berguna",
+          "body": "<ul class=\"prose-list\"><li><code>:not(.aktif)</code> — semua yang <em>bukan</em>.</li><li><code>:is(h1, h2, h3)</code> — penyingkat daftar selector panjang.</li><li><code>:has(img)</code> — elemen yang <em>mengandung</em> sesuatu. Ini “selector induk” yang lama dinanti.</li><li><code>:checked</code>, <code>:disabled</code>, <code>:required</code>, <code>:invalid</code> — keadaan isian form; memungkinkan validasi terlihat tanpa JavaScript.</li><li><code>::placeholder</code>, <code>::selection</code>, <code>::marker</code> — menata teks bayangan, teks tersorot, dan bulatan daftar.</li></ul>"
+        }
+      ],
+      "referenceHead": ["Selector", "Memilih"],
+      "reference": [
+        { "kode": ":hover", "arti": "Kursor berada di atasnya" },
+        { "kode": ":focus-visible", "arti": "Difokus lewat papan ketik" },
+        { "kode": ":active", "arti": "Sedang ditekan" },
+        { "kode": ":nth-child(n)", "arti": "Anak ke-n di antara semua saudara" },
+        { "kode": ":first-child / :last-child", "arti": "Anak pertama / terakhir" },
+        { "kode": ":not(sel)", "arti": "Semua yang bukan <code>sel</code>" },
+        { "kode": ":has(sel)", "arti": "Elemen yang mengandung <code>sel</code>" },
+        { "kode": ":checked", "arti": "Checkbox atau radio yang tercentang" },
+        { "kode": "::before / ::after", "arti": "Isi semu; butuh <code>content</code>" },
+        { "kode": "::placeholder", "arti": "Teks bayangan pada isian form" }
+      ],
+      "pitfalls": [
+        {
+          "salah": ".ikon::before { background: red; width: 10px; }",
+          "benar": ".ikon::before { content: \"\"; background: red; width: 10px; display: inline-block; }",
+          "kenapa": "Tanpa <code>content</code>, pseudo-element tidak dirender sama sekali — berapa pun properti lain yang Anda tulis."
+        },
+        {
+          "salah": ".tombol:focus { outline: none; }",
+          "benar": ".tombol:focus-visible { outline: 3px solid #c67139; }",
+          "kenapa": "Menghapus cincin fokus tanpa penggantinya membuat halaman tidak bisa dinavigasi dengan papan ketik."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Pseudo-class</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <ul class=\"daftar\">\n    <li>Fisika</li>\n    <li>Informatika</li>\n    <li>Matematika</li>\n    <li>Kimia</li>\n  </ul>\n\n  <p>\n    <a class=\"tombol\" href=\"#\">Arahkan kursor atau tekan Tab ke sini</a>\n  </p>\n\n  <p><input class=\"isian\" type=\"text\" placeholder=\"Ketik nama Anda\"></p>\n\n</body>\n</html>",
+        "css": "body { font-family: system-ui, sans-serif; padding: 24px; }\n\n.daftar {\n  list-style: none;\n  padding: 0;\n  max-width: 320px;\n}\n\n.daftar li {\n  padding: 10px 14px;\n  border: 2px solid #201e1d;\n  border-bottom: none;\n}\n\n.daftar li:last-child {\n  border-bottom: 2px solid #201e1d;\n}\n\n.daftar li:nth-child(odd) {\n  background: #e1eecc;\n}\n\n.daftar li::before {\n  content: \"> \";\n  color: #c67139;\n  font-weight: 700;\n}\n\n.daftar li:hover {\n  background: #ffe1d0;\n}\n\n.tombol {\n  display: inline-block;\n  padding: 10px 20px;\n  border: 2px solid #201e1d;\n  background: #fff;\n  color: #201e1d;\n  text-decoration: none;\n}\n\n.tombol:hover { background: #ffe1d0; }\n.tombol:active { background: #ffc6a5; }\n\n.tombol:focus-visible {\n  outline: 3px solid #c67139;\n  outline-offset: 3px;\n}\n\n.isian::placeholder { color: #a19786; font-style: italic; }"
+      },
+      "practiceId": "css-menengah-016"
+    },
+    {
+      "id": "css-07",
+      "no": "07",
+      "level": "Lanjutan",
+      "title": "CSS Grid",
+      "lead": "Kalau Flexbox menata <strong>satu garis</strong>, Grid menata <strong>dua dimensi sekaligus</strong>: baris dan kolom. Wadahnya diberi <code>display: grid</code>, lalu kolomnya dijelaskan lewat <code>grid-template-columns</code>. Untuk kerangka halaman, Grid hampir selalu pilihan yang lebih tepat daripada Flexbox bersarang.",
+      "concepts": [
+        { "title": "fr", "body": "Satuan pecahan sisa ruang. <code>1fr 2fr</code> berarti kolom kedua dua kali lebih lebar." },
+        { "title": "repeat()", "body": "<code>repeat(3, 1fr)</code> menyingkat tiga kolom sama lebar." },
+        { "title": "minmax()", "body": "<code>minmax(200px, 1fr)</code>: minimal 200px, selebihnya boleh melar." }
+      ],
+      "sections": [
+        {
+          "heading": "Mendefinisikan kolom dan baris",
+          "body": "<pre class=\"snippet\">grid-template-columns: 200px 1fr 200px;   /* tiga kolom, tengah melar */\ngrid-template-columns: repeat(4, 1fr);    /* empat kolom sama lebar   */\ngrid-template-rows: auto 1fr auto;        /* header, isi, footer      */\ngap: 16px;                                /* jarak baris dan kolom    */</pre><p><code>auto</code> berarti setinggi isinya; <code>1fr</code> berarti ambil sisa ruang. Kombinasi <code>auto 1fr auto</code> pada baris adalah pola klasik halaman dengan footer yang selalu menempel di bawah.</p>"
+        },
+        {
+          "heading": "Galeri responsif tanpa satu pun media query",
+          "body": "<p>Ini alasan banyak orang berpindah ke Grid:</p><pre class=\"snippet\">.galeri {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 16px;\n}</pre><p>Browser menghitung sendiri berapa kolom yang muat: empat di layar lebar, dua di tablet, satu di ponsel — dan semuanya tetap mengisi lebar penuh. Tidak ada satu pun breakpoint yang perlu Anda rawat.</p><p>Beda <code>auto-fit</code> dan <code>auto-fill</code>: bila itemnya sedikit, <code>auto-fit</code> melebarkan yang ada untuk mengisi baris, sedangkan <code>auto-fill</code> menyisakan kolom kosong.</p>"
+        },
+        {
+          "heading": "Menempatkan item pada jalur tertentu",
+          "body": "<p>Jalur (<em>grid line</em>) dihitung dari 1. Sebuah item bisa ditempatkan atau direntangkan:</p><pre class=\"snippet\">.utama {\n  grid-column: 1 / 3;    /* dari jalur 1 sampai 3 = dua kolom */\n  grid-row: 2 / 4;\n}\n.lebar { grid-column: span 2; }   /* rentangkan dua kolom      */\n.penuh { grid-column: 1 / -1; }   /* dari kiri sampai kanan     */</pre><p><code>-1</code> berarti jalur terakhir, jadi <code>1 / -1</code> adalah cara paling andal membuat sesuatu selebar penuh berapa pun jumlah kolomnya.</p>"
+        },
+        {
+          "heading": "grid-template-areas: tata letak yang terbaca",
+          "body": "<p>Cara paling mudah dibaca untuk kerangka halaman — Anda benar-benar menggambar tata letaknya:</p><pre class=\"snippet\">.halaman {\n  display: grid;\n  grid-template-columns: 200px 1fr;\n  grid-template-areas:\n    \"kepala kepala\"\n    \"sisi   isi\"\n    \"kaki   kaki\";\n}\nheader { grid-area: kepala; }\naside  { grid-area: sisi; }\nmain   { grid-area: isi; }\nfooter { grid-area: kaki; }</pre><p>Mengubah tata letak di media query jadi sangat mudah: cukup tulis ulang gambar areanya.</p><p><strong>Kapan Grid, kapan Flexbox?</strong> Grid bila Anda mengatur baris <em>dan</em> kolom sekaligus, atau ingin mengendalikan tata letak dari wadahnya. Flexbox bila isinya satu garis dan ukurannya ditentukan isi masing-masing anak. Keduanya sering dipakai bersamaan.</p>"
+        }
+      ],
+      "referenceHead": ["Properti", "Kegunaan"],
+      "reference": [
+        { "kode": "display: grid", "arti": "Mengaktifkan Grid pada wadah" },
+        { "kode": "grid-template-columns", "arti": "Definisi kolom" },
+        { "kode": "grid-template-rows", "arti": "Definisi baris" },
+        { "kode": "gap / row-gap / column-gap", "arti": "Jarak antarsel" },
+        { "kode": "repeat(n, ukuran)", "arti": "Mengulang definisi jalur" },
+        { "kode": "minmax(min, max)", "arti": "Rentang ukuran satu jalur" },
+        { "kode": "auto-fit / auto-fill", "arti": "Jumlah kolom mengikuti lebar tersedia" },
+        { "kode": "grid-column / grid-row", "arti": "Penempatan item pada jalur" },
+        { "kode": "grid-template-areas", "arti": "Menggambar tata letak dengan nama area" },
+        { "kode": "place-items", "arti": "Singkatan <code>align-items</code> + <code>justify-items</code>" }
+      ],
+      "pitfalls": [
+        {
+          "salah": ".galeri { display: grid; grid-template-columns: repeat(4, 1fr); }",
+          "benar": ".galeri { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }",
+          "kenapa": "Empat kolom mati akan gepeng di ponsel. <code>auto-fit</code> + <code>minmax</code> menyesuaikan sendiri tanpa media query."
+        },
+        {
+          "salah": ".item { grid-column: 1 / 4; } /* pada grid 3 kolom */",
+          "benar": ".item { grid-column: 1 / -1; }",
+          "kenapa": "Jumlah jalur = kolom + 1. Menulis <code>-1</code> selalu berarti jalur terakhir, berapa pun jumlah kolomnya."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>CSS Grid</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"halaman\">\n    <header>Header</header>\n    <aside>Sidebar</aside>\n    <main>Konten utama</main>\n    <footer>Footer</footer>\n  </div>\n\n  <h2>Galeri responsif</h2>\n  <div class=\"galeri\">\n    <div>A</div><div>B</div><div>C</div>\n    <div>D</div><div>E</div><div class=\"penuh\">Selebar penuh</div>\n  </div>\n\n</body>\n</html>",
+        "css": "*, *::before, *::after { box-sizing: border-box; }\n\nbody { font-family: system-ui, sans-serif; padding: 20px; }\n\n.halaman {\n  display: grid;\n  grid-template-columns: 140px 1fr;\n  grid-template-areas:\n    \"kepala kepala\"\n    \"sisi   isi\"\n    \"kaki   kaki\";\n  gap: 10px;\n  margin-bottom: 30px;\n}\n\n.halaman > * {\n  padding: 16px;\n  border: 2px solid #201e1d;\n  background: #fff;\n}\n\nheader { grid-area: kepala; background: #c67139; color: #fff; }\naside  { grid-area: sisi;   background: #e1eecc; }\nmain   { grid-area: isi; }\nfooter { grid-area: kaki;   background: #ebddc5; }\n\n.galeri {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));\n  gap: 12px;\n}\n\n.galeri > div {\n  padding: 24px;\n  text-align: center;\n  background: #ffe1d0;\n  border: 2px solid #201e1d;\n}\n\n.penuh {\n  grid-column: 1 / -1;\n  background: #e1eecc;\n}"
+      },
+      "practiceId": "css-lanjutan-019"
+    },
+    {
+      "id": "css-08",
+      "no": "08",
+      "level": "Lanjutan",
+      "title": "Transition & Animation",
+      "lead": "<code>transition</code> memuluskan perubahan nilai dari satu keadaan ke keadaan lain. <code>@keyframes</code> plus <code>animation</code> menjalankan gerakan yang berjalan sendiri tanpa dipicu apa pun. Keduanya membuat antarmuka terasa hidup — dan, kalau berlebihan, membuatnya melelahkan.",
+      "concepts": [
+        { "title": "Tulis transition di keadaan normal", "body": "Bukan di dalam <code>:hover</code> — agar mulusnya berlaku dua arah, saat masuk maupun keluar." },
+        { "title": "@keyframes", "body": "Mendefinisikan tahapan gerakan dari <code>0%</code> sampai <code>100%</code>, atau <code>from</code> ke <code>to</code>." },
+        { "title": "Animasikan yang murah", "body": "<code>transform</code> dan <code>opacity</code> mulus; <code>width</code>, <code>height</code>, dan <code>margin</code> tersendat." }
+      ],
+      "sections": [
+        {
+          "heading": "Empat bagian sebuah transition",
+          "body": "<pre class=\"snippet\">transition: transform 0.2s ease-out 0s;\n            │         │     │        │\n            │         │     │        └ delay\n            │         │     └ timing-function\n            │         └ duration\n            └ property</pre><p>Bisa menyebut beberapa properti sekaligus, dipisah koma: <code>transition: transform 0.2s, background 0.4s;</code></p><p><code>transition: all 0.3s</code> memang praktis, tapi memaksa browser mengawasi <em>setiap</em> properti yang berubah dan sering memicu animasi yang tak Anda inginkan. Sebutkan properti yang benar-benar dituju.</p>"
+        },
+        {
+          "heading": "Kenapa transform dan opacity mulus",
+          "body": "<p>Menggambar satu bingkai halaman melewati tiga tahap: <strong>layout</strong> (menghitung posisi dan ukuran), <strong>paint</strong> (mewarnai piksel), <strong>composite</strong> (menyusun lapisan).</p><ul class=\"prose-list\"><li>Mengubah <code>width</code> atau <code>margin</code> → seluruh tiga tahap dijalankan ulang, 60 kali per detik.</li><li>Mengubah <code>background-color</code> → paint dan composite.</li><li>Mengubah <code>transform</code> atau <code>opacity</code> → <strong>composite saja</strong>, dan bisa diserahkan ke kartu grafis.</li></ul><p>Karena itu <code>transform: translateX(100px)</code> terasa mulus, sedangkan <code>left: 100px</code> tersendat — padahal hasil visualnya mirip.</p>"
+        },
+        {
+          "heading": "Menyusun @keyframes",
+          "body": "<pre class=\"snippet\">@keyframes denyut {\n  0%   { transform: scale(1); }\n  50%  { transform: scale(1.4); }\n  100% { transform: scale(1); }\n}\n\n.titik {\n  animation: denyut 1.4s ease-in-out infinite;\n}</pre><p>Properti <code>animation</code> menerima nama, durasi, timing, jeda, jumlah pengulangan (<code>infinite</code> atau angka), arah (<code>alternate</code>), dan <code>animation-fill-mode</code>.</p><p><code>animation-fill-mode: forwards</code> membuat elemen bertahan pada keadaan akhir setelah animasi selesai — tanpa itu, ia melompat balik ke keadaan semula.</p>"
+        },
+        {
+          "heading": "Menghormati prefers-reduced-motion",
+          "body": "<p>Sebagian orang mengalami pusing, mual, atau migrain karena gerakan di layar. Sistem operasi menyediakan pengaturan “kurangi gerakan”, dan CSS bisa membacanya:</p><pre class=\"snippet\">@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n  }\n}</pre><p>Empat baris ini adalah salah satu perbaikan aksesibilitas dengan hasil terbesar per usaha yang bisa Anda tulis. Jadikan kebiasaan.</p>"
+        }
+      ],
+      "referenceHead": ["Properti", "Kegunaan"],
+      "reference": [
+        { "kode": "transition-property", "arti": "Properti mana yang dimuluskan" },
+        { "kode": "transition-duration", "arti": "Lama perubahan, mis. <code>0.2s</code>" },
+        { "kode": "transition-timing-function", "arti": "<code>ease</code>, <code>linear</code>, <code>cubic-bezier()</code>" },
+        { "kode": "transition-delay", "arti": "Jeda sebelum mulai" },
+        { "kode": "@keyframes nama", "arti": "Mendefinisikan tahapan animasi" },
+        { "kode": "animation-name", "arti": "Nama keyframes yang dipakai" },
+        { "kode": "animation-iteration-count", "arti": "Jumlah pengulangan; <code>infinite</code>" },
+        { "kode": "animation-fill-mode", "arti": "<code>forwards</code> bertahan di keadaan akhir" },
+        { "kode": "transform", "arti": "<code>translate</code>, <code>scale</code>, <code>rotate</code> — murah dianimasikan" }
+      ],
+      "pitfalls": [
+        {
+          "salah": ".tombol:hover { transition: 0.2s; transform: scale(1.1); }",
+          "benar": ".tombol { transition: transform 0.2s; } .tombol:hover { transform: scale(1.1); }",
+          "kenapa": "Ditulis di dalam <code>:hover</code>, transisinya hanya berlaku saat masuk. Saat kursor pergi, elemen melompat balik."
+        },
+        {
+          "salah": ".kartu { transition: all 0.3s; }",
+          "benar": ".kartu { transition: transform 0.3s, box-shadow 0.3s; }",
+          "kenapa": "<code>all</code> memaksa browser mengawasi setiap properti dan sering menganimasikan hal yang tak Anda maksud."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Transition &amp; Animation</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <button class=\"tombol\">Arahkan kursor ke sini</button>\n\n  <div class=\"kartu\">\n    <h3>Kartu</h3>\n    <p>Kartu ini terangkat saat disentuh kursor.</p>\n  </div>\n\n  <div class=\"titik\"></div>\n\n</body>\n</html>",
+        "css": "body { font-family: system-ui, sans-serif; padding: 30px; }\n\n.tombol {\n  padding: 12px 24px;\n  border: 2px solid #201e1d;\n  background: #fff;\n  cursor: pointer;\n  /* Ditulis di keadaan normal agar mulus dua arah */\n  transition: transform 0.2s ease, background 0.2s ease;\n}\n\n.tombol:hover {\n  transform: translateY(-3px);\n  background: #ffe1d0;\n}\n\n.kartu {\n  max-width: 280px;\n  margin-top: 24px;\n  padding: 20px;\n  border: 2px solid #201e1d;\n  background: #fff;\n  box-shadow: 0 0 0 #201e1d;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n\n.kartu:hover {\n  transform: translate(-4px, -4px);\n  box-shadow: 6px 6px 0 #201e1d;\n}\n\n@keyframes denyut {\n  0%   { transform: scale(1); }\n  50%  { transform: scale(1.4); }\n  100% { transform: scale(1); }\n}\n\n.titik {\n  width: 24px;\n  height: 24px;\n  margin-top: 30px;\n  border-radius: 50%;\n  background: #c67139;\n  animation: denyut 1.4s ease-in-out infinite;\n}\n\n/* Hormati pengguna yang memilih mengurangi gerakan */\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n  }\n}"
+      },
+      "practiceId": "css-lanjutan-022"
+    },
+    {
+      "id": "css-09",
+      "no": "09",
+      "level": "Lanjutan",
+      "title": "Responsive Design",
+      "lead": "Halaman responsif menyesuaikan diri dengan lebar layar. Alatnya tiga: satuan relatif, tata letak yang lentur, dan <code>@media</code> query untuk penyesuaian di ambang tertentu — <em>dalam urutan itu</em>. Media query adalah langkah terakhir, bukan langkah pertama.",
+      "concepts": [
+        { "title": "mobile-first", "body": "Gaya dasar untuk layar kecil, lalu tambahkan aturan <code>min-width</code> untuk layar besar." },
+        { "title": "desktop-first", "body": "Kebalikannya: gaya dasar untuk layar besar, lalu <code>max-width</code> untuk layar kecil." },
+        { "title": "Breakpoint mengikuti isi", "body": "Tambahkan breakpoint di titik tata letak Anda mulai jelek — bukan di ukuran perangkat tertentu." }
+      ],
+      "sections": [
+        {
+          "heading": "Meta viewport dulu, baru yang lain",
+          "body": "<p>Tanpa baris ini di <code>&lt;head&gt;</code>, seluruh media query Anda tidak akan berarti apa-apa di ponsel:</p><pre class=\"snippet\">&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"&gt;</pre><p>Sebabnya: tanpa itu, ponsel berpura-pura layarnya selebar 980px lalu memperkecil seluruh halaman. Media query <code>max-width: 600px</code> pun tidak pernah aktif.</p>"
+        },
+        {
+          "heading": "Media query bukan langkah pertama",
+          "body": "<p>Sebelum menambahkan <code>@media</code>, coba dulu alat-alat yang menyesuaikan diri sendiri:</p><ul class=\"prose-list\"><li><code>max-width</code> alih-alih <code>width</code>.</li><li><code>flex-wrap: wrap</code> agar isi turun sendiri.</li><li>Grid <code>auto-fit</code> + <code>minmax()</code> — jumlah kolom mengikuti ruang.</li><li><code>clamp(1rem, 2.5vw, 1.5rem)</code> untuk ukuran huruf yang melar dalam batas aman.</li></ul><p>Banyak tata letak sudah responsif dengan sendirinya. Setiap breakpoint yang Anda tambahkan adalah satu tempat lagi yang harus dirawat setiap kali desain berubah.</p>"
+        },
+        {
+          "heading": "Menulis media query",
+          "body": "<pre class=\"snippet\">/* mobile-first: dasar untuk layar sempit */\n.kartu { padding: 16px; }\n\n@media (min-width: 600px) {\n  .kartu { padding: 24px; }\n}\n\n@media (min-width: 900px) {\n  .kartu { padding: 40px; }\n}</pre><p>Mobile-first umumnya lebih rapi karena aturan dasarnya paling sederhana, dan tiap breakpoint hanya <em>menambah</em>. Bila memakai desktop-first dengan <code>max-width</code>, urutannya harus dibalik dari besar ke kecil.</p><p>Kondisi lain yang berguna: <code>@media (orientation: landscape)</code>, <code>@media (prefers-color-scheme: dark)</code>, <code>@media print</code>, dan <code>@media (hover: hover)</code> untuk efek yang hanya masuk akal bila ada tetikus.</p>"
+        },
+        {
+          "heading": "Satuan viewport dan clamp()",
+          "body": "<p><code>vw</code> dan <code>vh</code> adalah persen dari lebar dan tinggi jendela. <code>50vw</code> berarti setengah lebar layar.</p><p>Masalahnya, <code>font-size: 4vw</code> murni jadi mustahil dibaca di layar sempit dan raksasa di layar lebar. <code>clamp()</code> menyelesaikannya dengan tiga nilai — minimum, ideal, maksimum:</p><pre class=\"snippet\">h1 { font-size: clamp(1.5rem, 5vw, 3rem); }</pre><p>Artinya: melar mengikuti lebar layar, tetapi tidak pernah lebih kecil dari 1.5rem dan tidak pernah lebih besar dari 3rem. Satu baris menggantikan tiga breakpoint.</p><p>Catatan untuk ponsel: <code>100vh</code> sering lebih tinggi dari layar sesungguhnya karena bilah alamat browser. Gunakan <code>100dvh</code> (<em>dynamic viewport height</em>) bila perlu presisi.</p>"
+        }
+      ],
+      "referenceHead": ["Alat", "Kegunaan"],
+      "reference": [
+        { "kode": "@media (min-width: 600px)", "arti": "Aktif pada layar 600px ke atas (mobile-first)" },
+        { "kode": "@media (max-width: 599px)", "arti": "Aktif pada layar di bawah 600px (desktop-first)" },
+        { "kode": "@media (orientation: landscape)", "arti": "Layar lebih lebar daripada tinggi" },
+        { "kode": "@media print", "arti": "Saat halaman dicetak" },
+        { "kode": "vw / vh", "arti": "Persen dari lebar / tinggi jendela" },
+        { "kode": "dvh", "arti": "Tinggi viewport dinamis; aman di ponsel" },
+        { "kode": "clamp(min, ideal, max)", "arti": "Nilai melar dalam batas aman" },
+        { "kode": "ch", "arti": "Selebar karakter “0”; bagus untuk lebar baris" }
+      ],
+      "pitfalls": [
+        {
+          "salah": "@media (max-width: 600px) { … } @media (max-width: 900px) { … }",
+          "benar": "@media (max-width: 900px) { … } @media (max-width: 600px) { … }",
+          "kenapa": "Pada desktop-first, breakpoint harus diurutkan dari besar ke kecil. Kalau terbalik, aturan yang lebih besar menimpa yang lebih kecil."
+        },
+        {
+          "salah": "h1 { font-size: 5vw; }",
+          "benar": "h1 { font-size: clamp(1.5rem, 5vw, 3rem); }",
+          "kenapa": "<code>vw</code> murni jadi tak terbaca di layar 320px dan raksasa di monitor 2560px."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Responsive</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <h1>Ubah lebar panel preview</h1>\n\n  <div class=\"galeri\">\n    <div class=\"kartu\">Satu</div>\n    <div class=\"kartu\">Dua</div>\n    <div class=\"kartu\">Tiga</div>\n    <div class=\"kartu\">Empat</div>\n  </div>\n\n</body>\n</html>",
+        "css": "*, *::before, *::after { box-sizing: border-box; }\n\nbody {\n  font-family: system-ui, sans-serif;\n  padding: 20px;\n  margin: 0;\n}\n\n/* Melar dalam batas aman — menggantikan beberapa breakpoint */\nh1 {\n  font-size: clamp(1.25rem, 5vw, 2.5rem);\n}\n\n/* Responsif tanpa satu pun media query */\n.galeri {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));\n  gap: 12px;\n}\n\n/* Mobile-first: dasar untuk layar sempit */\n.kartu {\n  padding: 16px;\n  border: 2px solid #201e1d;\n  background: #e1eecc;\n  font-size: 0.9rem;\n}\n\n@media (min-width: 600px) {\n  .kartu {\n    padding: 28px;\n    font-size: 1rem;\n    background: #ffe1d0;\n  }\n}\n\n@media (min-width: 900px) {\n  .kartu {\n    padding: 40px;\n    font-size: 1.125rem;\n  }\n}"
+      },
+      "practiceId": "css-lanjutan-025"
+    },
+    {
+      "id": "css-10",
+      "no": "10",
+      "level": "Lanjutan",
+      "title": "CSS Variables",
+      "lead": "Variabel CSS (<em>custom property</em>) menyimpan nilai yang dipakai berulang. Didefinisikan di <code>:root</code> agar berlaku seluruh dokumen, lalu dipanggil dengan <code>var(--nama)</code>. Berbeda dari variabel Sass, variabel ini <strong>hidup di browser</strong> — dan itu membuka banyak kemungkinan.",
+      "concepts": [
+        { "title": ":root", "body": "Selector untuk elemen <code>&lt;html&gt;</code>. Variabel di sini terwarisi ke seluruh halaman." },
+        { "title": "Nilai cadangan", "body": "<code>var(--warna, #333)</code> memakai <code>#333</code> bila variabelnya belum didefinisikan." },
+        { "title": "Terwarisi & bisa ditimpa", "body": "Variabel mengikuti aturan pewarisan, jadi bisa diberi nilai berbeda per komponen." }
+      ],
+      "sections": [
+        {
+          "heading": "Menyusun sistem desain kecil",
+          "body": "<p>Kegunaan terbesarnya bukan menghemat ketikan, melainkan menjadikan keputusan desain <strong>satu tempat</strong>:</p><pre class=\"snippet\">:root {\n  /* warna */\n  --warna-utama: #c67139;\n  --warna-teks: #201e1d;\n  --warna-latar: #f5ead8;\n\n  /* jarak — kelipatan yang konsisten */\n  --jarak-1: 8px;\n  --jarak-2: 16px;\n  --jarak-3: 24px;\n\n  /* lain-lain */\n  --radius: 16px;\n  --garis: 2px solid var(--warna-teks);\n}</pre><p>Perhatikan variabel boleh memakai variabel lain. Mengganti satu warna merek kini cukup satu baris, bukan pencarian-dan-ganti di seluruh berkas.</p>"
+        },
+        {
+          "heading": "Menimpa per komponen",
+          "body": "<p>Karena variabel diwariskan seperti properti biasa, Anda bisa mendefinisikan ulang di lingkup yang lebih dalam:</p><pre class=\"snippet\">.kartu {\n  --warna-aksen: #c67139;\n  border-color: var(--warna-aksen);\n}\n\n.kartu.hijau {\n  --warna-aksen: #7a8a5e;   /* cukup ini */\n}</pre><p>Seluruh aturan di dalam <code>.kartu</code> yang memakai <code>--warna-aksen</code> ikut berubah, tanpa perlu menulis ulang satu pun deklarasi.</p>"
+        },
+        {
+          "heading": "Mode gelap dalam beberapa baris",
+          "body": "<p>Inilah yang tidak bisa dilakukan variabel Sass. Karena variabel CSS hidup di browser, ia bisa berubah di dalam media query:</p><pre class=\"snippet\">:root {\n  --latar: #f5ead8;\n  --teks: #201e1d;\n}\n\n@media (prefers-color-scheme: dark) {\n  :root {\n    --latar: #201e1d;\n    --teks: #f5ead8;\n  }\n}\n\nbody { background: var(--latar); color: var(--teks); }</pre><p>Seluruh halaman ikut berganti, tanpa satu pun selector tambahan.</p>"
+        },
+        {
+          "heading": "Aturan main yang perlu diingat",
+          "body": "<ul class=\"prose-list\"><li><strong>Peka huruf besar-kecil.</strong> <code>--Warna</code> dan <code>--warna</code> adalah dua variabel berbeda.</li><li><strong>Wajib dua tanda hubung</strong> di depan.</li><li><strong>Tidak bisa dipakai sebagai nama properti</strong> atau di dalam <code>@media</code> sebagai nilai breakpoint.</li><li><strong>Bisa dibaca dan diubah JavaScript:</strong> <code>getComputedStyle(el).getPropertyValue('--warna-utama')</code> dan <code>el.style.setProperty('--warna-utama', '#7a8a5e')</code>.</li><li>Bila nilainya tidak valid untuk properti tujuannya, hasilnya bukan “abaikan” melainkan nilai bawaan yang diwarisi — kadang mengejutkan.</li></ul>"
+        }
+      ],
+      "referenceHead": ["Sintaks", "Kegunaan"],
+      "reference": [
+        { "kode": ":root { --nama: nilai; }", "arti": "Mendefinisikan variabel global" },
+        { "kode": "var(--nama)", "arti": "Memakai nilai variabel" },
+        { "kode": "var(--nama, cadangan)", "arti": "Nilai cadangan bila belum terdefinisi" },
+        { "kode": ".komponen { --nama: … }", "arti": "Menimpa nilai untuk satu lingkup" },
+        { "kode": "prefers-color-scheme", "arti": "Media query mode terang / gelap" },
+        { "kode": "el.style.setProperty()", "arti": "Mengubah variabel dari JavaScript" },
+        { "kode": "calc(var(--a) * 2)", "arti": "Menghitung dengan variabel" }
+      ],
+      "pitfalls": [
+        {
+          "salah": ".kartu { padding: --jarak; }",
+          "benar": ".kartu { padding: var(--jarak); }",
+          "kenapa": "Variabel selalu dipanggil lewat fungsi <code>var()</code>, tidak bisa ditulis langsung sebagai nilai."
+        },
+        {
+          "salah": ":root { --Jarak: 16px; } .kartu { padding: var(--jarak); }",
+          "benar": ":root { --jarak: 16px; } .kartu { padding: var(--jarak); }",
+          "kenapa": "Nama variabel peka huruf besar-kecil. <code>--Jarak</code> dan <code>--jarak</code> tidak saling mengenal."
+        }
+      ],
+      "example": {
+        "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>CSS Variables</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kartu\">\n    <h2>Kartu Terracotta</h2>\n    <p>Warna kartu ini diatur dari satu tempat.</p>\n  </div>\n\n  <div class=\"kartu hijau\">\n    <h2>Kartu Sage</h2>\n    <p>Hanya satu variabel yang ditimpa.</p>\n  </div>\n\n</body>\n</html>",
+        "css": ":root {\n  --warna-utama: #c67139;\n  --warna-teks: #201e1d;\n  --warna-latar: #f5ead8;\n\n  --jarak-2: 16px;\n  --jarak-3: 24px;\n  --radius: 16px;\n  --garis: 2px solid var(--warna-teks);\n}\n\nbody {\n  font-family: system-ui, sans-serif;\n  background: var(--warna-latar);\n  color: var(--warna-teks);\n  padding: var(--jarak-3);\n}\n\n.kartu {\n  --aksen: var(--warna-utama);\n\n  max-width: 320px;\n  margin-bottom: var(--jarak-2);\n  padding: var(--jarak-3);\n  border: var(--garis);\n  border-left: 8px solid var(--aksen);\n  border-radius: var(--radius);\n  background: #fff;\n}\n\n.kartu h2 {\n  margin: 0 0 var(--jarak-2);\n  color: var(--aksen);\n}\n\n/* Cukup timpa satu variabel */\n.kartu.hijau {\n  --aksen: #7a8a5e;\n}"
+      },
+      "practiceId": "css-lanjutan-028"
+    }
+  ]
+}
