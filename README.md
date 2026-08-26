@@ -293,13 +293,25 @@ client-side), bukan bug yang bisa diperbaiki di implementasi ini.
    menampilkan pesan "gunakan laptop/PC"; materi dan capstone tetap bisa dibuka.
 8. **NISN adalah data pribadi.** Pastikan penggunaan Google Sheets ini sesuai
    kebijakan privasi data sekolah.
-9. **Apps Script lambat, dan itu tidak bisa dihilangkan.** Diukur langsung pada
-   deployment ini: satu penulisan baris memakan **~7 detik** saat server senggang.
-   Google menjalankan permintaan web app milik satu akun **secara berurutan**, jadi
-   bila 30 siswa menekan Submit berbarengan, yang terakhir menunggu antrean panjang.
-   Mitigasinya sudah terpasang: timeout klien 30 detik, dan kiriman yang tetap gagal
-   masuk **antrean lokal** lalu dicoba ulang otomatis saat halaman dimuat — sudah
-   diuji, antrean berhasil terkuras. Datanya tidak hilang, hanya bisa telat masuk.
+9. **Apps Script lambat, dan bisa kena rate-limit.** Diukur langsung pada deployment
+   ini: satu penulisan baris memakan **3–7 detik** saat server senggang. Google
+   menjalankan permintaan web app milik satu akun **secara berurutan**, jadi bila
+   banyak siswa menekan Submit berbarengan, yang terakhir menunggu antrean.
+
+   Saat diuji beban (puluhan kiriman dalam ~20 menit), Google mulai membalas
+   **HTTP 404 "tidak dapat membuka file"** khusus pada `doPost` — sementara `doGet`
+   tetap normal. Ini rate-limit, bukan kerusakan: setelah **±3 menit tanpa lalu
+   lintas, layanan pulih sendiri** dan kembali merespons 3 detik. Sudah diverifikasi
+   pulih.
+
+   Mitigasi yang terpasang: timeout klien 30 detik, jeda 1,5 detik antar-kiriman saat
+   menguras antrean, dan kiriman yang tetap gagal masuk **antrean lokal** lalu dicoba
+   ulang otomatis saat halaman dimuat — sudah diuji dan antrean berhasil terkuras.
+   Datanya tidak hilang, hanya bisa telat masuk.
+
+   **Saran praktis saat ujian:** jangan menyuruh seluruh kelas menekan Submit di
+   detik yang sama. Karena siswa boleh submit berkali-kali selama waktu berjalan,
+   sebarkan saja secara alami.
 10. **Baris ganda mungkin muncul.** Bila sebuah kiriman sebenarnya berhasil di server
    tapi jawabannya tidak sempat sampai ke siswa, percobaan ulang akan menulis baris
    kedua. Ini tidak merusak nilai: untuk rekap, filter `Jenis = Ringkasan` lalu ambil
