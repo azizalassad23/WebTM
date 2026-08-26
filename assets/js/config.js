@@ -23,7 +23,7 @@ export const APP = {
  * dan ditandai "belum terkirim" agar tidak ada kegagalan senyap.
  */
 export const SHEETS = {
-  endpoint: '',
+  endpoint: 'https://script.google.com/macros/s/AKfycbzwNQ-JWCDkvIElVmTrneuPORSoCdXbGiVFK582kAcmXN0dAngmF55KiOYipwwGVMHY/exec',
   token: 'webtm-OfP6kvulluQE',
   timeoutMs: 12000,
   maxRetry: 2
