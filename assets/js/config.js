@@ -25,8 +25,17 @@ export const APP = {
 export const SHEETS = {
   endpoint: 'https://script.google.com/macros/s/AKfycbzwNQ-JWCDkvIElVmTrneuPORSoCdXbGiVFK582kAcmXN0dAngmF55KiOYipwwGVMHY/exec',
   token: 'webtm-OfP6kvulluQE',
-  timeoutMs: 12000,
-  maxRetry: 2
+  /**
+   * Apps Script memang lambat: satu penulisan baris memakan ~7 detik saat
+   * server senggang, dan lebih lama lagi bila beberapa siswa submit berdekatan
+   * (Google menjalankan permintaan web app milik satu akun secara berurutan).
+   * Nilai 12 detik yang semula dipakai terlalu mepet — kiriman yang sebenarnya
+   * berhasil ikut dibatalkan, lalu menumpuk di antrean. Diukur langsung di
+   * deployment ini, bukan ditebak.
+   */
+  timeoutMs: 30000,
+  /** Jeda antar-kiriman saat menguras antrean, agar tidak menyerbu server sendiri. */
+  retryGapMs: 1500
 };
 
 /** Aturan ujian — semua angka mengikuti §8.3 dan §8.5 PRD. */

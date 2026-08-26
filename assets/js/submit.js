@@ -91,7 +91,15 @@ export async function submitRow(sheet, data) {
   }
 }
 
-/** Coba kirim ulang antrean lokal. Dipanggil saat aplikasi dimuat. */
+const jeda = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Coba kirim ulang antrean lokal. Dipanggil saat aplikasi dimuat.
+ *
+ * Kiriman diberi jeda satu sama lain: Apps Script menjalankan permintaan milik
+ * satu akun secara berurutan, jadi menembakkan seluruh antrean sekaligus justru
+ * membuat semuanya antre dan gagal lagi.
+ */
 export async function flushOutbox() {
   if (!SHEETS.endpoint) return { sent: 0, left: outbox().length };
   const queue = outbox();
@@ -99,9 +107,10 @@ export async function flushOutbox() {
 
   const left = [];
   let sent = 0;
-  for (const body of queue) {
-    try { await post(body); sent++; }
-    catch { left.push(body); }
+  for (let i = 0; i < queue.length; i++) {
+    if (i > 0) await jeda(SHEETS.retryGapMs ?? 1500);
+    try { await post(queue[i]); sent++; }
+    catch { left.push(queue[i]); }
   }
   setOutbox(left);
   return { sent, left: left.length };

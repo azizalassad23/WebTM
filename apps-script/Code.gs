@@ -108,9 +108,15 @@ function doPost(e) {
     }
 
     var data = body.data || {};
-    // Satu penulis pada satu waktu — mencegah dua submission serentak saling menimpa.
+
+    // Google sudah menjalankan permintaan web app milik satu akun secara
+    // berurutan, jadi lock ini hanya lapis tambahan untuk pembuatan header
+    // sheet. Menunggunya lama justru menumpuk antrean sampai klien timeout —
+    // karena itu tunggu sebentar saja, dan tetap lanjutkan bila tidak dapat:
+    // appendRow() sendiri sudah menambah baris secara atomik di sisi server.
     var lock = LockService.getScriptLock();
-    lock.waitLock(20000);
+    var punyaLock = false;
+    try { lock.waitLock(5000); punyaLock = true; } catch (lockErr) { /* lanjut tanpa lock */ }
     try {
       var sheet = sheetFor_(name);
       var row = SHEETS[name].map(function (column) {
@@ -126,7 +132,9 @@ function doPost(e) {
       });
       sheet.appendRow(row);
     } finally {
-      lock.releaseLock();
+      // Hanya lepaskan bila memang sempat didapat — releaseLock() pada lock
+      // yang tak pernah dipegang akan melempar error dan menutupi error asli.
+      if (punyaLock) lock.releaseLock();
     }
 
     return json_({ ok: true, sheet: name });
