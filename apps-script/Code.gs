@@ -18,8 +18,12 @@
  * BUKAN mengamankan data. Jangan menyimpan data sensitif di sheet ini.
  */
 
-var TOKEN = 'ganti-token-ini';
+var TOKEN = 'webtm-OfP6kvulluQE';
 
+/**
+ * Tiap mode punya sheet sendiri — "Latihan" dan "Ujian" tidak pernah bercampur,
+ * sehingga rekap nilai ujian bisa langsung difilter tanpa menyaring baris latihan.
+ */
 var SHEETS = {
   Latihan: [
     'Timestamp', 'Nama', 'Kelas/NISN', 'Mode', 'Modul', 'ID Soal', 'Percobaan',
@@ -27,7 +31,7 @@ var SHEETS = {
     'Durasi (detik)', 'Jumlah Pelanggaran', 'Detail Pelanggaran'
   ],
   Ujian: [
-    'Timestamp', 'Nama', 'Kelas/NISN', 'Mode', 'Modul', 'ID Soal', 'Sesi',
+    'Timestamp', 'Nama', 'Kelas/NISN', 'Jenis', 'Mode', 'Modul', 'ID Soal', 'Sesi',
     'Nomor Soal', 'Daftar Soal', 'Kode HTML Siswa', 'Kode CSS Siswa', 'Skor',
     'Rincian Skor', 'Jumlah Submit', 'Waktu Mulai', 'Waktu Submit',
     'Durasi (detik)', 'Jumlah Pelanggaran', 'Detail Pelanggaran',
@@ -112,6 +116,10 @@ function doPost(e) {
       var row = SHEETS[name].map(function (column) {
         if (column === 'Timestamp') return new Date();
         if (column === 'Status Review Guru') return data.statusReviewGuru || 'Menunggu Review';
+        // Sheet "Ujian" memuat dua jenis baris: satu baris per soal yang disubmit,
+        // dan satu baris ringkasan berisi nilai akhir sesi. Kolom ini memisahkannya
+        // supaya rekap nilai tinggal memfilter "Ringkasan".
+        if (column === 'Jenis') return data.idSoal === 'RINGKASAN' ? 'Ringkasan' : 'Per Soal';
         var key = FIELD[column];
         var value = key ? data[key] : '';
         return (value === undefined || value === null) ? '' : value;

@@ -24,7 +24,7 @@ export const APP = {
  */
 export const SHEETS = {
   endpoint: '',
-  token: 'ganti-token-ini',
+  token: 'webtm-OfP6kvulluQE',
   timeoutMs: 12000,
   maxRetry: 2
 };
