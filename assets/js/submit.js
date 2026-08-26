@@ -110,8 +110,18 @@ const jeda = (ms) => new Promise((r) => setTimeout(r, ms));
  */
 export async function flushOutbox() {
   if (!SHEETS.endpoint) return { sent: 0, left: outbox().length };
+
+  // Entri yang tersimpan sebelum penanda `id` diperkenalkan tidak punya id.
+  // Tanpa penambalan ini, satu entri sukses akan memasukkan `undefined` ke
+  // daftar terkirim, lalu filter di bawah ikut membuang SEMUA entri tanpa id —
+  // termasuk yang belum terkirim. Tambal dulu, baru kirim.
+  const antrean = outbox();
+  if (!antrean.length) return { sent: 0, left: 0 };
+  if (antrean.some((b) => !b.id)) {
+    setOutbox(antrean.map((b) => (b.id ? b : { ...b, id: `lama-${Math.random().toString(36).slice(2, 10)}` })));
+  }
+
   const queue = outbox();
-  if (!queue.length) return { sent: 0, left: 0 };
 
   const terkirim = new Set();
   let sent = 0;
