@@ -38,8 +38,11 @@ function dropLocalStylesheets(html) {
 }
 
 /** Menyusun dokumen utuh dari potongan HTML + CSS milik siswa. */
-export function buildDocument(rawHtml = '', css = '') {
-  const html = dropLocalStylesheets(rawHtml);
+export function buildDocument(rawHtml = '', css = '', opsi = {}) {
+  // Penilaian perlu MELIHAT tag <link> untuk memeriksa jalur berkasnya, jadi di
+  // sana tautan lokal dibiarkan utuh. Di panel preview ia tetap dinetralkan
+  // supaya tidak memicu permintaan yang pasti gagal.
+  const html = opsi.pertahankanLink ? rawHtml : dropLocalStylesheets(rawHtml);
   const userStyle = css.trim() ? `<style>\n${css}\n</style>` : '';
   const injected = BASE_STYLE + userStyle;
 

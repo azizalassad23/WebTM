@@ -102,11 +102,17 @@ tanpa panel admin:
 
 | Berkas | Isi |
 |---|---|
-| `data/materi-html.json` | 12 bab HTML (dasar → lanjutan) |
-| `data/materi-css.json` | 10 bab CSS (dasar → lanjutan) |
-| `data/soal-html.json` | 36 soal HTML — **3 soal per bab** |
-| `data/soal-css.json` | 30 soal CSS — **3 soal per bab** |
+| `data/materi-html.json` | 15 bab HTML (dasar → lanjutan) |
+| `data/materi-css.json` | 13 bab CSS (dasar → lanjutan) |
+| `data/soal-html.json` | 45 soal HTML — **3 soal per bab** |
+| `data/soal-css.json` | 39 soal CSS — **3 soal per bab** |
 | `data/soal-campuran.json` | 6 soal gabungan HTML + CSS |
+
+Total **28 bab** dan **90 soal**. Cakupan materi mengikuti w3schools, tetapi
+disaring: hanya topik yang benar-benar terpakai di proyek capstone (CV pribadi).
+Enam bab terakhir sengaja diarahkan ke sana — jalur berkas & struktur proyek,
+elemen kontak/kutipan, merakit halaman CV, background & gradient, border &
+bayangan, serta menata daftar/tabel/tautan.
 
 Setiap bab punya beberapa soal latihan; layar Latihan menampilkannya sebagai satu
 rangkaian ("Soal 2 dari 3") dengan navigasi maju-mundur dan penanda soal mana yang
@@ -175,6 +181,61 @@ yang gagal; tag-nya tetap terlihat di editor karena itu bagian pelajarannya.
 `"htmlReadOnly": true` pada soal lama masih dibaca sebagai `editor: "css"`.
 
 Skor = (poin terpenuhi ÷ total poin) × 100.
+
+### Menilai penggunaan yang benar, bukan sekadar keberadaan tag
+
+Assertion biasa memakai `querySelector` — hanya elemen **pertama**. Akibatnya
+tiga gambar yang cuma satu ber-`alt` tetap lulus. Tipe di bawah ini menutup
+celah itu, dan sebagian memeriksa **teks sumber**, bukan DOM, karena parser
+browser diam-diam memperbaiki markup yang rusak sehingga jejaknya hilang.
+
+| Tipe | Menangkap |
+|---|---|
+| `all_match` | Syarat diterapkan ke **setiap** elemen yang cocok, bukan yang pertama |
+| `tags_balanced` | Tag tidak ditutup, atau urutan penutupnya tertukar |
+| `nesting_valid` | `<li>` di luar list, `<a>` di dalam `<a>`, block di dalam inline |
+| `heading_order_valid` | Heading melompat tingkat (h1 → h3) |
+| `label_for_valid` | `<label for>` menunjuk `id` yang tidak ada |
+| `no_duplicate_ids` | `id` yang sama dipakai dua kali |
+| `table_structure_valid` | Jumlah kolom tiap baris tidak konsisten setelah `colspan`/`rowspan` dihitung |
+| `element_not_empty` | Elemen ada tetapi isinya kosong |
+| `attribute_not_one_of` | Nilai asal-asalan seperti `href="#"` |
+| `elements_in_order` | Urutan elemen di dokumen |
+| `source_not_matches` | Larangan, mis. `style=` inline atau jalur berawalan `/` |
+
+Ketika gagal, pemeriksa struktural memberi **alasan konkret** — bukan sekadar
+tanda silang:
+
+```
+✕ jumlah kolom tiap baris konsisten  → baris 4 punya 3 kolom, baris pertama 2
+✕ urutan heading tidak melompat      → melompat dari <h1> ke <h4>
+✕ semua tag dibuka & ditutup         → <div> belum ditutup sebelum </body>
+```
+
+Setiap soal yang siswanya menulis HTML otomatis mendapat **gerbang mutu**
+`tags_balanced` + `nesting_valid` (20 dari 100 poin). Soal yang jawabannya
+benar tidak terpengaruh — gerbang ini hanya menggigit saat kodenya ceroboh.
+
+**Contoh `all_match`:**
+
+```json
+{
+  "type": "all_match",
+  "selector": "img",
+  "min": 3,
+  "must": { "attribute_min_words": { "attribute": "alt", "min_words": 2 } },
+  "poin": 20,
+  "label": "SETIAP gambar punya alt minimal 2 kata"
+}
+```
+
+Syarat yang didukung `must`: `not_empty`, `min_words`, `attribute_exists`,
+`attribute_not_empty`, `attribute_equals`, `attribute_min_words`,
+`attribute_not_one_of`, `contains_selector`, `computed_style_equals`.
+
+> **[Batas yang jujur]** Ini bukan validator W3C. Ia menangkap kesalahan yang
+> paling sering terjadi dan bisa diperiksa secara terukur — bukan seluruh
+> pelanggaran spesifikasi HTML.
 
 ### Tipe assertion yang tersedia
 

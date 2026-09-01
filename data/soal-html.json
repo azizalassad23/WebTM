@@ -1,502 +1,2548 @@
 [
   {
     "id": "html-dasar-001",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-01", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-01",
+    "chapterModul": "html",
     "topik": "Pengenalan HTML",
     "instruksi": "Di dalam <code>&lt;body&gt;</code>, buat heading level 1 dengan teks <code>Profil Saya</code>, diikuti sebuah paragraf berisi minimal 5 kata.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Latihan HTML</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Latihan HTML</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "h1", "poin": 30, "label": "elemen <h1> ditemukan" },
-      { "type": "text_content_equals", "selector": "h1", "expected": "Profil Saya", "poin": 30, "label": "teks <h1> = \"Profil Saya\"", "hint": "Periksa ejaan dan huruf besar-kecilnya." },
-      { "type": "element_exists", "selector": "p", "poin": 20, "label": "elemen <p> ditemukan" },
-      { "type": "text_min_word_count", "selector": "p", "min_words": 5, "poin": 20, "label": "paragraf minimal 5 kata" }
+      {
+        "type": "element_exists",
+        "selector": "h1",
+        "poin": 25,
+        "label": "elemen <h1> ditemukan"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "h1",
+        "expected": "Profil Saya",
+        "poin": 25,
+        "label": "teks <h1> = \"Profil Saya\"",
+        "hint": "Periksa ejaan dan huruf besar-kecilnya."
+      },
+      {
+        "type": "element_exists",
+        "selector": "p",
+        "poin": 17,
+        "label": "elemen <p> ditemukan"
+      },
+      {
+        "type": "text_min_word_count",
+        "selector": "p",
+        "min_words": 5,
+        "poin": 17,
+        "label": "paragraf minimal 5 kata"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-002",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-01", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-01",
+    "chapterModul": "html",
     "topik": "Pengenalan HTML",
     "instruksi": "Buat sebuah paragraf yang memuat kata bertanda <code>&lt;strong&gt;</code> dan kata bertanda <code>&lt;em&gt;</code>. Di bawahnya tambahkan garis pemisah <code>&lt;hr&gt;</code>, lalu satu paragraf lagi.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Latihan HTML</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Latihan HTML</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "p strong", "poin": 30, "label": "<strong> berada di dalam paragraf" },
-      { "type": "element_exists", "selector": "p em", "poin": 30, "label": "<em> berada di dalam paragraf" },
-      { "type": "element_exists", "selector": "hr", "poin": 20, "label": "garis pemisah <hr> ditemukan" },
-      { "type": "element_count_min", "selector": "p", "min": 2, "poin": 20, "label": "ada minimal 2 paragraf" }
+      {
+        "type": "element_exists",
+        "selector": "p strong",
+        "poin": 25,
+        "label": "<strong> berada di dalam paragraf"
+      },
+      {
+        "type": "element_exists",
+        "selector": "p em",
+        "poin": 25,
+        "label": "<em> berada di dalam paragraf"
+      },
+      {
+        "type": "element_exists",
+        "selector": "hr",
+        "poin": 17,
+        "label": "garis pemisah <hr> ditemukan"
+      },
+      {
+        "type": "element_count_min",
+        "selector": "p",
+        "min": 2,
+        "poin": 17,
+        "label": "ada minimal 2 paragraf"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-003",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-01", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-01",
+    "chapterModul": "html",
     "topik": "Pengenalan HTML",
     "instruksi": "Buat satu <code>&lt;div&gt;</code> ber-<code>class=\"kotak\"</code> yang di dalamnya ada <code>&lt;h2&gt;</code> dan sebuah <code>&lt;span&gt;</code>. Tambahkan juga satu paragraf di dalam <code>.kotak</code> tersebut.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Latihan HTML</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Latihan HTML</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "div.kotak", "poin": 30, "label": "<div class=\"kotak\"> ditemukan" },
-      { "type": "element_exists", "selector": "div.kotak h2", "poin": 30, "label": "<h2> di dalam .kotak" },
-      { "type": "element_exists", "selector": "div.kotak span", "poin": 25, "label": "<span> di dalam .kotak" },
-      { "type": "element_exists", "selector": "div.kotak p", "poin": 15, "label": "<p> di dalam .kotak" }
+      {
+        "type": "element_exists",
+        "selector": "div.kotak",
+        "poin": 25,
+        "label": "<div class=\"kotak\"> ditemukan"
+      },
+      {
+        "type": "element_exists",
+        "selector": "div.kotak h2",
+        "poin": 25,
+        "label": "<h2> di dalam .kotak"
+      },
+      {
+        "type": "element_exists",
+        "selector": "div.kotak span",
+        "poin": 21,
+        "label": "<span> di dalam .kotak"
+      },
+      {
+        "type": "element_exists",
+        "selector": "div.kotak p",
+        "poin": 13,
+        "label": "<p> di dalam .kotak"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-dasar-004",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-02", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-02",
+    "chapterModul": "html",
     "topik": "Struktur Dokumen",
     "instruksi": "Lengkapi kerangka dokumen: atur bahasa dokumen menjadi Indonesia (<code>lang=\"id\"</code>), ganti isi <code>&lt;title&gt;</code> menjadi <code>Halaman Saya</code>, dan tambahkan satu <code>&lt;h1&gt;</code> di dalam <code>&lt;body&gt;</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <title>Ganti judul ini</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <title>Ganti judul ini</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "html", "attribute": "lang", "expected": "id", "poin": 25, "label": "<html lang=\"id\">" },
-      { "type": "element_exists", "selector": "head title", "poin": 20, "label": "<title> berada di dalam <head>" },
-      { "type": "text_content_equals", "selector": "title", "expected": "Halaman Saya", "poin": 30, "label": "teks <title> = \"Halaman Saya\"" },
-      { "type": "element_exists", "selector": "body h1", "poin": 25, "label": "<h1> berada di dalam <body>" }
+      {
+        "type": "attribute_equals",
+        "selector": "html",
+        "attribute": "lang",
+        "expected": "id",
+        "poin": 21,
+        "label": "<html lang=\"id\">"
+      },
+      {
+        "type": "element_exists",
+        "selector": "head title",
+        "poin": 17,
+        "label": "<title> berada di dalam <head>"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "title",
+        "expected": "Halaman Saya",
+        "poin": 25,
+        "label": "teks <title> = \"Halaman Saya\""
+      },
+      {
+        "type": "element_exists",
+        "selector": "body h1",
+        "poin": 21,
+        "label": "<h1> berada di dalam <body>"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-005",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-02", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-02",
+    "chapterModul": "html",
     "topik": "Struktur Dokumen",
     "instruksi": "Bagian <code>&lt;head&gt;</code> masih kosong. Tambahkan <code>&lt;meta charset=\"utf-8\"&gt;</code>, meta viewport dengan <code>content=\"width=device-width, initial-scale=1\"</code>, dan <code>&lt;title&gt;</code> berisi <code>Kerangka Lengkap</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</head>\n<body>\n  <h1>Halo</h1>\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</head>\n<body>\n  <h1>Halo</h1>\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "meta[charset]", "attribute": "charset", "expected": "utf-8", "poin": 30, "label": "meta charset utf-8" },
-      { "type": "attribute_equals", "selector": "meta[name='viewport']", "attribute": "content", "expected": "width=device-width, initial-scale=1", "poin": 35, "label": "meta viewport benar" },
-      { "type": "text_content_equals", "selector": "title", "expected": "Kerangka Lengkap", "poin": 35, "label": "teks <title> = \"Kerangka Lengkap\"" }
+      {
+        "type": "attribute_equals",
+        "selector": "meta[charset]",
+        "attribute": "charset",
+        "expected": "utf-8",
+        "poin": 25,
+        "label": "meta charset utf-8"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "meta[name='viewport']",
+        "attribute": "content",
+        "expected": "width=device-width, initial-scale=1",
+        "poin": 29,
+        "label": "meta viewport benar"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "title",
+        "expected": "Kerangka Lengkap",
+        "poin": 29,
+        "label": "teks <title> = \"Kerangka Lengkap\""
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 9,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-006",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-02", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-02",
+    "chapterModul": "html",
     "topik": "Struktur Dokumen",
     "instruksi": "Di dalam <code>&lt;body&gt;</code>, buat dua elemen <strong>block</strong> berupa <code>&lt;div&gt;</code> berurutan, lalu satu paragraf yang di dalamnya berisi dua elemen <strong>inline</strong> berupa <code>&lt;span&gt;</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Block dan Inline</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Block dan Inline</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_count_min", "selector": "body > div", "min": 2, "poin": 40, "label": "ada minimal 2 <div> langsung di dalam <body>" },
-      { "type": "element_exists", "selector": "p span", "poin": 30, "label": "<span> berada di dalam paragraf" },
-      { "type": "descendant_count_min", "selector": "p", "child_selector": "span", "min": 2, "poin": 30, "label": "paragraf berisi minimal 2 <span>" }
+      {
+        "type": "element_count_min",
+        "selector": "body > div",
+        "min": 2,
+        "poin": 33,
+        "label": "ada minimal 2 <div> langsung di dalam <body>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "p span",
+        "poin": 25,
+        "label": "<span> berada di dalam paragraf"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "p",
+        "child_selector": "span",
+        "min": 2,
+        "poin": 25,
+        "label": "paragraf berisi minimal 2 <span>"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 9,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-dasar-007",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-03", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-03",
+    "chapterModul": "html",
     "topik": "Teks & Heading",
     "instruksi": "Buat <code>&lt;h1&gt;</code> berisi <code>Catatan Harian</code>, lalu <code>&lt;h2&gt;</code> di bawahnya, lalu <code>&lt;h3&gt;</code>. Jangan melompati tingkat heading.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Catatan Harian</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Catatan Harian</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "text_content_equals", "selector": "h1", "expected": "Catatan Harian", "poin": 35, "label": "teks <h1> = \"Catatan Harian\"" },
-      { "type": "element_exists", "selector": "h2", "poin": 35, "label": "elemen <h2> ditemukan" },
-      { "type": "element_exists", "selector": "h3", "poin": 30, "label": "elemen <h3> ditemukan" }
+      {
+        "type": "text_content_equals",
+        "selector": "h1",
+        "expected": "Catatan Harian",
+        "poin": 25,
+        "label": "teks <h1> = \"Catatan Harian\""
+      },
+      {
+        "type": "element_exists",
+        "selector": "h2",
+        "poin": 25,
+        "label": "elemen <h2> ditemukan"
+      },
+      {
+        "type": "element_exists",
+        "selector": "h3",
+        "poin": 21,
+        "label": "elemen <h3> ditemukan"
+      },
+      {
+        "type": "heading_order_valid",
+        "poin": 14,
+        "label": "urutan heading tidak melompat"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-008",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-03", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-03",
+    "chapterModul": "html",
     "topik": "Teks & Heading",
     "instruksi": "Buat sebuah <code>&lt;blockquote&gt;</code> berisi kutipan minimal 6 kata, dan sebuah <code>&lt;pre&gt;</code> berisi dua baris teks yang spasinya dipertahankan.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Kutipan</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Kutipan</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "blockquote", "poin": 25, "label": "<blockquote> ditemukan" },
-      { "type": "text_min_word_count", "selector": "blockquote", "min_words": 6, "poin": 30, "label": "kutipan minimal 6 kata" },
-      { "type": "element_exists", "selector": "pre", "poin": 25, "label": "<pre> ditemukan" },
-      { "type": "computed_style_contains", "selector": "pre", "property": "white-space", "contains": "pre", "poin": 20, "label": "<pre> mempertahankan spasi" }
+      {
+        "type": "element_exists",
+        "selector": "blockquote",
+        "poin": 21,
+        "label": "<blockquote> ditemukan"
+      },
+      {
+        "type": "text_min_word_count",
+        "selector": "blockquote",
+        "min_words": 6,
+        "poin": 25,
+        "label": "kutipan minimal 6 kata"
+      },
+      {
+        "type": "element_exists",
+        "selector": "pre",
+        "poin": 21,
+        "label": "<pre> ditemukan"
+      },
+      {
+        "type": "computed_style_contains",
+        "selector": "pre",
+        "property": "white-space",
+        "contains": "pre",
+        "poin": 17,
+        "label": "<pre> mempertahankan spasi"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-009",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-03", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-03",
+    "chapterModul": "html",
     "topik": "Teks & Heading",
     "instruksi": "Buat paragraf ber-<code>id=\"entitas\"</code> yang menampilkan teks persis: <code>Tag &lt;p&gt; &amp; &lt;h1&gt;</code>. Gunakan entitas HTML agar tanda kurung siku benar-benar tampil sebagai teks.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Entitas</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n  <!-- Petunjuk: tanda kurung siku harus ditulis sebagai entitas HTML -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Entitas</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n  <!-- Petunjuk: tanda kurung siku harus ditulis sebagai entitas HTML -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "p#entitas", "poin": 30, "label": "<p id=\"entitas\"> ditemukan" },
-      { "type": "text_content_equals", "selector": "p#entitas", "expected": "Tag <p> & <h1>", "poin": 50, "label": "teks tampil persis: Tag <p> & <h1>", "hint": "Gunakan &lt; &gt; dan &amp; — bukan tanda kurung siku langsung." },
-      { "type": "source_matches", "target": "html", "pattern": "&lt;|&gt;", "poin": 20, "label": "memakai entitas HTML", "describe": "&lt; atau &gt;" }
+      {
+        "type": "element_exists",
+        "selector": "p#entitas",
+        "poin": 23,
+        "label": "<p id=\"entitas\"> ditemukan"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "p#entitas",
+        "expected": "Tag <p> & <h1>",
+        "poin": 38,
+        "label": "teks tampil persis: Tag <p> & <h1>",
+        "hint": "Gunakan &lt; &gt; dan &amp; — bukan tanda kurung siku langsung."
+      },
+      {
+        "type": "source_matches",
+        "target": "html",
+        "pattern": "&lt;|&gt;",
+        "poin": 15,
+        "label": "memakai entitas HTML",
+        "describe": "&lt; atau &gt;"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 10,
+        "label": "tidak ada id yang dipakai dua kali"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-dasar-010",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-04", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-04",
+    "chapterModul": "html",
     "topik": "List & Link",
     "instruksi": "Isi <code>&lt;ul&gt;</code> yang sudah disediakan dengan tiga mata pelajaran favorit Anda. Item terakhir harus berupa tautan menuju <code>https://sekolah.sch.id</code> yang terbuka di tab baru.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Mata Pelajaran</title>\n</head>\n<body>\n\n  <h1>Mata Pelajaran Favorit</h1>\n\n  <ul>\n    <!-- ✏️ TULIS TIGA <li> DI SINI -->\n  </ul>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Mata Pelajaran</title>\n</head>\n<body>\n\n  <h1>Mata Pelajaran Favorit</h1>\n\n  <ul>\n    <!-- ✏️ TULIS TIGA <li> DI SINI -->\n  </ul>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "descendant_count_min", "selector": "ul", "child_selector": "li", "min": 3, "poin": 40, "label": "<ul> berisi minimal 3 <li>" },
-      { "type": "attribute_equals", "selector": "ul li a", "attribute": "href", "expected": "https://sekolah.sch.id", "poin": 30, "label": "atribut href benar" },
-      { "type": "attribute_equals", "selector": "ul li a", "attribute": "target", "expected": "_blank", "poin": 30, "label": "target=\"_blank\"", "hint": "Tambahkan target=\"_blank\" pada tag <a>." }
+      {
+        "type": "descendant_count_min",
+        "selector": "ul",
+        "child_selector": "li",
+        "min": 3,
+        "poin": 29,
+        "label": "<ul> berisi minimal 3 <li>"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "ul li a",
+        "attribute": "href",
+        "expected": "https://sekolah.sch.id",
+        "poin": 21,
+        "label": "atribut href benar"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "ul li a",
+        "attribute": "target",
+        "expected": "_blank",
+        "poin": 21,
+        "label": "target=\"_blank\"",
+        "hint": "Tambahkan target=\"_blank\" pada tag <a>."
+      },
+      {
+        "type": "all_match",
+        "selector": "ul li",
+        "min": 3,
+        "poin": 9,
+        "must": {
+          "not_empty": true
+        },
+        "label": "SETIAP <li> ada isinya"
+      },
+      {
+        "type": "attribute_not_one_of",
+        "selector": "ul li a",
+        "attribute": "href",
+        "forbidden": [
+          "",
+          "#"
+        ],
+        "poin": 6,
+        "label": "href bukan tautan kosong \"#\""
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-011",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-04", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-04",
+    "chapterModul": "html",
     "topik": "List & Link",
     "instruksi": "Buat daftar <strong>berurutan</strong> ber-<code>id=\"langkah\"</code> berisi tiga langkah memasang GitHub Pages. Item pertama harus mengandung sub-daftar <code>&lt;ul&gt;</code> dengan minimal dua item.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Langkah Deploy</title>\n</head>\n<body>\n\n  <h1>Langkah Deploy</h1>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Langkah Deploy</title>\n</head>\n<body>\n\n  <h1>Langkah Deploy</h1>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "ol#langkah", "poin": 30, "label": "<ol id=\"langkah\"> ditemukan" },
-      { "type": "descendant_count_min", "selector": "ol#langkah", "child_selector": "li", "min": 3, "poin": 30, "label": "berisi minimal 3 <li>" },
-      { "type": "element_exists", "selector": "ol#langkah li ul li", "poin": 40, "label": "ada sub-daftar <ul> di dalam <li>", "hint": "Sub-daftar ditulis di dalam <li> induknya, bukan sesudahnya." }
+      {
+        "type": "element_exists",
+        "selector": "ol#langkah",
+        "poin": 20,
+        "label": "<ol id=\"langkah\"> ditemukan"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "ol#langkah",
+        "child_selector": "li",
+        "min": 3,
+        "poin": 20,
+        "label": "berisi minimal 3 <li>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "ol#langkah li ul li",
+        "poin": 27,
+        "label": "ada sub-daftar <ul> di dalam <li>",
+        "hint": "Sub-daftar ditulis di dalam <li> induknya, bukan sesudahnya."
+      },
+      {
+        "type": "all_match",
+        "selector": "ol#langkah > li",
+        "min": 3,
+        "poin": 10,
+        "must": {
+          "min_words": 2
+        },
+        "label": "SETIAP langkah minimal 2 kata"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 6,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 10,
+        "label": "tidak ada id yang dipakai dua kali"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-012",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-04", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-04",
+    "chapterModul": "html",
     "topik": "List & Link",
     "instruksi": "Buat daftar definisi <code>&lt;dl&gt;</code> berisi dua istilah. Istilah pertama harus <code>HTML</code>. Tambahkan juga tautan jangkar ke <code>#glosarium</code>, dan beri <code>id=\"glosarium\"</code> pada <code>&lt;dl&gt;</code>-nya.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Glosarium</title>\n</head>\n<body>\n\n  <h1>Glosarium</h1>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Glosarium</title>\n</head>\n<body>\n\n  <h1>Glosarium</h1>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "dl#glosarium", "poin": 25, "label": "<dl id=\"glosarium\"> ditemukan" },
-      { "type": "text_content_equals", "selector": "dl dt", "expected": "HTML", "poin": 25, "label": "istilah pertama = \"HTML\"" },
-      { "type": "element_count_min", "selector": "dl dd", "min": 2, "poin": 25, "label": "ada minimal 2 definisi <dd>" },
-      { "type": "attribute_equals", "selector": "a", "attribute": "href", "expected": "#glosarium", "poin": 25, "label": "tautan jangkar ke #glosarium" }
+      {
+        "type": "element_exists",
+        "selector": "dl#glosarium",
+        "poin": 19,
+        "label": "<dl id=\"glosarium\"> ditemukan"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "dl dt",
+        "expected": "HTML",
+        "poin": 19,
+        "label": "istilah pertama = \"HTML\""
+      },
+      {
+        "type": "element_count_min",
+        "selector": "dl dd",
+        "min": 2,
+        "poin": 19,
+        "label": "ada minimal 2 definisi <dd>"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "a",
+        "attribute": "href",
+        "expected": "#glosarium",
+        "poin": 19,
+        "label": "tautan jangkar ke #glosarium"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 10,
+        "label": "tidak ada id yang dipakai dua kali"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-dasar-013",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-05", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-05",
+    "chapterModul": "html",
     "topik": "Gambar & Atribut",
     "instruksi": "Tampilkan gambar dari <code>https://placehold.co/320x180</code> dengan teks <code>alt</code> yang tidak kosong, <code>class=\"foto\"</code>, serta atribut <code>width=\"320\"</code> dan <code>height=\"180\"</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Gambar</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Gambar</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "img", "attribute": "src", "expected": "https://placehold.co/320x180", "poin": 25, "label": "atribut src benar" },
-      { "type": "attribute_exists", "selector": "img", "attribute": "alt", "poin": 20, "label": "atribut alt ada" },
-      { "type": "element_exists", "selector": "img.foto", "poin": 20, "label": "class=\"foto\" terpasang" },
-      { "type": "attribute_equals", "selector": "img", "attribute": "width", "expected": "320", "poin": 20, "label": "width=\"320\"" },
-      { "type": "attribute_equals", "selector": "img", "attribute": "height", "expected": "180", "poin": 15, "label": "height=\"180\"" }
+      {
+        "type": "attribute_equals",
+        "selector": "img",
+        "attribute": "src",
+        "expected": "https://placehold.co/320x180",
+        "poin": 19,
+        "label": "atribut src benar"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "img",
+        "attribute": "alt",
+        "poin": 15,
+        "label": "atribut alt ada"
+      },
+      {
+        "type": "element_exists",
+        "selector": "img.foto",
+        "poin": 15,
+        "label": "class=\"foto\" terpasang"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "img",
+        "attribute": "width",
+        "expected": "320",
+        "poin": 15,
+        "label": "width=\"320\""
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "img",
+        "attribute": "height",
+        "expected": "180",
+        "poin": 11,
+        "label": "height=\"180\""
+      },
+      {
+        "type": "all_match",
+        "selector": "img",
+        "min": 1,
+        "poin": 11,
+        "must": {
+          "attribute_min_words": {
+            "attribute": "alt",
+            "min_words": 2
+          }
+        },
+        "label": "SETIAP gambar punya alt minimal 2 kata"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-014",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-05", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-05",
+    "chapterModul": "html",
     "topik": "Gambar & Atribut",
     "instruksi": "Bungkus sebuah gambar dengan <code>&lt;figure&gt;</code> dan beri <code>&lt;figcaption&gt;</code> berisi keterangan minimal 3 kata. Gambarnya bebas, tapi <code>src</code> dan <code>alt</code> harus terisi.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Figure</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Figure</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "figure img", "poin": 30, "label": "<img> berada di dalam <figure>" },
-      { "type": "element_exists", "selector": "figure figcaption", "poin": 25, "label": "<figcaption> di dalam <figure>" },
-      { "type": "text_min_word_count", "selector": "figcaption", "min_words": 3, "poin": 25, "label": "keterangan minimal 3 kata" },
-      { "type": "attribute_exists", "selector": "figure img", "attribute": "alt", "poin": 20, "label": "gambar punya atribut alt" }
+      {
+        "type": "element_exists",
+        "selector": "figure img",
+        "poin": 22,
+        "label": "<img> berada di dalam <figure>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "figure figcaption",
+        "poin": 19,
+        "label": "<figcaption> di dalam <figure>"
+      },
+      {
+        "type": "text_min_word_count",
+        "selector": "figcaption",
+        "min_words": 3,
+        "poin": 19,
+        "label": "keterangan minimal 3 kata"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "figure img",
+        "attribute": "alt",
+        "poin": 15,
+        "label": "gambar punya atribut alt"
+      },
+      {
+        "type": "all_match",
+        "selector": "figure img",
+        "min": 1,
+        "poin": 11,
+        "must": {
+          "attribute_not_empty": "alt"
+        },
+        "label": "SETIAP gambar dalam figure ber-alt"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-dasar-015",
-    "modul": "HTML", "level": "Dasar", "chapterId": "html-05", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Dasar",
+    "chapterId": "html-05",
+    "chapterModul": "html",
     "topik": "Gambar & Atribut",
     "instruksi": "Buat dua gambar. Gambar pertama informatif: beri <code>id=\"utama\"</code> dan <code>alt</code> minimal 3 kata. Gambar kedua dekoratif: beri <code>class=\"hiasan\"</code> dan <code>alt</code> <strong>kosong</strong>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Alt yang benar</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Alt yang benar</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "img#utama", "poin": 25, "label": "<img id=\"utama\"> ditemukan" },
-      { "type": "attribute_min_word_count", "selector": "img#utama", "attribute": "alt", "min_words": 3, "poin": 30, "label": "alt gambar utama minimal 3 kata" },
-      { "type": "element_exists", "selector": "img.hiasan", "poin": 20, "label": "<img class=\"hiasan\"> ditemukan" },
-      { "type": "attribute_equals", "selector": "img.hiasan", "attribute": "alt", "expected": "", "poin": 25, "label": "alt gambar hiasan kosong", "hint": "Tulis alt=\"\" — dikosongkan, bukan dihilangkan." }
+      {
+        "type": "element_exists",
+        "selector": "img#utama",
+        "poin": 19,
+        "label": "<img id=\"utama\"> ditemukan"
+      },
+      {
+        "type": "attribute_min_word_count",
+        "selector": "img#utama",
+        "attribute": "alt",
+        "min_words": 3,
+        "poin": 23,
+        "label": "alt gambar utama minimal 3 kata"
+      },
+      {
+        "type": "element_exists",
+        "selector": "img.hiasan",
+        "poin": 15,
+        "label": "<img class=\"hiasan\"> ditemukan"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "img.hiasan",
+        "attribute": "alt",
+        "expected": "",
+        "poin": 19,
+        "label": "alt gambar hiasan kosong",
+        "hint": "Tulis alt=\"\" — dikosongkan, bukan dihilangkan."
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 10,
+        "label": "tidak ada id yang dipakai dua kali"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-menengah-016",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-06", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-06",
+    "chapterModul": "html",
     "topik": "Tabel",
     "instruksi": "Lengkapi tabel: satu baris judul berisi dua <code>&lt;th&gt;</code> (<code>Mata Pelajaran</code> dan <code>Nilai</code>), dua baris data, lalu satu baris penutup dengan sel ber-<code>colspan=\"2\"</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Tabel Nilai</title>\n</head>\n<body>\n\n  <table border=\"1\">\n    <!-- ✏️ TULIS BARIS-BARIS TABEL DI SINI -->\n  </table>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Tabel Nilai</title>\n</head>\n<body>\n\n  <table border=\"1\">\n    <!-- ✏️ TULIS BARIS-BARIS TABEL DI SINI -->\n  </table>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "descendant_count_min", "selector": "table", "child_selector": "th", "min": 2, "poin": 25, "label": "tabel punya minimal 2 <th>" },
-      { "type": "text_content_equals", "selector": "table th", "expected": "Mata Pelajaran", "poin": 20, "label": "judul kolom pertama benar" },
-      { "type": "descendant_count_min", "selector": "table", "child_selector": "tr", "min": 4, "poin": 25, "label": "tabel punya minimal 4 baris" },
-      { "type": "attribute_equals", "selector": "table [colspan]", "attribute": "colspan", "expected": "2", "poin": 30, "label": "ada sel dengan colspan=\"2\"" }
+      {
+        "type": "descendant_count_min",
+        "selector": "table",
+        "child_selector": "th",
+        "min": 2,
+        "poin": 18,
+        "label": "tabel punya minimal 2 <th>"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "table th",
+        "expected": "Mata Pelajaran",
+        "poin": 14,
+        "label": "judul kolom pertama benar"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "table",
+        "child_selector": "tr",
+        "min": 4,
+        "poin": 18,
+        "label": "tabel punya minimal 4 baris"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "table [colspan]",
+        "attribute": "colspan",
+        "expected": "2",
+        "poin": 21,
+        "label": "ada sel dengan colspan=\"2\""
+      },
+      {
+        "type": "table_structure_valid",
+        "selector": "table",
+        "poin": 14,
+        "label": "jumlah kolom tiap baris konsisten (colspan dihitung)"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-menengah-017",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-06", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-06",
+    "chapterModul": "html",
     "topik": "Tabel",
     "instruksi": "Buat tabel jadwal lengkap dengan <code>&lt;caption&gt;</code> berisi <code>Jadwal Pelajaran</code>, bagian <code>&lt;thead&gt;</code>, dan <code>&lt;tbody&gt;</code> berisi minimal dua baris.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Jadwal</title>\n</head>\n<body>\n\n  <table border=\"1\">\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n    <!-- Ingat: <caption> harus jadi anak pertama <table> -->\n  </table>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Jadwal</title>\n</head>\n<body>\n\n  <table border=\"1\">\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n    <!-- Ingat: <caption> harus jadi anak pertama <table> -->\n  </table>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "text_content_equals", "selector": "table caption", "expected": "Jadwal Pelajaran", "poin": 30, "label": "<caption> = \"Jadwal Pelajaran\"" },
-      { "type": "element_exists", "selector": "table thead tr th", "poin": 30, "label": "<thead> berisi baris judul" },
-      { "type": "descendant_count_min", "selector": "table tbody", "child_selector": "tr", "min": 2, "poin": 40, "label": "<tbody> berisi minimal 2 baris" }
+      {
+        "type": "text_content_equals",
+        "selector": "table caption",
+        "expected": "Jadwal Pelajaran",
+        "poin": 22,
+        "label": "<caption> = \"Jadwal Pelajaran\""
+      },
+      {
+        "type": "element_exists",
+        "selector": "table thead tr th",
+        "poin": 22,
+        "label": "<thead> berisi baris judul"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "table tbody",
+        "child_selector": "tr",
+        "min": 2,
+        "poin": 30,
+        "label": "<tbody> berisi minimal 2 baris"
+      },
+      {
+        "type": "table_structure_valid",
+        "selector": "table",
+        "poin": 11,
+        "label": "jumlah kolom tiap baris konsisten"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-menengah-018",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-06", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-06",
+    "chapterModul": "html",
     "topik": "Tabel",
     "instruksi": "Tabel ini punya judul di baris <em>dan</em> di kolom. Tambahkan atribut <code>scope</code> yang tepat: <code>scope=\"col\"</code> pada judul kolom di <code>&lt;thead&gt;</code>, dan <code>scope=\"row\"</code> pada judul baris di <code>&lt;tbody&gt;</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Scope</title>\n</head>\n<body>\n\n  <table border=\"1\">\n    <thead>\n      <tr>\n        <th>Mapel</th>\n        <th>Nilai</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th>Fisika</th>\n        <td>88</td>\n      </tr>\n    </tbody>\n  </table>\n\n  <!-- ✏️ TAMBAHKAN ATRIBUT scope PADA SETIAP <th> DI ATAS -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Scope</title>\n</head>\n<body>\n\n  <table border=\"1\">\n    <thead>\n      <tr>\n        <th>Mapel</th>\n        <th>Nilai</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <th>Fisika</th>\n        <td>88</td>\n      </tr>\n    </tbody>\n  </table>\n\n  <!-- ✏️ TAMBAHKAN ATRIBUT scope PADA SETIAP <th> DI ATAS -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_count_min", "selector": "thead th[scope='col']", "min": 2, "poin": 50, "label": "dua <th> di <thead> ber-scope=\"col\"" },
-      { "type": "element_exists", "selector": "tbody th[scope='row']", "poin": 50, "label": "<th> di <tbody> ber-scope=\"row\"" }
+      {
+        "type": "element_count_min",
+        "selector": "thead th[scope='col']",
+        "min": 2,
+        "poin": 37,
+        "label": "dua <th> di <thead> ber-scope=\"col\""
+      },
+      {
+        "type": "element_exists",
+        "selector": "tbody th[scope='row']",
+        "poin": 37,
+        "label": "<th> di <tbody> ber-scope=\"row\""
+      },
+      {
+        "type": "table_structure_valid",
+        "selector": "table",
+        "poin": 11,
+        "label": "jumlah kolom tiap baris konsisten"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-menengah-019",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-07", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-07",
+    "chapterModul": "html",
     "topik": "Form Dasar",
     "instruksi": "Lengkapi form: satu isian teks bernama <code>nama</code> yang terhubung ke <code>&lt;label&gt;</code>-nya lewat <code>for</code>/<code>id</code>, satu <code>&lt;select&gt;</code> dengan minimal dua <code>&lt;option&gt;</code>, dan satu tombol bertipe <code>submit</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Pendaftaran</title>\n</head>\n<body>\n\n  <h1>Formulir Pendaftaran</h1>\n\n  <form action=\"#\" method=\"post\">\n\n    <!-- ✏️ TULIS ISIAN FORM DI SINI -->\n\n  </form>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Pendaftaran</title>\n</head>\n<body>\n\n  <h1>Formulir Pendaftaran</h1>\n\n  <form action=\"#\" method=\"post\">\n\n    <!-- ✏️ TULIS ISIAN FORM DI SINI -->\n\n  </form>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "form input[type='text']", "attribute": "name", "expected": "nama", "poin": 25, "label": "input teks bernama \"nama\"" },
-      { "type": "attribute_exists", "selector": "form label", "attribute": "for", "poin": 25, "label": "<label> punya atribut for" },
-      { "type": "descendant_count_min", "selector": "form select", "child_selector": "option", "min": 2, "poin": 25, "label": "<select> punya minimal 2 <option>" },
-      { "type": "attribute_equals", "selector": "form button", "attribute": "type", "expected": "submit", "poin": 25, "label": "tombol bertipe submit" }
+      {
+        "type": "attribute_equals",
+        "selector": "form input[type='text']",
+        "attribute": "name",
+        "expected": "nama",
+        "poin": 18,
+        "label": "input teks bernama \"nama\""
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "form label",
+        "attribute": "for",
+        "poin": 18,
+        "label": "<label> punya atribut for"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "form select",
+        "child_selector": "option",
+        "min": 2,
+        "poin": 18,
+        "label": "<select> punya minimal 2 <option>"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "form button",
+        "attribute": "type",
+        "expected": "submit",
+        "poin": 18,
+        "label": "tombol bertipe submit"
+      },
+      {
+        "type": "label_for_valid",
+        "poin": 9,
+        "label": "SETIAP <label for> menunjuk isian yang benar-benar ada"
+      },
+      {
+        "type": "all_match",
+        "selector": "form input, form select, form textarea",
+        "min": 2,
+        "poin": 6,
+        "must": {
+          "attribute_not_empty": "name"
+        },
+        "label": "SETIAP kontrol form punya name"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 6,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-menengah-020",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-07", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-07",
+    "chapterModul": "html",
     "topik": "Form Dasar",
     "instruksi": "Buat form saran berisi <code>&lt;textarea&gt;</code> bernama <code>pesan</code> dengan <code>rows=\"4\"</code>, dan sebuah tombol bertuliskan <code>Kirim</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Saran</title>\n</head>\n<body>\n\n  <form>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n  </form>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Saran</title>\n</head>\n<body>\n\n  <form>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n  </form>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "textarea", "attribute": "name", "expected": "pesan", "poin": 35, "label": "textarea bernama \"pesan\"" },
-      { "type": "attribute_equals", "selector": "textarea", "attribute": "rows", "expected": "4", "poin": 30, "label": "rows=\"4\"" },
-      { "type": "text_content_equals", "selector": "form button", "expected": "Kirim", "poin": 35, "label": "tombol bertuliskan \"Kirim\"" }
+      {
+        "type": "attribute_equals",
+        "selector": "textarea",
+        "attribute": "name",
+        "expected": "pesan",
+        "poin": 29,
+        "label": "textarea bernama \"pesan\""
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "textarea",
+        "attribute": "rows",
+        "expected": "4",
+        "poin": 25,
+        "label": "rows=\"4\""
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "form button",
+        "expected": "Kirim",
+        "poin": 29,
+        "label": "tombol bertuliskan \"Kirim\""
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 9,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-menengah-021",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-07", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-07",
+    "chapterModul": "html",
     "topik": "Form Dasar",
     "instruksi": "Buat grup pilihan ekstrakurikuler: bungkus dengan <code>&lt;fieldset&gt;</code>, beri <code>&lt;legend&gt;</code> berisi <code>Pilih ekstrakurikuler</code>, dan isi dengan dua <code>&lt;input type=\"radio\"&gt;</code> yang <code>name</code>-nya sama-sama <code>eskul</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Ekstrakurikuler</title>\n</head>\n<body>\n\n  <form>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n  </form>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Ekstrakurikuler</title>\n</head>\n<body>\n\n  <form>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n  </form>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "fieldset legend", "poin": 25, "label": "<legend> di dalam <fieldset>" },
-      { "type": "text_content_equals", "selector": "legend", "expected": "Pilih ekstrakurikuler", "poin": 25, "label": "teks <legend> benar" },
-      { "type": "element_count_min", "selector": "input[type='radio'][name='eskul']", "min": 2, "poin": 50, "label": "dua radio ber-name=\"eskul\"", "hint": "Radio hanya saling meniadakan bila name-nya sama persis." }
+      {
+        "type": "element_exists",
+        "selector": "fieldset legend",
+        "poin": 19,
+        "label": "<legend> di dalam <fieldset>"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "legend",
+        "expected": "Pilih ekstrakurikuler",
+        "poin": 19,
+        "label": "teks <legend> benar"
+      },
+      {
+        "type": "element_count_min",
+        "selector": "input[type='radio'][name='eskul']",
+        "min": 2,
+        "poin": 38,
+        "label": "dua radio ber-name=\"eskul\"",
+        "hint": "Radio hanya saling meniadakan bila name-nya sama persis."
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 9,
+        "label": "tidak ada id ganda"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-menengah-022",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-08", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-08",
+    "chapterModul": "html",
     "topik": "Elemen Semantik",
     "instruksi": "Susun halaman dengan <code>&lt;header&gt;</code> berisi <code>&lt;h1&gt;</code> dan <code>&lt;nav&gt;</code>, satu <code>&lt;main&gt;</code> berisi <code>&lt;article&gt;</code>, serta <code>&lt;footer&gt;</code> di bagian bawah.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Blog Saya</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS STRUKTUR SEMANTIK DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Blog Saya</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS STRUKTUR SEMANTIK DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "header h1", "poin": 25, "label": "<h1> di dalam <header>" },
-      { "type": "element_exists", "selector": "header nav", "poin": 20, "label": "<nav> di dalam <header>" },
-      { "type": "element_exists", "selector": "main article", "poin": 30, "label": "<article> di dalam <main>" },
-      { "type": "element_exists", "selector": "body > footer", "poin": 25, "label": "<footer> di tingkat halaman" }
+      {
+        "type": "element_exists",
+        "selector": "header h1",
+        "poin": 19,
+        "label": "<h1> di dalam <header>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "header nav",
+        "poin": 15,
+        "label": "<nav> di dalam <header>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "main article",
+        "poin": 22,
+        "label": "<article> di dalam <main>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "body > footer",
+        "poin": 19,
+        "label": "<footer> di tingkat halaman"
+      },
+      {
+        "type": "heading_order_valid",
+        "poin": 11,
+        "label": "urutan heading tidak melompat"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-menengah-023",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-08", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-08",
+    "chapterModul": "html",
     "topik": "Elemen Semantik",
     "instruksi": "Buat sebuah <code>&lt;section&gt;</code> ber-<code>id=\"profil\"</code> yang memuat <code>&lt;h2&gt;</code> berisi <code>Tentang Saya</code> dan satu paragraf minimal 8 kata. Tambahkan juga satu <code>&lt;aside&gt;</code> di luar section itu.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Profil</title>\n</head>\n<body>\n\n  <main>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n  </main>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Profil</title>\n</head>\n<body>\n\n  <main>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n  </main>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "section#profil", "poin": 25, "label": "<section id=\"profil\"> ditemukan" },
-      { "type": "text_content_equals", "selector": "section#profil h2", "expected": "Tentang Saya", "poin": 30, "label": "<h2> = \"Tentang Saya\"" },
-      { "type": "text_min_word_count", "selector": "section#profil p", "min_words": 8, "poin": 25, "label": "paragraf minimal 8 kata" },
-      { "type": "element_exists", "selector": "aside", "poin": 20, "label": "<aside> ditemukan" }
+      {
+        "type": "element_exists",
+        "selector": "section#profil",
+        "poin": 19,
+        "label": "<section id=\"profil\"> ditemukan"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "section#profil h2",
+        "expected": "Tentang Saya",
+        "poin": 23,
+        "label": "<h2> = \"Tentang Saya\""
+      },
+      {
+        "type": "text_min_word_count",
+        "selector": "section#profil p",
+        "min_words": 8,
+        "poin": 19,
+        "label": "paragraf minimal 8 kata"
+      },
+      {
+        "type": "element_exists",
+        "selector": "aside",
+        "poin": 15,
+        "label": "<aside> ditemukan"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 10,
+        "label": "tidak ada id yang dipakai dua kali"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-menengah-024",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-08", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-08",
+    "chapterModul": "html",
     "topik": "Elemen Semantik",
     "instruksi": "Buat satu <code>&lt;article&gt;</code> yang punya <code>&lt;header&gt;</code> sendiri berisi <code>&lt;h2&gt;</code> dan sebuah <code>&lt;time&gt;</code> dengan atribut <code>datetime=\"2026-08-26\"</code>, serta <code>&lt;footer&gt;</code> sendiri.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Artikel</title>\n</head>\n<body>\n\n  <main>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n  </main>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Artikel</title>\n</head>\n<body>\n\n  <main>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n  </main>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "article header h2", "poin": 30, "label": "<h2> di dalam header artikel" },
-      { "type": "attribute_equals", "selector": "article time", "attribute": "datetime", "expected": "2026-08-26", "poin": 40, "label": "<time datetime=\"2026-08-26\">" },
-      { "type": "element_exists", "selector": "article footer", "poin": 30, "label": "<footer> di dalam <article>" }
+      {
+        "type": "element_exists",
+        "selector": "article header h2",
+        "poin": 25,
+        "label": "<h2> di dalam header artikel"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "article time",
+        "attribute": "datetime",
+        "expected": "2026-08-26",
+        "poin": 33,
+        "label": "<time datetime=\"2026-08-26\">"
+      },
+      {
+        "type": "element_exists",
+        "selector": "article footer",
+        "poin": 25,
+        "label": "<footer> di dalam <article>"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 9,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-menengah-025",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-09", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-09",
+    "chapterModul": "html",
     "topik": "Media",
     "instruksi": "Sisipkan <code>&lt;video&gt;</code> dengan atribut <code>controls</code> dan <code>width=\"320\"</code>, berisi satu <code>&lt;source&gt;</code> bertipe <code>video/mp4</code>. Tambahkan juga satu <code>&lt;iframe&gt;</code> yang punya atribut <code>title</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Media</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Media</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_exists", "selector": "video", "attribute": "controls", "poin": 25, "label": "<video controls> ditemukan" },
-      { "type": "attribute_equals", "selector": "video", "attribute": "width", "expected": "320", "poin": 20, "label": "width=\"320\"" },
-      { "type": "attribute_equals", "selector": "video source", "attribute": "type", "expected": "video/mp4", "poin": 30, "label": "<source type=\"video/mp4\">" },
-      { "type": "attribute_exists", "selector": "iframe", "attribute": "title", "poin": 25, "label": "<iframe> punya atribut title" }
+      {
+        "type": "attribute_exists",
+        "selector": "video",
+        "attribute": "controls",
+        "poin": 21,
+        "label": "<video controls> ditemukan"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "video",
+        "attribute": "width",
+        "expected": "320",
+        "poin": 17,
+        "label": "width=\"320\""
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "video source",
+        "attribute": "type",
+        "expected": "video/mp4",
+        "poin": 25,
+        "label": "<source type=\"video/mp4\">"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "iframe",
+        "attribute": "title",
+        "poin": 21,
+        "label": "<iframe> punya atribut title"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-menengah-026",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-09", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-09",
+    "chapterModul": "html",
     "topik": "Media",
     "instruksi": "Buat <code>&lt;video&gt;</code> ber-<code>controls</code> dan <code>muted</code> yang menyediakan <strong>dua</strong> <code>&lt;source&gt;</code> berbeda format, serta teks cadangan minimal 4 kata untuk browser yang tidak mendukung.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Video Berlapis</title>\n</head>\n<body>\n\n  <video>\n    <!-- ✏️ TULIS SOURCE DAN TEKS CADANGAN DI SINI -->\n  </video>\n\n  <!-- ✏️ JANGAN LUPA TAMBAHKAN ATRIBUT controls DAN muted PADA <video> -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Video Berlapis</title>\n</head>\n<body>\n\n  <video>\n    <!-- ✏️ TULIS SOURCE DAN TEKS CADANGAN DI SINI -->\n  </video>\n\n  <!-- ✏️ JANGAN LUPA TAMBAHKAN ATRIBUT controls DAN muted PADA <video> -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_exists", "selector": "video", "attribute": "controls", "poin": 20, "label": "atribut controls ada" },
-      { "type": "attribute_exists", "selector": "video", "attribute": "muted", "poin": 20, "label": "atribut muted ada" },
-      { "type": "descendant_count_min", "selector": "video", "child_selector": "source", "min": 2, "poin": 35, "label": "ada 2 <source> alternatif" },
-      { "type": "text_min_word_count", "selector": "video", "min_words": 4, "poin": 25, "label": "teks cadangan minimal 4 kata" }
+      {
+        "type": "attribute_exists",
+        "selector": "video",
+        "attribute": "controls",
+        "poin": 17,
+        "label": "atribut controls ada"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "video",
+        "attribute": "muted",
+        "poin": 17,
+        "label": "atribut muted ada"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "video",
+        "child_selector": "source",
+        "min": 2,
+        "poin": 29,
+        "label": "ada 2 <source> alternatif"
+      },
+      {
+        "type": "text_min_word_count",
+        "selector": "video",
+        "min_words": 4,
+        "poin": 21,
+        "label": "teks cadangan minimal 4 kata"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-menengah-027",
-    "modul": "HTML", "level": "Menengah", "chapterId": "html-09", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Menengah",
+    "chapterId": "html-09",
+    "chapterModul": "html",
     "topik": "Media",
     "instruksi": "Buat pemutar <code>&lt;audio&gt;</code> ber-<code>controls</code> dengan satu <code>&lt;source&gt;</code> bertipe <code>audio/mpeg</code>. Tambahkan <code>&lt;iframe&gt;</code> ber-<code>title=\"Peta lokasi\"</code> dan atribut <code>sandbox</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Audio &amp; Iframe</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Audio &amp; Iframe</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_exists", "selector": "audio", "attribute": "controls", "poin": 25, "label": "<audio controls> ditemukan" },
-      { "type": "attribute_equals", "selector": "audio source", "attribute": "type", "expected": "audio/mpeg", "poin": 25, "label": "<source type=\"audio/mpeg\">" },
-      { "type": "attribute_equals", "selector": "iframe", "attribute": "title", "expected": "Peta lokasi", "poin": 25, "label": "iframe title = \"Peta lokasi\"" },
-      { "type": "attribute_exists", "selector": "iframe", "attribute": "sandbox", "poin": 25, "label": "iframe punya atribut sandbox" }
+      {
+        "type": "attribute_exists",
+        "selector": "audio",
+        "attribute": "controls",
+        "poin": 21,
+        "label": "<audio controls> ditemukan"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "audio source",
+        "attribute": "type",
+        "expected": "audio/mpeg",
+        "poin": 21,
+        "label": "<source type=\"audio/mpeg\">"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "iframe",
+        "attribute": "title",
+        "expected": "Peta lokasi",
+        "poin": 21,
+        "label": "iframe title = \"Peta lokasi\""
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "iframe",
+        "attribute": "sandbox",
+        "poin": 21,
+        "label": "iframe punya atribut sandbox"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-lanjutan-028",
-    "modul": "HTML", "level": "Lanjutan", "chapterId": "html-10", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-10",
+    "chapterModul": "html",
     "topik": "Form Validasi",
     "instruksi": "Buat isian email yang wajib diisi (<code>type=\"email\"</code> + <code>required</code>) dan isian NISN bertipe teks dengan <code>pattern=\"[0-9]{10}\"</code> serta atribut <code>title</code> yang menjelaskan formatnya.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Validasi</title>\n</head>\n<body>\n\n  <form>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n    <button type=\"submit\">Kirim</button>\n  </form>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Validasi</title>\n</head>\n<body>\n\n  <form>\n\n    <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n    <button type=\"submit\">Kirim</button>\n  </form>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_exists", "selector": "input[type='email']", "poin": 20, "label": "input bertipe email" },
-      { "type": "attribute_exists", "selector": "input[type='email']", "attribute": "required", "poin": 25, "label": "isian email wajib diisi" },
-      { "type": "attribute_equals", "selector": "input[pattern]", "attribute": "pattern", "expected": "[0-9]{10}", "poin": 30, "label": "pattern NISN benar" },
-      { "type": "attribute_exists", "selector": "input[pattern]", "attribute": "title", "poin": 25, "label": "pattern disertai title penjelas", "hint": "Tanpa title, pesan error browser tidak menyebut formatnya." }
+      {
+        "type": "element_exists",
+        "selector": "input[type='email']",
+        "poin": 15,
+        "label": "input bertipe email"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "input[type='email']",
+        "attribute": "required",
+        "poin": 19,
+        "label": "isian email wajib diisi"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "input[pattern]",
+        "attribute": "pattern",
+        "expected": "[0-9]{10}",
+        "poin": 22,
+        "label": "pattern NISN benar"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "input[pattern]",
+        "attribute": "title",
+        "poin": 19,
+        "label": "pattern disertai title penjelas",
+        "hint": "Tanpa title, pesan error browser tidak menyebut formatnya."
+      },
+      {
+        "type": "label_for_valid",
+        "poin": 11,
+        "label": "SETIAP <label for> menunjuk isian yang ada"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-lanjutan-029",
-    "modul": "HTML", "level": "Lanjutan", "chapterId": "html-10", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-10",
+    "chapterModul": "html",
     "topik": "Form Validasi",
     "instruksi": "Buat isian angka bernama <code>nilai</code> dengan <code>type=\"number\"</code>, <code>min=\"0\"</code>, <code>max=\"100\"</code>, dan isian tanggal <code>type=\"date\"</code> yang <code>required</code>. Tambahkan <code>autocomplete=\"name\"</code> pada isian nama.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Batas Nilai</title>\n</head>\n<body>\n\n  <form>\n    <label for=\"nama\">Nama</label>\n    <input type=\"text\" id=\"nama\" name=\"nama\">\n\n    <!-- ✏️ TULIS ISIAN LAIN DI SINI, DAN LENGKAPI ISIAN NAMA DI ATAS -->\n\n  </form>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Batas Nilai</title>\n</head>\n<body>\n\n  <form>\n    <label for=\"nama\">Nama</label>\n    <input type=\"text\" id=\"nama\" name=\"nama\">\n\n    <!-- ✏️ TULIS ISIAN LAIN DI SINI, DAN LENGKAPI ISIAN NAMA DI ATAS -->\n\n  </form>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "input[type='number']", "attribute": "name", "expected": "nilai", "poin": 20, "label": "input angka bernama \"nilai\"" },
-      { "type": "attribute_equals", "selector": "input[type='number']", "attribute": "min", "expected": "0", "poin": 20, "label": "min=\"0\"" },
-      { "type": "attribute_equals", "selector": "input[type='number']", "attribute": "max", "expected": "100", "poin": 20, "label": "max=\"100\"" },
-      { "type": "attribute_exists", "selector": "input[type='date']", "attribute": "required", "poin": 20, "label": "isian tanggal wajib diisi" },
-      { "type": "attribute_equals", "selector": "#nama", "attribute": "autocomplete", "expected": "name", "poin": 20, "label": "autocomplete=\"name\" pada isian nama" }
+      {
+        "type": "attribute_equals",
+        "selector": "input[type='number']",
+        "attribute": "name",
+        "expected": "nilai",
+        "poin": 17,
+        "label": "input angka bernama \"nilai\""
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "input[type='number']",
+        "attribute": "min",
+        "expected": "0",
+        "poin": 17,
+        "label": "min=\"0\""
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "input[type='number']",
+        "attribute": "max",
+        "expected": "100",
+        "poin": 17,
+        "label": "max=\"100\""
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "input[type='date']",
+        "attribute": "required",
+        "poin": 17,
+        "label": "isian tanggal wajib diisi"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "#nama",
+        "attribute": "autocomplete",
+        "expected": "name",
+        "poin": 17,
+        "label": "autocomplete=\"name\" pada isian nama"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-lanjutan-030",
-    "modul": "HTML", "level": "Lanjutan", "chapterId": "html-10", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-10",
+    "chapterModul": "html",
     "topik": "Aksesibilitas Dasar",
     "instruksi": "Buat isian pencarian <code>type=\"search\"</code> tanpa label terlihat, tetapi tetap dikenali pembaca layar lewat <code>aria-label=\"Cari materi\"</code>. Hubungkan juga isian itu ke teks bantuan ber-<code>id=\"bantuan\"</code> memakai <code>aria-describedby</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Pencarian</title>\n</head>\n<body>\n\n  <form>\n\n    <!-- ✏️ TULIS ISIAN PENCARIAN DI SINI -->\n\n    <small id=\"bantuan\">Ketik kata kunci lalu tekan Enter.</small>\n  </form>\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Pencarian</title>\n</head>\n<body>\n\n  <form>\n\n    <!-- ✏️ TULIS ISIAN PENCARIAN DI SINI -->\n\n    <small id=\"bantuan\">Ketik kata kunci lalu tekan Enter.</small>\n  </form>\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "input", "attribute": "type", "expected": "search", "poin": 25, "label": "input bertipe search" },
-      { "type": "attribute_equals", "selector": "input", "attribute": "aria-label", "expected": "Cari materi", "poin": 40, "label": "aria-label = \"Cari materi\"" },
-      { "type": "attribute_equals", "selector": "input", "attribute": "aria-describedby", "expected": "bantuan", "poin": 35, "label": "aria-describedby menunjuk #bantuan" }
+      {
+        "type": "attribute_equals",
+        "selector": "input",
+        "attribute": "type",
+        "expected": "search",
+        "poin": 19,
+        "label": "input bertipe search"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "input",
+        "attribute": "aria-label",
+        "expected": "Cari materi",
+        "poin": 30,
+        "label": "aria-label = \"Cari materi\""
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "input",
+        "attribute": "aria-describedby",
+        "expected": "bantuan",
+        "poin": 26,
+        "label": "aria-describedby menunjuk #bantuan"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 10,
+        "label": "tidak ada id yang dipakai dua kali"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-lanjutan-031",
-    "modul": "HTML", "level": "Lanjutan", "chapterId": "html-11", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-11",
+    "chapterModul": "html",
     "topik": "Meta & SEO Dasar",
     "instruksi": "Lengkapi <code>&lt;head&gt;</code>: <code>&lt;meta charset=\"utf-8\"&gt;</code>, meta viewport, <code>&lt;title&gt;</code> berisi <code>CV Saya</code>, dan <code>&lt;meta name=\"description\"&gt;</code> yang terisi.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n\n  <!-- ✏️ TULIS META DAN TITLE DI SINI -->\n\n</head>\n<body>\n  <h1>CV Saya</h1>\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n\n  <!-- ✏️ TULIS META DAN TITLE DI SINI -->\n\n</head>\n<body>\n  <h1>CV Saya</h1>\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "meta[charset]", "attribute": "charset", "expected": "utf-8", "poin": 20, "label": "meta charset utf-8" },
-      { "type": "attribute_exists", "selector": "meta[name='viewport']", "attribute": "content", "poin": 25, "label": "meta viewport terisi" },
-      { "type": "text_content_equals", "selector": "title", "expected": "CV Saya", "poin": 30, "label": "<title> = \"CV Saya\"" },
-      { "type": "attribute_exists", "selector": "meta[name='description']", "attribute": "content", "poin": 25, "label": "meta description terisi" }
+      {
+        "type": "attribute_equals",
+        "selector": "meta[charset]",
+        "attribute": "charset",
+        "expected": "utf-8",
+        "poin": 17,
+        "label": "meta charset utf-8"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "meta[name='viewport']",
+        "attribute": "content",
+        "poin": 21,
+        "label": "meta viewport terisi"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "title",
+        "expected": "CV Saya",
+        "poin": 25,
+        "label": "<title> = \"CV Saya\""
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "meta[name='description']",
+        "attribute": "content",
+        "poin": 21,
+        "label": "meta description terisi"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-lanjutan-032",
-    "modul": "HTML", "level": "Lanjutan", "chapterId": "html-11", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-11",
+    "chapterModul": "html",
     "topik": "Meta & SEO Dasar",
     "instruksi": "Tambahkan meta Open Graph: <code>og:title</code>, <code>og:description</code>, dan <code>og:image</code>. Nilai <code>og:image</code> harus berupa URL <strong>absolut</strong> yang diawali <code>https://</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>CV Aisyah</title>\n\n  <!-- ✏️ TULIS META OPEN GRAPH DI SINI -->\n\n</head>\n<body>\n  <h1>CV Aisyah</h1>\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>CV Aisyah</title>\n\n  <!-- ✏️ TULIS META OPEN GRAPH DI SINI -->\n\n</head>\n<body>\n  <h1>CV Aisyah</h1>\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_exists", "selector": "meta[property='og:title']", "attribute": "content", "poin": 30, "label": "og:title terisi" },
-      { "type": "attribute_exists", "selector": "meta[property='og:description']", "attribute": "content", "poin": 30, "label": "og:description terisi" },
-      { "type": "attribute_starts_with", "selector": "meta[property='og:image']", "attribute": "content", "expected": "https://", "poin": 40, "label": "og:image berupa URL absolut", "hint": "Alamat relatif tidak bisa dibaca aplikasi lain." }
+      {
+        "type": "attribute_exists",
+        "selector": "meta[property='og:title']",
+        "attribute": "content",
+        "poin": 25,
+        "label": "og:title terisi"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "meta[property='og:description']",
+        "attribute": "content",
+        "poin": 25,
+        "label": "og:description terisi"
+      },
+      {
+        "type": "attribute_starts_with",
+        "selector": "meta[property='og:image']",
+        "attribute": "content",
+        "expected": "https://",
+        "poin": 33,
+        "label": "og:image berupa URL absolut",
+        "hint": "Alamat relatif tidak bisa dibaca aplikasi lain."
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 9,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-lanjutan-033",
-    "modul": "HTML", "level": "Lanjutan", "chapterId": "html-11", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-11",
+    "chapterModul": "html",
     "topik": "Meta & SEO Dasar",
     "instruksi": "Tambahkan <code>&lt;link rel=\"canonical\"&gt;</code> menuju <code>https://contoh.github.io/cv/</code>, dan pastikan halaman punya tepat satu <code>&lt;h1&gt;</code> serta minimal satu <code>&lt;h2&gt;</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Struktur SEO</title>\n\n  <!-- ✏️ TULIS LINK CANONICAL DI SINI -->\n\n</head>\n<body>\n\n  <!-- ✏️ TULIS SATU <h1> DAN SATU <h2> DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Struktur SEO</title>\n\n  <!-- ✏️ TULIS LINK CANONICAL DI SINI -->\n\n</head>\n<body>\n\n  <!-- ✏️ TULIS SATU <h1> DAN SATU <h2> DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "link[rel='canonical']", "attribute": "href", "expected": "https://contoh.github.io/cv/", "poin": 40, "label": "canonical href benar" },
-      { "type": "element_count_equals", "selector": "h1", "count": 1, "poin": 35, "label": "tepat satu <h1>", "hint": "Lebih dari satu h1 membingungkan struktur halaman." },
-      { "type": "element_exists", "selector": "h2", "poin": 25, "label": "ada minimal satu <h2>" }
+      {
+        "type": "attribute_equals",
+        "selector": "link[rel='canonical']",
+        "attribute": "href",
+        "expected": "https://contoh.github.io/cv/",
+        "poin": 33,
+        "label": "canonical href benar"
+      },
+      {
+        "type": "element_count_equals",
+        "selector": "h1",
+        "count": 1,
+        "poin": 29,
+        "label": "tepat satu <h1>",
+        "hint": "Lebih dari satu h1 membingungkan struktur halaman."
+      },
+      {
+        "type": "element_exists",
+        "selector": "h2",
+        "poin": 21,
+        "label": "ada minimal satu <h2>"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 9,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
-
   {
     "id": "html-lanjutan-034",
-    "modul": "HTML", "level": "Lanjutan", "chapterId": "html-12", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-12",
+    "chapterModul": "html",
     "topik": "HTML5 API Ringan",
     "instruksi": "Buat dua panel lipat memakai <code>&lt;details&gt;</code> dan <code>&lt;summary&gt;</code>. Panel pertama harus punya <code>data-level=\"dasar\"</code> dan terbuka sejak awal (atribut <code>open</code>).",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Tanya Jawab</title>\n</head>\n<body>\n\n  <h1>Tanya Jawab</h1>\n\n  <!-- ✏️ TULIS DUA PANEL <details> DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Tanya Jawab</title>\n</head>\n<body>\n\n  <h1>Tanya Jawab</h1>\n\n  <!-- ✏️ TULIS DUA PANEL <details> DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_count_min", "selector": "details", "min": 2, "poin": 30, "label": "ada minimal 2 <details>" },
-      { "type": "element_exists", "selector": "details summary", "poin": 20, "label": "<summary> berada di dalam <details>" },
-      { "type": "attribute_equals", "selector": "details", "attribute": "data-level", "expected": "dasar", "poin": 30, "label": "data-level=\"dasar\" pada panel pertama" },
-      { "type": "attribute_exists", "selector": "details", "attribute": "open", "poin": 20, "label": "panel pertama terbuka sejak awal" }
+      {
+        "type": "element_count_min",
+        "selector": "details",
+        "min": 2,
+        "poin": 25,
+        "label": "ada minimal 2 <details>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "details summary",
+        "poin": 17,
+        "label": "<summary> berada di dalam <details>"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "details",
+        "attribute": "data-level",
+        "expected": "dasar",
+        "poin": 25,
+        "label": "data-level=\"dasar\" pada panel pertama"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "details",
+        "attribute": "open",
+        "poin": 17,
+        "label": "panel pertama terbuka sejak awal"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-lanjutan-035",
-    "modul": "HTML", "level": "Lanjutan", "chapterId": "html-12", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-12",
+    "chapterModul": "html",
     "topik": "HTML5 API Ringan",
     "instruksi": "Isi <code>&lt;ul&gt;</code> dengan tiga <code>&lt;li&gt;</code> yang masing-masing punya atribut <code>data-nilai</code>. Tambahkan satu <code>&lt;template&gt;</code> berisi satu <code>&lt;li&gt;</code> kosong sebagai cetakan.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>data-* dan template</title>\n</head>\n<body>\n\n  <ul>\n    <!-- ✏️ TULIS TIGA <li> BER-data-nilai DI SINI -->\n  </ul>\n\n  <!-- ✏️ TULIS <template> DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>data-* dan template</title>\n</head>\n<body>\n\n  <ul>\n    <!-- ✏️ TULIS TIGA <li> BER-data-nilai DI SINI -->\n  </ul>\n\n  <!-- ✏️ TULIS <template> DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "element_count_min", "selector": "li[data-nilai]", "min": 3, "poin": 45, "label": "3 <li> punya data-nilai" },
-      { "type": "element_exists", "selector": "template", "poin": 30, "label": "<template> ditemukan" },
-      { "type": "descendant_count_min", "selector": "ul", "child_selector": "li", "min": 3, "poin": 25, "label": "<ul> berisi minimal 3 <li>" }
+      {
+        "type": "element_count_min",
+        "selector": "li[data-nilai]",
+        "min": 3,
+        "poin": 38,
+        "label": "3 <li> punya data-nilai"
+      },
+      {
+        "type": "element_exists",
+        "selector": "template",
+        "poin": 25,
+        "label": "<template> ditemukan"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "ul",
+        "child_selector": "li",
+        "min": 3,
+        "poin": 21,
+        "label": "<ul> berisi minimal 3 <li>"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "html-lanjutan-036",
-    "modul": "HTML", "level": "Lanjutan", "chapterId": "html-12", "chapterModul": "html",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-12",
+    "chapterModul": "html",
     "topik": "HTML5 API Ringan",
     "instruksi": "Tampilkan kemajuan belajar dengan <code>&lt;progress value=\"7\" max=\"12\"&gt;</code>, dan sediakan saran isian memakai <code>&lt;datalist id=\"kelas\"&gt;</code> berisi minimal dua <code>&lt;option&gt;</code> yang terhubung ke sebuah <code>&lt;input list=\"kelas\"&gt;</code>.",
-    "starter_code": { "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Progress &amp; Datalist</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>" },
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Progress &amp; Datalist</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
     "assertions": [
-      { "type": "attribute_equals", "selector": "progress", "attribute": "value", "expected": "7", "poin": 20, "label": "progress value=\"7\"" },
-      { "type": "attribute_equals", "selector": "progress", "attribute": "max", "expected": "12", "poin": 20, "label": "progress max=\"12\"" },
-      { "type": "descendant_count_min", "selector": "datalist#kelas", "child_selector": "option", "min": 2, "poin": 35, "label": "<datalist id=\"kelas\"> punya 2 <option>" },
-      { "type": "attribute_equals", "selector": "input[list]", "attribute": "list", "expected": "kelas", "poin": 25, "label": "input terhubung lewat list=\"kelas\"" }
+      {
+        "type": "attribute_equals",
+        "selector": "progress",
+        "attribute": "value",
+        "expected": "7",
+        "poin": 17,
+        "label": "progress value=\"7\""
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "progress",
+        "attribute": "max",
+        "expected": "12",
+        "poin": 17,
+        "label": "progress max=\"12\""
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "datalist#kelas",
+        "child_selector": "option",
+        "min": 2,
+        "poin": 29,
+        "label": "<datalist id=\"kelas\"> punya 2 <option>"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "input[list]",
+        "attribute": "list",
+        "expected": "kelas",
+        "poin": 21,
+        "label": "input terhubung lewat list=\"kelas\""
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "html-lanjutan-037",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-13",
+    "chapterModul": "html",
+    "topik": "Jalur Berkas",
+    "editor": "html",
+    "instruksi": "Struktur proyek: <code>index.html</code> dan <code>style.css</code> di akar, foto di <code>gambar/foto-profil.jpg</code>. Sambungkan stylesheet dan tampilkan fotonya memakai <strong>jalur relatif</strong> — tanpa garis miring di depan.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Jalur Berkas</title>\n\n  <!-- ✏️ SAMBUNGKAN style.css DI SINI -->\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
+    "assertions": [
+      {
+        "type": "attribute_equals",
+        "selector": "link[rel=\"stylesheet\"]",
+        "attribute": "href",
+        "expected": "style.css",
+        "poin": 21,
+        "label": "stylesheet disambungkan ke style.css"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "img",
+        "attribute": "src",
+        "expected": "gambar/foto-profil.jpg",
+        "poin": 21,
+        "label": "src gambar = gambar/foto-profil.jpg"
+      },
+      {
+        "type": "all_match",
+        "selector": "img",
+        "min": 1,
+        "must": {
+          "attribute_min_words": {
+            "attribute": "alt",
+            "min_words": 2
+          }
+        },
+        "poin": 17,
+        "label": "SETIAP gambar punya alt minimal 2 kata"
+      },
+      {
+        "type": "source_not_matches",
+        "target": "html",
+        "pattern": "(href|src)\\s*=\\s*[\"\\']/",
+        "describe": "jalur berawalan /",
+        "poin": 25,
+        "label": "tidak ada jalur berawalan garis miring",
+        "hint": "Jalur seperti /gambar/foto.jpg dihitung dari akar domain dan akan gagal di GitHub Pages."
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "html-lanjutan-038",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-13",
+    "chapterModul": "html",
+    "topik": "Jalur Berkas",
+    "editor": "html",
+    "instruksi": "Berkas ini adalah <code>halaman/proyek.html</code> — berada <strong>di dalam subfolder</strong>. Sambungkan <code>style.css</code> yang ada di akar, dan buat tautan kembali ke <code>index.html</code> di akar juga. Ingat <code>../</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Proyek</title>\n\n  <!-- ✏️ SAMBUNGKAN style.css YANG ADA DI AKAR -->\n</head>\n<body>\n\n  <h1>Proyek Saya</h1>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
+    "assertions": [
+      {
+        "type": "attribute_equals",
+        "selector": "link[rel=\"stylesheet\"]",
+        "attribute": "href",
+        "expected": "../style.css",
+        "poin": 33,
+        "label": "stylesheet = ../style.css",
+        "hint": "Dari dalam subfolder, harus naik satu tingkat dulu."
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "a",
+        "attribute": "href",
+        "expected": "../index.html",
+        "poin": 29,
+        "label": "tautan kembali = ../index.html"
+      },
+      {
+        "type": "element_not_empty",
+        "selector": "a",
+        "poin": 21,
+        "label": "tautan ada teksnya"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 9,
+        "label": "tidak ada elemen yang salah sarang"
+      }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "html-lanjutan-039",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-13",
+    "chapterModul": "html",
+    "topik": "Jalur Berkas",
+    "editor": "html",
+    "instruksi": "Tampilkan <strong>tiga</strong> gambar dari folder <code>gambar/</code>. Semua nama berkas harus <strong>huruf kecil tanpa spasi</strong> (pakai tanda hubung), karena server GitHub Pages membedakan huruf besar-kecil. Semua gambar wajib ber-<code>alt</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Galeri</title>\n</head>\n<body>\n\n  <h1>Galeri Proyek</h1>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
+    "assertions": [
+      {
+        "type": "element_count_min",
+        "selector": "img",
+        "min": 3,
+        "poin": 17,
+        "label": "ada 3 gambar"
+      },
+      {
+        "type": "all_match",
+        "selector": "img",
+        "min": 3,
+        "must": {
+          "attribute_not_empty": "alt"
+        },
+        "poin": 21,
+        "label": "SETIAP gambar punya alt terisi"
+      },
+      {
+        "type": "source_not_matches",
+        "target": "html",
+        "pattern": "src\\s*=\\s*[\"\\'][^\"\\']*[A-Z]",
+        "describe": "huruf besar pada nama berkas",
+        "poin": 25,
+        "label": "nama berkas seluruhnya huruf kecil",
+        "hint": "Server Linux membedakan Foto.JPG dari foto.jpg — berhasil di Windows, gagal setelah deploy.",
+        "flags": ""
+      },
+      {
+        "type": "source_not_matches",
+        "target": "html",
+        "pattern": "src\\s*=\\s*[\"\\'][^\"\\']* ",
+        "describe": "spasi pada nama berkas",
+        "poin": 21,
+        "label": "nama berkas tanpa spasi"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "html-lanjutan-040",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-14",
+    "chapterModul": "html",
+    "topik": "Info Kontak",
+    "editor": "html",
+    "instruksi": "Buat blok kontak memakai <code>&lt;address&gt;</code> yang berisi tautan email (<code>mailto:</code>) dan tautan telepon (<code>tel:</code>). Nomor telepon ditulis dengan kode negara <code>+62</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Kontak</title>\n</head>\n<body>\n\n  <h1>Aisyah Ramadhani</h1>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
+    "assertions": [
+      {
+        "type": "element_exists",
+        "selector": "address",
+        "poin": 13,
+        "label": "<address> ditemukan"
+      },
+      {
+        "type": "attribute_starts_with",
+        "selector": "address a[href^=\"mailto:\"]",
+        "attribute": "href",
+        "expected": "mailto:",
+        "poin": 21,
+        "label": "tautan mailto: di dalam <address>"
+      },
+      {
+        "type": "attribute_starts_with",
+        "selector": "address a[href^=\"tel:\"]",
+        "attribute": "href",
+        "expected": "tel:+62",
+        "poin": 21,
+        "label": "tautan tel: memakai kode negara +62"
+      },
+      {
+        "type": "all_match",
+        "selector": "address a",
+        "min": 2,
+        "must": {
+          "not_empty": true
+        },
+        "poin": 17,
+        "label": "SETIAP tautan kontak ada teksnya"
+      },
+      {
+        "type": "source_not_matches",
+        "target": "html",
+        "pattern": "href\\s*=\\s*[\"\\']tel:[^\"\\']* ",
+        "describe": "spasi di dalam href tel:",
+        "poin": 13,
+        "label": "nomor di href tel: tanpa spasi"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "html-lanjutan-041",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-14",
+    "chapterModul": "html",
+    "topik": "Kutipan",
+    "editor": "html",
+    "instruksi": "Buat <code>&lt;blockquote&gt;</code> ber-atribut <code>cite</code> berisi testimoni minimal 6 kata, dengan nama sumber dibungkus <code>&lt;cite&gt;</code>. Tambahkan juga satu <code>&lt;q&gt;</code> di dalam paragraf — <strong>tanpa</strong> mengetik tanda kutip sendiri.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Testimoni</title>\n</head>\n<body>\n\n  <h1>Testimoni</h1>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
+    "assertions": [
+      {
+        "type": "attribute_exists",
+        "selector": "blockquote",
+        "attribute": "cite",
+        "poin": 17,
+        "label": "<blockquote cite=\"...\"> ada"
+      },
+      {
+        "type": "text_min_word_count",
+        "selector": "blockquote",
+        "min_words": 6,
+        "poin": 17,
+        "label": "testimoni minimal 6 kata"
+      },
+      {
+        "type": "element_exists",
+        "selector": "blockquote cite, blockquote footer cite",
+        "poin": 17,
+        "label": "<cite> menyebut sumbernya"
+      },
+      {
+        "type": "element_exists",
+        "selector": "p q",
+        "poin": 17,
+        "label": "<q> berada di dalam paragraf"
+      },
+      {
+        "type": "source_not_matches",
+        "target": "html",
+        "pattern": "<q[^>]*>\\s*[\"\\u201c]",
+        "describe": "tanda kutip diketik di dalam <q>",
+        "poin": 17,
+        "label": "<q> tanpa tanda kutip yang diketik sendiri",
+        "hint": "Browser sudah menambahkan tanda kutipnya sendiri."
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "html-lanjutan-042",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-14",
+    "chapterModul": "html",
+    "topik": "Singkatan & Waktu",
+    "editor": "html",
+    "instruksi": "Jelaskan singkatan <code>TEI</code> memakai <code>&lt;abbr title=\"Teknik Elektronika Industri\"&gt;</code>. Tulis juga periode magang memakai dua <code>&lt;time&gt;</code> ber-<code>datetime</code> format <code>YYYY-MM</code>.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Riwayat</title>\n</head>\n<body>\n\n  <h1>Riwayat</h1>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
+    "assertions": [
+      {
+        "type": "attribute_equals",
+        "selector": "abbr",
+        "attribute": "title",
+        "expected": "Teknik Elektronika Industri",
+        "poin": 21,
+        "label": "abbr title = kepanjangan TEI"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": "abbr",
+        "expected": "TEI",
+        "poin": 17,
+        "label": "teks <abbr> = \"TEI\""
+      },
+      {
+        "type": "element_count_min",
+        "selector": "time[datetime]",
+        "min": 2,
+        "poin": 17,
+        "label": "ada 2 <time> ber-datetime"
+      },
+      {
+        "type": "all_match",
+        "selector": "time",
+        "min": 2,
+        "must": {
+          "attribute_not_empty": "datetime"
+        },
+        "poin": 17,
+        "label": "SETIAP <time> punya datetime terisi"
+      },
+      {
+        "type": "source_matches",
+        "target": "html",
+        "pattern": "datetime\\s*=\\s*[\"\\']\\d{4}-\\d{2}",
+        "describe": "format YYYY-MM",
+        "poin": 13,
+        "label": "datetime berformat YYYY-MM"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "html-lanjutan-043",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-15",
+    "chapterModul": "html",
+    "topik": "Merakit CV",
+    "editor": "html",
+    "instruksi": "Susun kerangka CV: <code>&lt;header&gt;</code> berisi satu <code>&lt;h1&gt;</code> dan <code>&lt;nav&gt;</code>, lalu <code>&lt;main&gt;</code> berisi dua <code>&lt;section&gt;</code> ber-<code>id</code> (masing-masing diawali <code>&lt;h2&gt;</code>), dan <code>&lt;footer&gt;</code> di bawah.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>CV Saya</title>\n</head>\n<body>\n\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n\n</body>\n</html>"
+    },
+    "assertions": [
+      {
+        "type": "element_exists",
+        "selector": "header h1",
+        "poin": 10,
+        "label": "<h1> di dalam <header>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "header nav",
+        "poin": 8,
+        "label": "<nav> di dalam <header>"
+      },
+      {
+        "type": "element_count_min",
+        "selector": "main section[id]",
+        "min": 2,
+        "poin": 13,
+        "label": "dua <section> ber-id di dalam <main>"
+      },
+      {
+        "type": "all_match",
+        "selector": "main section",
+        "min": 2,
+        "must": {
+          "contains_selector": "h2"
+        },
+        "poin": 13,
+        "label": "SETIAP section diawali <h2>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "body > footer",
+        "poin": 8,
+        "label": "<footer> di tingkat halaman"
+      },
+      {
+        "type": "element_count_equals",
+        "selector": "h1",
+        "count": 1,
+        "poin": 10,
+        "label": "tepat satu <h1>"
+      },
+      {
+        "type": "heading_order_valid",
+        "poin": 10,
+        "label": "urutan heading tidak melompat"
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 10,
+        "label": "tidak ada id ganda"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 10,
+        "label": "tidak ada elemen yang salah sarang"
+      }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "html-lanjutan-044",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-15",
+    "chapterModul": "html",
+    "topik": "Merakit CV",
+    "editor": "html",
+    "instruksi": "Menu di bawah sudah ada, tetapi belum menunjuk ke mana-mana. Buat tiga <code>&lt;section&gt;</code> dengan <code>id</code> <code>tentang</code>, <code>keahlian</code>, dan <code>kontak</code> — sehingga setiap tautan menu benar-benar mendarat.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Navigasi CV</title>\n</head>\n<body>\n\n  <nav>\n    <a href=\"#tentang\">Tentang</a>\n    <a href=\"#keahlian\">Keahlian</a>\n    <a href=\"#kontak\">Kontak</a>\n  </nav>\n\n  <main>\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n  </main>\n\n</body>\n</html>"
+    },
+    "assertions": [
+      {
+        "type": "element_exists",
+        "selector": "section#tentang",
+        "poin": 15,
+        "label": "section#tentang ada"
+      },
+      {
+        "type": "element_exists",
+        "selector": "section#keahlian",
+        "poin": 15,
+        "label": "section#keahlian ada"
+      },
+      {
+        "type": "element_exists",
+        "selector": "section#kontak",
+        "poin": 15,
+        "label": "section#kontak ada"
+      },
+      {
+        "type": "all_match",
+        "selector": "main section",
+        "min": 3,
+        "must": {
+          "contains_selector": "h2"
+        },
+        "poin": 13,
+        "label": "SETIAP section diawali <h2>"
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 13,
+        "label": "tidak ada id ganda"
+      },
+      {
+        "type": "elements_in_order",
+        "before": "nav",
+        "after": "main",
+        "poin": 13,
+        "label": "menu berada sebelum konten utama"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
+    ],
+    "total_poin": 100
+  },
+  {
+    "id": "html-lanjutan-045",
+    "modul": "HTML",
+    "level": "Lanjutan",
+    "chapterId": "html-15",
+    "chapterModul": "html",
+    "topik": "Merakit CV",
+    "editor": "html",
+    "instruksi": "Isi bagian CV: <code>&lt;ul&gt;</code> keahlian berisi tiga item <strong>yang semuanya ada teksnya</strong>, dan satu <code>&lt;table&gt;</code> pengalaman dengan <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code> dua kolom, dan dua baris data. Jumlah kolom tiap baris harus konsisten.",
+    "starter_code": {
+      "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Isi CV</title>\n</head>\n<body>\n\n  <main>\n    <section id=\"keahlian\">\n      <h2>Keahlian</h2>\n  <!-- ✏️ TULIS JAWABAN ANDA DI SINI -->\n    </section>\n\n    <section id=\"pengalaman\">\n      <h2>Pengalaman</h2>\n      <!-- ✏️ TULIS TABEL DI SINI -->\n    </section>\n  </main>\n\n</body>\n</html>"
+    },
+    "assertions": [
+      {
+        "type": "descendant_count_min",
+        "selector": "section#keahlian ul",
+        "child_selector": "li",
+        "min": 3,
+        "poin": 13,
+        "label": "<ul> keahlian berisi 3 <li>"
+      },
+      {
+        "type": "all_match",
+        "selector": "section#keahlian li",
+        "min": 3,
+        "must": {
+          "not_empty": true
+        },
+        "poin": 15,
+        "label": "SETIAP item keahlian ada teksnya"
+      },
+      {
+        "type": "element_not_empty",
+        "selector": "table caption",
+        "poin": 10,
+        "label": "<caption> tabel terisi"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "table thead",
+        "child_selector": "th",
+        "min": 2,
+        "poin": 13,
+        "label": "<thead> berisi 2 <th>"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "table tbody",
+        "child_selector": "tr",
+        "min": 2,
+        "poin": 13,
+        "label": "<tbody> berisi 2 baris"
+      },
+      {
+        "type": "table_structure_valid",
+        "selector": "table",
+        "poin": 21,
+        "label": "jumlah kolom tiap baris konsisten"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   }

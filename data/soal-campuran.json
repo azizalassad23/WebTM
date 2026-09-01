@@ -1,8 +1,10 @@
 [
   {
     "id": "campuran-001",
-    "modul": "HTML + CSS", "level": "Menengah",
-    "chapterId": "html-08", "chapterModul": "html",
+    "modul": "HTML + CSS",
+    "level": "Menengah",
+    "chapterId": "html-08",
+    "chapterModul": "html",
     "topik": "Kartu Profil",
     "editor": "campuran",
     "instruksi": "Kedua panel aktif. <strong>HTML:</strong> buat <code>&lt;section class=\"kartu\"&gt;</code> berisi <code>&lt;h2&gt;</code> bertuliskan <code>Profil Saya</code> dan satu paragraf minimal 6 kata. <strong>CSS:</strong> beri kartu itu border <code>2px solid #201e1d</code>, <code>padding: 24px</code>, latar <code>#ffe1d0</code>, dan sudut <code>16px</code>.",
@@ -11,20 +13,80 @@
       "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
     },
     "assertions": [
-      { "type": "element_exists", "selector": "section.kartu", "poin": 15, "label": "<section class=\"kartu\"> ditemukan" },
-      { "type": "text_content_equals", "selector": ".kartu h2", "expected": "Profil Saya", "poin": 15, "label": "<h2> = \"Profil Saya\"" },
-      { "type": "text_min_word_count", "selector": ".kartu p", "min_words": 6, "poin": 15, "label": "paragraf minimal 6 kata" },
-      { "type": "computed_style_equals", "selector": ".kartu", "property": "border-top-width", "expected": "2px", "tolerance": 0.5, "poin": 15, "label": "border 2px" },
-      { "type": "computed_style_equals", "selector": ".kartu", "property": "padding-top", "expected": "24px", "tolerance": 1, "poin": 15, "label": "padding 24px" },
-      { "type": "computed_style_equals", "selector": ".kartu", "property": "background-color", "expected": "#ffe1d0", "poin": 15, "label": "latar #ffe1d0" },
-      { "type": "computed_style_equals", "selector": ".kartu", "property": "border-top-left-radius", "expected": "16px", "tolerance": 1, "poin": 10, "label": "sudut 16px" }
+      {
+        "type": "element_exists",
+        "selector": "section.kartu",
+        "poin": 13,
+        "label": "<section class=\"kartu\"> ditemukan"
+      },
+      {
+        "type": "text_content_equals",
+        "selector": ".kartu h2",
+        "expected": "Profil Saya",
+        "poin": 13,
+        "label": "<h2> = \"Profil Saya\""
+      },
+      {
+        "type": "text_min_word_count",
+        "selector": ".kartu p",
+        "min_words": 6,
+        "poin": 13,
+        "label": "paragraf minimal 6 kata"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": ".kartu",
+        "property": "border-top-width",
+        "expected": "2px",
+        "tolerance": 0.5,
+        "poin": 13,
+        "label": "border 2px"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": ".kartu",
+        "property": "padding-top",
+        "expected": "24px",
+        "tolerance": 1,
+        "poin": 13,
+        "label": "padding 24px"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": ".kartu",
+        "property": "background-color",
+        "expected": "#ffe1d0",
+        "poin": 13,
+        "label": "latar #ffe1d0"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": ".kartu",
+        "property": "border-top-left-radius",
+        "expected": "16px",
+        "tolerance": 1,
+        "poin": 8,
+        "label": "sudut 16px"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 6,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "campuran-002",
-    "modul": "HTML + CSS", "level": "Menengah",
-    "chapterId": "css-05", "chapterModul": "css",
+    "modul": "HTML + CSS",
+    "level": "Menengah",
+    "chapterId": "css-05",
+    "chapterModul": "css",
     "topik": "Menu Navigasi Flexbox",
     "editor": "campuran",
     "instruksi": "<strong>HTML:</strong> buat <code>&lt;nav class=\"menu\"&gt;</code> berisi <code>&lt;ul&gt;</code> dengan tiga <code>&lt;li&gt;</code>, masing-masing berisi satu tautan <code>&lt;a&gt;</code>. <strong>CSS:</strong> susun <code>&lt;ul&gt;</code>-nya mendatar dengan Flexbox, <code>gap: 16px</code>, hilangkan bulatan daftar (<code>list-style: none</code>), dan hilangkan garis bawah tautan.",
@@ -33,19 +95,83 @@
       "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
     },
     "assertions": [
-      { "type": "descendant_count_min", "selector": "nav.menu ul", "child_selector": "li", "min": 3, "poin": 20, "label": "<ul> berisi 3 <li>" },
-      { "type": "element_count_min", "selector": "nav.menu li a", "min": 3, "poin": 15, "label": "setiap <li> berisi tautan" },
-      { "type": "computed_style_equals", "selector": "nav.menu ul", "property": "display", "expected": "flex", "poin": 25, "label": "<ul> memakai display: flex" },
-      { "type": "computed_style_equals", "selector": "nav.menu ul", "property": "column-gap", "expected": "16px", "tolerance": 1, "poin": 15, "label": "gap = 16px" },
-      { "type": "computed_style_equals", "selector": "nav.menu ul", "property": "list-style-type", "expected": "none", "poin": 15, "label": "list-style: none" },
-      { "type": "computed_style_contains", "selector": "nav.menu a", "property": "text-decoration-line", "contains": "none", "poin": 10, "label": "tautan tanpa garis bawah" }
+      {
+        "type": "descendant_count_min",
+        "selector": "nav.menu ul",
+        "child_selector": "li",
+        "min": 3,
+        "poin": 15,
+        "label": "<ul> berisi 3 <li>"
+      },
+      {
+        "type": "element_count_min",
+        "selector": "nav.menu li a",
+        "min": 3,
+        "poin": 11,
+        "label": "setiap <li> berisi tautan"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "nav.menu ul",
+        "property": "display",
+        "expected": "flex",
+        "poin": 19,
+        "label": "<ul> memakai display: flex"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "nav.menu ul",
+        "property": "column-gap",
+        "expected": "16px",
+        "tolerance": 1,
+        "poin": 11,
+        "label": "gap = 16px"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "nav.menu ul",
+        "property": "list-style-type",
+        "expected": "none",
+        "poin": 11,
+        "label": "list-style: none"
+      },
+      {
+        "type": "computed_style_contains",
+        "selector": "nav.menu a",
+        "property": "text-decoration-line",
+        "contains": "none",
+        "poin": 8,
+        "label": "tautan tanpa garis bawah"
+      },
+      {
+        "type": "all_match",
+        "selector": "nav.menu li a",
+        "min": 3,
+        "poin": 9,
+        "must": {
+          "not_empty": true
+        },
+        "label": "SETIAP tautan menu ada teksnya"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "campuran-003",
-    "modul": "HTML + CSS", "level": "Menengah",
-    "chapterId": "html-06", "chapterModul": "html",
+    "modul": "HTML + CSS",
+    "level": "Menengah",
+    "chapterId": "html-06",
+    "chapterModul": "html",
     "topik": "Tabel Nilai Bergaya",
     "editor": "campuran",
     "instruksi": "<strong>HTML:</strong> buat tabel ber-<code>class=\"nilai\"</code> dengan <code>&lt;thead&gt;</code> berisi dua <code>&lt;th&gt;</code> dan <code>&lt;tbody&gt;</code> berisi tiga baris data. <strong>CSS:</strong> gabungkan garis tabel dengan <code>border-collapse: collapse</code>, beri semua sel <code>padding: 8px</code>, dan buat baris genap (<code>:nth-child(even)</code>) di <code>&lt;tbody&gt;</code> berlatar <code>#e1eecc</code>.",
@@ -54,18 +180,66 @@
       "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
     },
     "assertions": [
-      { "type": "descendant_count_min", "selector": "table.nilai thead", "child_selector": "th", "min": 2, "poin": 15, "label": "<thead> berisi 2 <th>" },
-      { "type": "descendant_count_min", "selector": "table.nilai tbody", "child_selector": "tr", "min": 3, "poin": 20, "label": "<tbody> berisi 3 baris" },
-      { "type": "computed_style_equals", "selector": "table.nilai", "property": "border-collapse", "expected": "collapse", "poin": 20, "label": "border-collapse = collapse" },
-      { "type": "computed_style_equals", "selector": "table.nilai td", "property": "padding-top", "expected": "8px", "tolerance": 1, "poin": 20, "label": "sel ber-padding 8px" },
-      { "type": "computed_style_equals", "selector": "table.nilai tbody tr:nth-child(even)", "property": "background-color", "expected": "#e1eecc", "poin": 25, "label": "baris genap berlatar #e1eecc" }
+      {
+        "type": "descendant_count_min",
+        "selector": "table.nilai thead",
+        "child_selector": "th",
+        "min": 2,
+        "poin": 13,
+        "label": "<thead> berisi 2 <th>"
+      },
+      {
+        "type": "descendant_count_min",
+        "selector": "table.nilai tbody",
+        "child_selector": "tr",
+        "min": 3,
+        "poin": 17,
+        "label": "<tbody> berisi 3 baris"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "table.nilai",
+        "property": "border-collapse",
+        "expected": "collapse",
+        "poin": 17,
+        "label": "border-collapse = collapse"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "table.nilai td",
+        "property": "padding-top",
+        "expected": "8px",
+        "tolerance": 1,
+        "poin": 17,
+        "label": "sel ber-padding 8px"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "table.nilai tbody tr:nth-child(even)",
+        "property": "background-color",
+        "expected": "#e1eecc",
+        "poin": 21,
+        "label": "baris genap berlatar #e1eecc"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "campuran-004",
-    "modul": "HTML + CSS", "level": "Lanjutan",
-    "chapterId": "css-07", "chapterModul": "css",
+    "modul": "HTML + CSS",
+    "level": "Lanjutan",
+    "chapterId": "css-07",
+    "chapterModul": "css",
     "topik": "Galeri Grid",
     "editor": "campuran",
     "instruksi": "<strong>HTML:</strong> buat <code>&lt;div class=\"galeri\"&gt;</code> berisi empat <code>&lt;figure&gt;</code>, masing-masing dengan <code>&lt;img&gt;</code> ber-<code>alt</code> terisi dan <code>&lt;figcaption&gt;</code>. <strong>CSS:</strong> susun galeri menjadi grid <strong>dua kolom</strong> sama lebar dengan <code>gap: 16px</code>, dan buat gambar memenuhi lebar kotaknya (<code>width: 100%</code>).",
@@ -74,19 +248,72 @@
       "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
     },
     "assertions": [
-      { "type": "descendant_count_min", "selector": ".galeri", "child_selector": "figure", "min": 4, "poin": 20, "label": "galeri berisi 4 <figure>" },
-      { "type": "element_count_min", "selector": ".galeri figure figcaption", "min": 4, "poin": 15, "label": "setiap figure punya <figcaption>" },
-      { "type": "attribute_min_word_count", "selector": ".galeri figure img", "attribute": "alt", "min_words": 1, "poin": 15, "label": "gambar punya alt terisi" },
-      { "type": "computed_style_equals", "selector": ".galeri", "property": "display", "expected": "grid", "poin": 20, "label": "display = grid" },
-      { "type": "grid_column_count", "selector": ".galeri", "count": 2, "poin": 20, "label": "tersusun 2 kolom" },
-      { "type": "computed_style_equals", "selector": ".galeri", "property": "column-gap", "expected": "16px", "tolerance": 1, "poin": 10, "label": "gap = 16px" }
+      {
+        "type": "descendant_count_min",
+        "selector": ".galeri",
+        "child_selector": "figure",
+        "min": 4,
+        "poin": 17,
+        "label": "galeri berisi 4 <figure>"
+      },
+      {
+        "type": "element_count_min",
+        "selector": ".galeri figure figcaption",
+        "min": 4,
+        "poin": 13,
+        "label": "setiap figure punya <figcaption>"
+      },
+      {
+        "type": "attribute_min_word_count",
+        "selector": ".galeri figure img",
+        "attribute": "alt",
+        "min_words": 1,
+        "poin": 13,
+        "label": "gambar punya alt terisi"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": ".galeri",
+        "property": "display",
+        "expected": "grid",
+        "poin": 17,
+        "label": "display = grid"
+      },
+      {
+        "type": "grid_column_count",
+        "selector": ".galeri",
+        "count": 2,
+        "poin": 17,
+        "label": "tersusun 2 kolom"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": ".galeri",
+        "property": "column-gap",
+        "expected": "16px",
+        "tolerance": 1,
+        "poin": 8,
+        "label": "gap = 16px"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "campuran-005",
-    "modul": "HTML + CSS", "level": "Lanjutan",
-    "chapterId": "html-07", "chapterModul": "html",
+    "modul": "HTML + CSS",
+    "level": "Lanjutan",
+    "chapterId": "html-07",
+    "chapterModul": "html",
     "topik": "Form Bergaya",
     "editor": "campuran",
     "instruksi": "<strong>HTML:</strong> buat form berisi <code>&lt;label for=\"surel\"&gt;</code> dan <code>&lt;input type=\"email\" id=\"surel\" name=\"surel\" required&gt;</code>, plus tombol submit. <strong>CSS:</strong> buat label <code>display: block</code>, beri input <code>width: 100%</code> dengan <code>box-sizing: border-box</code> dan <code>padding: 10px</code>, serta cincin fokus lewat <code>:focus-visible</code>.",
@@ -95,21 +322,89 @@
       "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
     },
     "assertions": [
-      { "type": "attribute_equals", "selector": "label", "attribute": "for", "expected": "surel", "poin": 15, "label": "<label for=\"surel\">" },
-      { "type": "attribute_equals", "selector": "input#surel", "attribute": "type", "expected": "email", "poin": 15, "label": "input bertipe email ber-id surel" },
-      { "type": "attribute_exists", "selector": "input#surel", "attribute": "required", "poin": 10, "label": "isian wajib diisi" },
-      { "type": "attribute_equals", "selector": "form button", "attribute": "type", "expected": "submit", "poin": 10, "label": "tombol bertipe submit" },
-      { "type": "computed_style_equals", "selector": "label", "property": "display", "expected": "block", "poin": 15, "label": "label display: block" },
-      { "type": "computed_style_equals", "selector": "input#surel", "property": "box-sizing", "expected": "border-box", "poin": 15, "label": "input box-sizing: border-box" },
-      { "type": "computed_style_equals", "selector": "input#surel", "property": "padding-top", "expected": "10px", "tolerance": 1, "poin": 10, "label": "input padding 10px" },
-      { "type": "source_matches", "target": "css", "pattern": ":focus-visible", "poin": 10, "label": "ada aturan :focus-visible", "describe": ":focus-visible" }
+      {
+        "type": "attribute_equals",
+        "selector": "label",
+        "attribute": "for",
+        "expected": "surel",
+        "poin": 13,
+        "label": "<label for=\"surel\">"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "input#surel",
+        "attribute": "type",
+        "expected": "email",
+        "poin": 13,
+        "label": "input bertipe email ber-id surel"
+      },
+      {
+        "type": "attribute_exists",
+        "selector": "input#surel",
+        "attribute": "required",
+        "poin": 8,
+        "label": "isian wajib diisi"
+      },
+      {
+        "type": "attribute_equals",
+        "selector": "form button",
+        "attribute": "type",
+        "expected": "submit",
+        "poin": 8,
+        "label": "tombol bertipe submit"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "label",
+        "property": "display",
+        "expected": "block",
+        "poin": 13,
+        "label": "label display: block"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "input#surel",
+        "property": "box-sizing",
+        "expected": "border-box",
+        "poin": 13,
+        "label": "input box-sizing: border-box"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "input#surel",
+        "property": "padding-top",
+        "expected": "10px",
+        "tolerance": 1,
+        "poin": 8,
+        "label": "input padding 10px"
+      },
+      {
+        "type": "source_matches",
+        "target": "css",
+        "pattern": ":focus-visible",
+        "poin": 8,
+        "label": "ada aturan :focus-visible",
+        "describe": ":focus-visible"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 8,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 8,
+        "label": "tidak ada elemen yang salah sarang"
+      }
     ],
     "total_poin": 100
   },
   {
     "id": "campuran-006",
-    "modul": "HTML + CSS", "level": "Lanjutan",
-    "chapterId": "css-10", "chapterModul": "css",
+    "modul": "HTML + CSS",
+    "level": "Lanjutan",
+    "chapterId": "css-10",
+    "chapterModul": "css",
     "topik": "Mini CV Semantik",
     "editor": "campuran",
     "instruksi": "<strong>HTML:</strong> susun halaman CV mini dengan <code>&lt;header&gt;</code> berisi <code>&lt;h1&gt;</code>, satu <code>&lt;main&gt;</code> berisi <code>&lt;section id=\"tentang\"&gt;</code>, dan <code>&lt;footer&gt;</code>. <strong>CSS:</strong> definisikan <code>--aksen: #7a8a5e</code> di <code>:root</code>, pakai untuk warna <code>&lt;h1&gt;</code>, lalu tengahkan <code>&lt;main&gt;</code> dengan <code>max-width: 600px</code> dan <code>margin: 0 auto</code>.",
@@ -118,12 +413,69 @@
       "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
     },
     "assertions": [
-      { "type": "element_exists", "selector": "header h1", "poin": 15, "label": "<h1> di dalam <header>" },
-      { "type": "element_exists", "selector": "main section#tentang", "poin": 20, "label": "<section id=\"tentang\"> di dalam <main>" },
-      { "type": "element_exists", "selector": "body > footer", "poin": 10, "label": "<footer> di tingkat halaman" },
-      { "type": "computed_style_equals", "selector": ":root", "property": "--aksen", "expected": "#7a8a5e", "poin": 20, "label": "--aksen = #7a8a5e" },
-      { "type": "computed_style_equals", "selector": "h1", "property": "color", "expected": "#7a8a5e", "poin": 20, "label": "<h1> memakai var(--aksen)" },
-      { "type": "computed_style_equals", "selector": "main", "property": "max-width", "expected": "600px", "tolerance": 1, "poin": 15, "label": "<main> max-width 600px" }
+      {
+        "type": "element_exists",
+        "selector": "header h1",
+        "poin": 10,
+        "label": "<h1> di dalam <header>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "main section#tentang",
+        "poin": 14,
+        "label": "<section id=\"tentang\"> di dalam <main>"
+      },
+      {
+        "type": "element_exists",
+        "selector": "body > footer",
+        "poin": 7,
+        "label": "<footer> di tingkat halaman"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": ":root",
+        "property": "--aksen",
+        "expected": "#7a8a5e",
+        "poin": 14,
+        "label": "--aksen = #7a8a5e"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "h1",
+        "property": "color",
+        "expected": "#7a8a5e",
+        "poin": 14,
+        "label": "<h1> memakai var(--aksen)"
+      },
+      {
+        "type": "computed_style_equals",
+        "selector": "main",
+        "property": "max-width",
+        "expected": "600px",
+        "tolerance": 1,
+        "poin": 10,
+        "label": "<main> max-width 600px"
+      },
+      {
+        "type": "heading_order_valid",
+        "poin": 8,
+        "label": "urutan heading tidak melompat"
+      },
+      {
+        "type": "tags_balanced",
+        "poin": 7,
+        "label": "semua tag dibuka & ditutup dengan benar"
+      },
+      {
+        "type": "nesting_valid",
+        "poin": 7,
+        "label": "tidak ada elemen yang salah sarang"
+      },
+      {
+        "type": "no_duplicate_ids",
+        "poin": 9,
+        "label": "tidak ada id yang dipakai dua kali"
+      }
     ],
     "total_poin": 100
   }
