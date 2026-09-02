@@ -26,15 +26,30 @@ import alatDemoView from './views/alat-demo.js';
 
 const root = document.getElementById('app');
 
-/** Cache ringan supaya penjaga rute tidak menunggu fetch tiap navigasi. */
-let capstoneUnlocked = false;
-async function refreshCapstoneGate() {
+/**
+ * Yang di-cache adalah JUMLAH BAB, bukan status terbuka/terkuncinya.
+ *
+ * Semula yang disimpan adalah boolean hasil perhitungan, dan diperbarui secara
+ * asinkron pada tiap `hashchange`. Penjaga rute membacanya serentak, jadi siswa
+ * yang baru menuntaskan bab terakhir lalu langsung menekan "Buka Capstone"
+ * terlempar balik ke dasbor karena nilainya masih yang lama.
+ *
+ * Jumlah bab tidak pernah berubah saat aplikasi berjalan, sedangkan progres ada
+ * di localStorage dan bisa dibaca seketika — jadi statusnya dihitung ulang tiap
+ * kali penjaga dipanggil, tanpa balapan.
+ */
+let jumlahBab = null;
+async function muatJumlahBab() {
   try {
     const [html, css] = await Promise.all([getMateri('html'), getMateri('css')]);
-    capstoneUnlocked =
-      modulePercent('html', html.chapters.length) === 100 &&
-      modulePercent('css', css.chapters.length) === 100;
-  } catch { capstoneUnlocked = false; }
+    jumlahBab = { html: html.chapters.length, css: css.chapters.length };
+  } catch { jumlahBab = null; }
+}
+
+function capstoneTerbuka() {
+  if (!jumlahBab) return false;
+  return modulePercent('html', jumlahBab.html) === 100
+    && modulePercent('css', jumlahBab.css) === 100;
 }
 
 const routes = [
@@ -77,7 +92,7 @@ const router = createRouter({
     if (!getLockout() && path === '/ujian/terblokir') return '/dashboard';
 
     // 3. Capstone terbuka setelah kedua modul selesai (§9 PRD).
-    if (path === '/capstone' && !capstoneUnlocked) {
+    if (path === '/capstone' && !capstoneTerbuka()) {
       toast('Capstone terbuka setelah modul HTML dan CSS selesai 100%.', 'warn', 5000);
       return '/dashboard';
     }
@@ -98,11 +113,7 @@ window.addEventListener('beforeunload', (ev) => {
 
 (async function boot() {
   document.title = `${APP.name} — ${APP.longName}`;
-  await refreshCapstoneGate();
-
-  // Progres materi berubah lewat navigasi, jadi gerbang capstone disegarkan
-  // setiap kali rute berganti.
-  window.addEventListener('hashchange', refreshCapstoneGate);
+  await muatJumlahBab();
 
   router.start();
 
