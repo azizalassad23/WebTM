@@ -12,3 +12,8 @@ node_modules/
 # Berkas kerja lokal
 *.local
 scratch/
+
+# Kunci jawaban — JANGAN pernah di-commit.
+# Repo ini publik dan di-deploy ke GitHub Pages, jadi apa pun di sini akan
+# bisa dibuka siswa lewat URL yang mudah ditebak.
+kunci-jawaban/

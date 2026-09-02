@@ -266,6 +266,52 @@ Setiap assertion boleh menambahkan `"label"` (teks yang dilihat siswa) dan
 
 ---
 
+## Alat guru
+
+### Akun demo — sudah lulus semua latihan & ujian
+
+Buka **`#/alat/akun-demo`** pada situs yang sudah ter-deploy, lalu tekan
+*Siapkan akun demo*. Peramban akan disetel seolah satu siswa sudah menuntaskan
+seluruh modul, sehingga layar **Capstone langsung terbuka** dan bisa didemokan
+tanpa mengerjakan 90 soal lebih dulu. Ada juga tombol untuk menghapus kembali
+seluruh data lokal.
+
+Halaman itu **tidak terhubung dari menu mana pun**, tetapi situs statis tidak
+bisa menyembunyikan alamat. Dampaknya sengaja dibuat kecil:
+
+- alat ini **tidak mengirim apa pun ke Google Sheets** — rekap nilai tidak
+  tercemar data palsu;
+- progres bab dan skor latihan memang hanya hidup di `localStorage` dan tidak
+  pernah dikirim ke Sheet, jadi **tidak membentuk nilai apa pun**;
+- yang bisa "dicurangi" hanyalah terbukanya formulir Capstone — yang tetap
+  dinilai manual guru;
+- nilai ujian di Sheet hanya berasal dari submission sungguhan.
+
+### Kunci jawaban
+
+Kunci jawaban seluruh 90 soal **tidak ada di repo ini** dan sengaja di-gitignore
+(`kunci-jawaban/`), karena repo ini publik dan ter-deploy — apa pun yang
+ter-commit akan bisa dibuka siswa lewat URL yang mudah ditebak.
+
+Berkasnya ada di komputer guru:
+
+| Berkas | Isi |
+|---|---|
+| `kunci-jawaban/jawaban.mjs` | 90 jawaban rujukan |
+| `kunci-jawaban/buat-kunci.mjs` | Pembangun halaman cetak |
+| `kunci-jawaban/kunci-jawaban.html` | Hasilnya — HTML mandiri, siap dicetak |
+
+Membangun ulang setelah bank soal diubah:
+
+```bash
+node kunci-jawaban/buat-kunci.mjs
+```
+
+Bank soal ujian adalah bank yang sama dengan latihan (tiap sesi mengacak 2 HTML
++ 2 CSS + 1 campuran), jadi satu kunci mencakup latihan **dan** ujian sekaligus.
+
+---
+
 ## Aturan ujian
 
 Diatur di `assets/js/config.js` → `EXAM`:

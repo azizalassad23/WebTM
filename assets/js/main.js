@@ -22,6 +22,7 @@ import ujianSoalView from './views/ujian-soal.js';
 import ujianHasilView from './views/ujian-hasil.js';
 import terblokirView from './views/terblokir.js';
 import capstoneView from './views/capstone.js';
+import alatDemoView from './views/alat-demo.js';
 
 const root = document.getElementById('app');
 
@@ -45,7 +46,14 @@ const routes = [
   { path: '/ujian/soal/:n', view: ujianSoalView },
   { path: '/ujian/hasil', view: ujianHasilView },
   { path: '/ujian/terblokir', view: terblokirView },
-  { path: '/capstone', view: capstoneView }
+  { path: '/capstone', view: capstoneView },
+
+  /**
+   * Alat guru, sengaja tidak terhubung dari menu mana pun: menyiapkan keadaan
+   * peramban seolah satu siswa sudah menuntaskan seluruh modul, agar layar
+   * Capstone bisa didemokan tanpa mengerjakan 90 soal.
+   */
+  { path: '/alat/akun-demo', view: alatDemoView }
 ];
 
 const router = createRouter({
@@ -55,6 +63,9 @@ const router = createRouter({
   fallback: dashboardView,
 
   onBeforeNavigate(path) {
+    // Alat guru boleh dibuka tanpa identitas — ia justru yang mengisinya.
+    if (path === '/alat/akun-demo') return null;
+
     // 1. Identitas wajib sebelum apa pun (§8.7 PRD).
     if (!getStudent() && path !== '/') return '/';
     if (getStudent() && path === '/' && getExam()) return '/dashboard';
