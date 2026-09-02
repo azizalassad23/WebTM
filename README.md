@@ -419,11 +419,25 @@ client-side), bukan bug yang bisa diperbaiki di implementasi ini.
    **Saran praktis saat ujian:** jangan menyuruh seluruh kelas menekan Submit di
    detik yang sama. Karena siswa boleh submit berkali-kali selama waktu berjalan,
    sebarkan saja secara alami.
-10. **Baris ganda mungkin muncul.** Bila sebuah kiriman sebenarnya berhasil di server
+10. **Perubahan kode butuh sampai 10 menit untuk sampai ke siswa.** GitHub Pages
+   menyajikan berkas JavaScript dengan `Cache-Control: max-age=600`, jadi peramban
+   yang baru saja membuka situs akan tetap memakai versi lama sampai cache-nya
+   kedaluwarsa. Terbukti saat pengujian: perbaikan yang sudah ter-deploy belum
+   berlaku karena `main.js` dimuat dari cache.
+
+   Berkas JSON di `data/` tidak terpengaruh — ia diambil dengan `cache: 'no-cache'`
+   sehingga perubahan materi dan bank soal langsung berlaku. Yang tertahan hanya
+   kode aplikasinya.
+
+   **Saran:** lakukan perubahan kode minimal 10 menit sebelum kelas dimulai. Saat
+   menguji sendiri, paksa muat ulang dengan **Ctrl+Shift+R**. Ini tidak bisa
+   dihilangkan tanpa menambah build step yang memberi nama berkas ber-hash —
+   sesuatu yang sengaja dihindari proyek ini.
+11. **Baris ganda mungkin muncul.** Bila sebuah kiriman sebenarnya berhasil di server
    tapi jawabannya tidak sempat sampai ke siswa, percobaan ulang akan menulis baris
    kedua. Ini tidak merusak nilai: untuk rekap, filter `Jenis = Ringkasan` lalu ambil
    baris terakhir per sesi — kolom `Sesi` membedakan satu sesi ujian dari yang lain.
-11. **Contoh gambar memakai layanan luar.** Beberapa contoh materi dan template soal
+12. **Contoh gambar memakai layanan luar.** Beberapa contoh materi dan template soal
    merujuk `https://placehold.co/...`. Bila jaringan sekolah memblokir domain itu,
    gambarnya tidak tampil — ganti saja URL-nya di `data/*.json` dengan gambar milik
    sendiri. Ini **belum diuji** pada jaringan sekolah.
