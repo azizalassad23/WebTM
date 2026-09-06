@@ -61,7 +61,14 @@
         "expected": "#201e1d",
         "poin": 45,
         "label": "paragraf di luar kartu tetap #201e1d",
-        "hint": "Pakai spasi (.kartu p), bukan koma (.kartu, p)."
+        "hint": "Pakai spasi (.kartu p), bukan koma (.kartu, p).",
+        "butuh": {
+          "type": "computed_style_equals",
+          "selector": "#dalam",
+          "property": "color",
+          "expected": "#8c491a"
+        },
+        "butuh_pesan": "Warnai dulu paragraf di dalam .kartu — barulah ketepatan selector bisa dinilai."
       }
     ],
     "total_poin": 100
@@ -95,7 +102,14 @@
         "expected": "400",
         "poin": 35,
         "label": "li sub-daftar tetap normal",
-        "hint": "Gunakan .menu > li, bukan .menu li."
+        "hint": "Gunakan .menu > li, bukan .menu li.",
+        "butuh": {
+          "type": "computed_style_equals",
+          "selector": "#atas",
+          "property": "font-weight",
+          "expected": "700"
+        },
+        "butuh_pesan": "Tebalkan dulu <li> tingkat pertama — barulah ketepatan selector anak langsung bisa dinilai."
       },
       {
         "type": "computed_style_equals",
@@ -203,7 +217,7 @@
       {
         "type": "source_matches",
         "target": "css",
-        "pattern": "margin\\s*:\\s*0\\s+auto|margin-left\\s*:\\s*auto",
+        "pattern": "margin(-inline)?\\s*:\\s*(0(px|em|rem|%)?\\s+)?auto|margin-left\\s*:\\s*auto",
         "poin": 20,
         "label": "margin kiri-kanan auto",
         "describe": "margin: 0 auto"
@@ -284,14 +298,20 @@
         "expected": "32px",
         "tolerance": 1,
         "poin": 30,
-        "label": "font-size h1 = 2rem (32px)"
+        "label": "font-size h1 = 2rem (32px)",
+        "butuh": {
+          "type": "source_matches",
+          "target": "css",
+          "pattern": "h1[^{]*\\{[^}]*font-size"
+        },
+        "butuh_pesan": "Ukuran <h1> memang sudah 32px secara bawaan — soal ini minta Anda menuliskannya sendiri."
       },
       {
         "type": "computed_style_equals",
         "selector": "p",
         "property": "line-height",
         "expected": "25.6px",
-        "tolerance": 1.5,
+        "tolerance": 0.3,
         "poin": 30,
         "label": "line-height paragraf = 1.6"
       }
@@ -340,8 +360,8 @@
         "type": "computed_style_equals",
         "selector": ".peringatan",
         "property": "letter-spacing",
-        "expected": "2.24px",
-        "tolerance": 0.4,
+        "expected": "0.14em",
+        "tolerance": 0.1,
         "poin": 20,
         "label": "letter-spacing = 0.14em"
       }
@@ -356,7 +376,7 @@
     "chapterModul": "css",
     "editor": "css",
     "topik": "Warna & Tipografi",
-    "instruksi": "Atur <code>&lt;body&gt;</code> memakai tumpukan font <code>Georgia, serif</code>. Batasi lebar baris <code>.tulisan</code> menjadi <code>60ch</code>, dan buat <code>.catatan</code> berukuran <code>0.75rem</code>.",
+    "instruksi": "Atur <code>&lt;body&gt;</code> memakai tumpukan font <code>Georgia, serif</code>. Batasi lebar baris <code>.tulisan</code> dengan <code>max-width: 60ch</code>, dan buat <code>.catatan</code> berukuran <code>0.75rem</code>.",
     "starter_code": {
       "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Keterbacaan</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <article class=\"tulisan\">\n    <p>Lebar baris yang terlalu panjang membuat mata sulit menemukan awal baris berikutnya.</p>\n    <p class=\"catatan\">Catatan kecil.</p>\n  </article>\n\n</body>\n</html>",
       "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
@@ -371,12 +391,14 @@
         "label": "body memakai Georgia"
       },
       {
-        "type": "computed_style_contains",
+        "type": "computed_style_matches",
         "selector": "body",
         "property": "font-family",
-        "contains": "serif",
         "poin": 20,
-        "label": "ada font cadangan serif"
+        "label": "ada font cadangan serif",
+        "pattern": "(^|,)\\s*serif\\s*$",
+        "describe": "diakhiri font generik serif",
+        "hint": "sans-serif bukan serif — tulis Georgia, serif."
       },
       {
         "type": "source_matches",
@@ -570,7 +592,13 @@
         "property": "flex-direction",
         "expected": "row",
         "poin": 20,
-        "label": "flex-direction = row"
+        "label": "flex-direction = row",
+        "butuh": {
+          "type": "source_matches",
+          "target": "css",
+          "pattern": "flex-direction"
+        },
+        "butuh_pesan": "row adalah nilai bawaan — tuliskan flex-direction: row secara eksplisit."
       },
       {
         "type": "computed_style_equals",
@@ -628,7 +656,13 @@
         "property": "flex-grow",
         "expected": "0",
         "poin": 20,
-        "label": "sidebar tidak melar"
+        "label": "sidebar tidak melar",
+        "butuh": {
+          "type": "source_matches",
+          "target": "css",
+          "pattern": "\\.sidebar[^{]*\\{[^}]*flex"
+        },
+        "butuh_pesan": "flex-grow bawaan memang 0 — tuliskan flex: none pada .sidebar."
       },
       {
         "type": "computed_style_equals",
@@ -831,7 +865,15 @@
         "expected": "2px",
         "tolerance": 0.5,
         "poin": 20,
-        "label": "item tengah tetap ber-border"
+        "label": "item tengah tetap ber-border",
+        "butuh": {
+          "type": "computed_style_equals",
+          "selector": "#tiga",
+          "property": "border-bottom-width",
+          "expected": "0px",
+          "tolerance": 0.5
+        },
+        "butuh_pesan": "Hilangkan dulu border pada item terakhir — barulah ketepatan :last-child bisa dinilai."
       },
       {
         "type": "computed_style_equals",
@@ -848,7 +890,14 @@
         "expected": "#201e1d",
         "poin": 20,
         "label": "item .aktif tidak ikut berubah",
-        "hint": "Pakai :not(.aktif) agar item aktif dikecualikan."
+        "hint": "Pakai :not(.aktif) agar item aktif dikecualikan.",
+        "butuh": {
+          "type": "computed_style_equals",
+          "selector": "#dua",
+          "property": "color",
+          "expected": "#645c50"
+        },
+        "butuh_pesan": "Warnai dulu item non-aktif — barulah ketepatan :not(.aktif) bisa dinilai."
       }
     ],
     "total_poin": 100
@@ -1677,9 +1726,9 @@
       {
         "type": "source_matches",
         "target": "css",
-        "pattern": "box-shadow[^;]*(rgba?\\([^)]*[/,]\\s*(0?\\.\\d+|\\d+%))",
+        "pattern": "box-shadow[^;]*((rgba?|hsla?|hwb)\\([^)]*[/,]\\s*(0?\\.\\d+|\\d+%)|#[0-9a-f]{4}(?![0-9a-f])|#[0-9a-f]{8}(?![0-9a-f]))",
         "flags": "i",
-        "describe": "warna bayangan ber-transparansi",
+        "describe": "warna bayangan ber-transparansi (rgba/hsl dengan alfa, atau hex 4/8 digit)",
         "poin": 18,
         "label": "bayangan memakai warna ber-alfa",
         "hint": "Bayangan pekat tanpa transparansi terlihat kasar."
@@ -1718,7 +1767,13 @@
         "describe": "border di dalam :hover",
         "poin": 25,
         "label": "hover TIDAK memakai border",
-        "hint": "Border menambah ukuran kotak sehingga elemen sekitarnya bergeser."
+        "hint": "Border menambah ukuran kotak sehingga elemen sekitarnya bergeser.",
+        "butuh": {
+          "type": "source_matches",
+          "target": "css",
+          "pattern": "\\.tombol\\s*:hover"
+        },
+        "butuh_pesan": "Aturan .tombol:hover belum ditulis, jadi belum ada yang bisa dinilai."
       },
       {
         "type": "source_matches",

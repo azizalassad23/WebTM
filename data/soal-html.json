@@ -2012,7 +2012,13 @@
         "describe": "jalur berawalan /",
         "poin": 25,
         "label": "tidak ada jalur berawalan garis miring",
-        "hint": "Jalur seperti /gambar/foto.jpg dihitung dari akar domain dan akan gagal di GitHub Pages."
+        "hint": "Jalur seperti /gambar/foto.jpg dihitung dari akar domain dan akan gagal di GitHub Pages.",
+        "butuh": {
+          "type": "element_count_min",
+          "selector": "[href],[src]",
+          "min": 2
+        },
+        "butuh_pesan": "Belum ada stylesheet maupun gambar yang disambungkan, jadi jalurnya belum bisa dinilai."
       },
       {
         "type": "tags_balanced",
@@ -2114,7 +2120,13 @@
         "poin": 25,
         "label": "nama berkas seluruhnya huruf kecil",
         "hint": "Server Linux membedakan Foto.JPG dari foto.jpg — berhasil di Windows, gagal setelah deploy.",
-        "flags": ""
+        "flags": "",
+        "butuh": {
+          "type": "element_count_min",
+          "selector": "img[src]",
+          "min": 1
+        },
+        "butuh_pesan": "Belum ada gambar, jadi nama berkasnya belum bisa dinilai."
       },
       {
         "type": "source_not_matches",
@@ -2122,7 +2134,13 @@
         "pattern": "src\\s*=\\s*[\"\\'][^\"\\']* ",
         "describe": "spasi pada nama berkas",
         "poin": 21,
-        "label": "nama berkas tanpa spasi"
+        "label": "nama berkas tanpa spasi",
+        "butuh": {
+          "type": "element_count_min",
+          "selector": "img[src]",
+          "min": 1
+        },
+        "butuh_pesan": "Belum ada gambar, jadi nama berkasnya belum bisa dinilai."
       },
       {
         "type": "tags_balanced",
@@ -2188,7 +2206,13 @@
         "pattern": "href\\s*=\\s*[\"\\']tel:[^\"\\']* ",
         "describe": "spasi di dalam href tel:",
         "poin": 13,
-        "label": "nomor di href tel: tanpa spasi"
+        "label": "nomor di href tel: tanpa spasi",
+        "butuh": {
+          "type": "element_count_min",
+          "selector": "a[href^=\"tel:\"]",
+          "min": 1
+        },
+        "butuh_pesan": "Belum ada tautan tel:, jadi penulisan nomornya belum bisa dinilai."
       },
       {
         "type": "tags_balanced",
@@ -2249,7 +2273,13 @@
         "describe": "tanda kutip diketik di dalam <q>",
         "poin": 17,
         "label": "<q> tanpa tanda kutip yang diketik sendiri",
-        "hint": "Browser sudah menambahkan tanda kutipnya sendiri."
+        "hint": "Browser sudah menambahkan tanda kutipnya sendiri.",
+        "butuh": {
+          "type": "element_count_min",
+          "selector": "q",
+          "min": 1
+        },
+        "butuh_pesan": "Belum ada <q>, jadi tanda kutipnya belum bisa dinilai."
       },
       {
         "type": "tags_balanced",
@@ -2459,7 +2489,13 @@
         "before": "nav",
         "after": "main",
         "poin": 13,
-        "label": "menu berada sebelum konten utama"
+        "label": "menu berada sebelum konten utama",
+        "butuh": {
+          "type": "element_count_min",
+          "selector": "main section[id]",
+          "min": 3
+        },
+        "butuh_pesan": "Ketiga <section> belum dibuat, jadi urutan halamannya belum bisa dinilai."
       },
       {
         "type": "tags_balanced",

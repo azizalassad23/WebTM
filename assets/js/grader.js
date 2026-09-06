@@ -32,6 +32,7 @@ const LABELS = {
   computed_style_equals: (a) => `${a.selector} ${a.property} = ${a.expected}`,
   computed_style_one_of: (a) => `${a.selector} ${a.property} salah satu dari ${(a.expected || []).join(' / ')}`,
   computed_style_contains: (a) => `${a.selector} ${a.property} memuat "${a.contains}"`,
+  computed_style_matches: (a) => `${a.selector} ${a.property} cocok dengan ${a.describe || a.pattern}`,
   grid_column_count: (a) => `${a.selector} punya ${a.count} kolom grid`,
   source_matches: (a) => `kode ${a.target || 'css'} memuat ${a.describe || a.pattern}`,
   source_not_matches: (a) => `kode ${a.target || 'css'} TIDAK memuat ${a.describe || a.pattern}`,
@@ -342,6 +343,20 @@ function nestingProblems(doc) {
 
 /* ---------------------------------------------------------------- evaluasi */
 
+/**
+ * Kriteria bernada "jangan sampai X" bersifat hampa selama X memang belum ada.
+ * "Nama berkas tanpa spasi" otomatis benar bila siswa belum menulis satu pun
+ * <img> — poinnya diberikan untuk pekerjaan yang tidak pernah dilakukan.
+ *
+ * `butuh` menutup celah itu: ia sendiri sebuah assertion (tanpa poin/label)
+ * yang harus terpenuhi lebih dulu, dievaluasi lewat mesin yang sama.
+ */
+function prasyaratTerpenuhi(a, doc, win, code) {
+  if (!a.butuh) return true;
+  const hasil = evaluate(a.butuh, doc, win, code);
+  return hasil && typeof hasil === 'object' ? !!hasil.ok : !!hasil;
+}
+
 function evaluate(assertion, doc, win, code) {
   const a = assertion;
   const q = (sel) => { try { return doc.querySelector(sel); } catch { return null; } };
@@ -441,6 +456,21 @@ function evaluate(assertion, doc, win, code) {
       if (!el) return false;
       const actual = win.getComputedStyle(el).getPropertyValue(a.property).toLowerCase();
       return actual.includes(String(a.contains).toLowerCase());
+    }
+
+    /**
+     * Seperti computed_style_contains, tetapi dengan pola — bukan substring.
+     *
+     * Substring tidak cukup untuk daftar nilai: mencari "serif" pada
+     * font-family juga cocok dengan "sans-serif", sehingga jawaban yang justru
+     * salah ikut dinilai benar. Pola bisa menuntut batas yang tepat.
+     */
+    case 'computed_style_matches': {
+      const el = q(a.selector);
+      if (!el) return false;
+      const actual = win.getComputedStyle(el).getPropertyValue(a.property);
+      try { return new RegExp(a.pattern, a.flags ?? 'i').test(actual); }
+      catch { return false; }
     }
 
     case 'grid_column_count': {
@@ -611,9 +641,39 @@ function mountGradingFrame(html, css) {
  * @param {{html?: string, css?: string}} code jawaban siswa
  * @returns {Promise<{score:number, earned:number, total:number, results:Array}>}
  */
+/**
+ * Kode dianggap belum dikerjakan bila kedua panel masih sama persis dengan
+ * template — perbedaan spasi tidak dihitung sebagai pekerjaan.
+ */
+function belumDikerjakan(question, code) {
+  const rapikan = (t) => String(t ?? '').replace(/\s+/g, ' ').trim();
+  const awal = question.starter_code || {};
+  return rapikan(code.html) === rapikan(awal.html)
+    && rapikan(code.css) === rapikan(awal.css);
+}
+
 export async function grade(question, code) {
   const assertions = question.assertions || [];
   const total = assertions.reduce((sum, a) => sum + (a.poin || 0), 0) || 100;
+
+  /**
+   * Template yang dikirim apa adanya harus bernilai 0.
+   *
+   * Kriteria pemeliharaan ("semua tag ditutup", "tidak ada id ganda") memang
+   * sudah terpenuhi oleh template yang valid, dan kriteria bernada larangan
+   * hampa selama isinya belum ada. Tanpa penjaga ini, mengirim template tanpa
+   * mengetik apa pun bisa bernilai sampai 62 — angka yang terlihat seperti
+   * lulus untuk pekerjaan yang tidak pernah ada.
+   */
+  if (belumDikerjakan(question, code)) {
+    return {
+      score: 0, earned: 0, total,
+      results: assertions.map((a) => ({
+        type: a.type, label: labelFor(a), poin: a.poin || 0, earned: 0, ok: false,
+        hint: 'Kode masih sama persis dengan template — belum ada yang dikerjakan.'
+      }))
+    };
+  }
 
   let frame;
   try {
@@ -629,6 +689,12 @@ export async function grade(question, code) {
       let ok = false;
       let alasan = null;
       try {
+        if (!prasyaratTerpenuhi(a, doc, win, code)) {
+          return {
+            type: a.type, label: labelFor(a), poin: a.poin || 0, earned: 0, ok: false,
+            hint: a.butuh_pesan || 'Bagian yang diminta soal belum ditulis, jadi kriteria ini belum bisa dinilai.'
+          };
+        }
         // evaluate() boleh mengembalikan boolean, atau {ok, alasan} bila ia
         // punya penjelasan konkret — alasan itu jauh lebih mendidik daripada
         // sekadar tanda silang.

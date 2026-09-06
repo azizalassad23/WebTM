@@ -255,6 +255,7 @@ Syarat yang didukung `must`: `not_empty`, `min_words`, `attribute_exists`,
 | `computed_style_equals` | `selector`, `property`, `expected`, `tolerance?` | Computed style (warna dinormalkan; `tolerance` untuk nilai numerik) |
 | `computed_style_one_of` | `selector`, `property`, `expected[]` | Salah satu nilai diterima |
 | `computed_style_contains` | `selector`, `property`, `contains` | Substring computed style |
+| `computed_style_matches` | `selector`, `property`, `pattern`, `flags?` | Computed style dengan pola — pakai ini bila substring bisa menipu (mencari `serif` juga cocok dengan `sans-serif`) |
 | `grid_column_count` | `selector`, `count` | Jumlah kolom grid |
 | `source_matches` | `pattern`, `target` (`css`/`html`), `flags?`, `describe?` | Pola pada teks kode — untuk `@keyframes`, `@media`, `::before` yang tidak tercermin di computed style satu elemen |
 
@@ -272,6 +273,30 @@ Setiap assertion boleh menambahkan `"label"` (teks yang dilihat siswa) dan
 > `computed_style_equals` dirender ulang di dokumen penilaian yang sama, jadi
 > keduanya mengalami pembulatan yang identik. Soal yang sempat terdampak:
 > `css-dasar-004`, `css-menengah-018`, dan `campuran-001`.
+
+### Dua penjaga agar nilai mencerminkan pekerjaan
+
+**`butuh` — prasyarat sebuah kriteria.** Kriteria bernada larangan ("nama berkas
+tanpa spasi", "hover tidak memakai border") otomatis benar selama isinya memang
+belum ditulis, jadi poinnya diberikan untuk pekerjaan yang tak pernah dilakukan.
+Begitu pula kriteria yang kebetulan sama dengan nilai bawaan browser
+(`flex-direction: row`, ukuran `<h1>`). Tambahkan `"butuh"` — sebuah assertion
+utuh yang harus terpenuhi lebih dulu — dan `"butuh_pesan"` sebagai penjelasannya:
+
+```json
+{
+  "type": "source_not_matches", "target": "html",
+  "pattern": "src\\s*=\\s*[\"'][^\"']* ",
+  "poin": 21, "label": "nama berkas tanpa spasi",
+  "butuh": { "type": "element_count_min", "selector": "img[src]", "min": 1 },
+  "butuh_pesan": "Belum ada gambar, jadi nama berkasnya belum bisa dinilai."
+}
+```
+
+**Template apa adanya bernilai 0.** Kriteria pemeliharaan (`tags_balanced`,
+`no_duplicate_ids`) memang sudah terpenuhi oleh template yang valid. Tanpa
+penjaga ini, mengirim template tanpa mengetik apa pun sempat bernilai sampai 62.
+Perbedaan spasi tidak dihitung sebagai pekerjaan.
 
 ---
 
