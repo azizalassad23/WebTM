@@ -264,6 +264,15 @@ Setiap assertion boleh menambahkan `"label"` (teks yang dilihat siswa) dan
 > Iframe penilaian berukuran **1000 × 700 px**. Soal responsif harus menuliskan
 > breakpoint yang aktif pada lebar itu.
 
+> **Zoom browser tidak lagi memengaruhi nilai.** Chrome membulatkan computed
+> value `border-*-width` ke piksel perangkat, sedangkan `width` dan `padding`
+> tidak. Pada zoom 125% `border: 3px solid` terbaca **2.4px**, pada 90% terbaca
+> 2.22px — dulu ini membuat jawaban yang benar dinilai salah, dan hanya siswa
+> berzoom 100% yang bisa lolos. Sejak perbaikan ini nilai harapan pada
+> `computed_style_equals` dirender ulang di dokumen penilaian yang sama, jadi
+> keduanya mengalami pembulatan yang identik. Soal yang sempat terdampak:
+> `css-dasar-004`, `css-menengah-018`, dan `campuran-001`.
+
 ---
 
 ## Alat guru

@@ -76,6 +76,43 @@ function normalizeColor(doc, value) {
 
 const isColorProp = (prop) => /color/i.test(prop);
 
+/** Nilai panjang tunggal yang bisa dirender ulang oleh browser, mis. "3px", "1.5rem". */
+const PANJANG_RE = /^-?\d*\.?\d+(px|em|rem|pt|ex|ch)$/i;
+
+/**
+ * Nilai harapan, dihitung ULANG oleh browser di dokumen penilaian yang sama.
+ *
+ * Sebabnya nyata dan sempat membuat jawaban yang benar dinilai salah: computed
+ * value `border-*-width` dibulatkan ke piksel perangkat, sedangkan `width` dan
+ * `padding` tidak. Pada zoom browser 125% `border: 3px solid` terbaca **2.4px**,
+ * pada 90% terbaca 2.22px, pada 50% terbaca 2px. Membandingkannya dengan angka
+ * mentah "3px" berarti hanya siswa berzoom 100% yang bisa lolos — siswa lain
+ * menulis kode yang persis benar dan tetap dinilai salah.
+ *
+ * Dengan merender nilai harapan di dokumen yang sama, keduanya mengalami
+ * pembulatan yang identik, sehingga hasilnya tidak lagi bergantung pada zoom
+ * maupun skala layar.
+ */
+function expectedComputed(doc, el, prop, expected) {
+  const raw = String(expected ?? '').trim();
+  if (!PANJANG_RE.test(raw)) return raw;
+  try {
+    const win = doc.defaultView;
+    const probe = doc.createElement('div');
+    // display:flex agar properti `gap` ikut terhitung; border-style:solid karena
+    // border-width selalu computed 0px selama border-style masih `none`.
+    probe.style.cssText =
+      'position:absolute;left:-9999px;top:0;visibility:hidden;display:flex;border-style:solid';
+    // Samakan konteks font supaya satuan em/rem/ex/ch ikut benar.
+    probe.style.fontSize = win.getComputedStyle(el).fontSize;
+    probe.style.setProperty(prop, raw);
+    doc.body.appendChild(probe);
+    const out = win.getComputedStyle(probe).getPropertyValue(prop);
+    probe.remove();
+    return out && !Number.isNaN(parseFloat(out)) ? out : raw;
+  } catch { return raw; }
+}
+
 function normalizeValue(doc, prop, value) {
   const raw = String(value ?? '').trim();
   if (isColorProp(prop)) return normalizeColor(doc, raw);
@@ -378,10 +415,18 @@ function evaluate(assertion, doc, win, code) {
 
     case 'computed_style_equals': {
       const el = q(a.selector);
-      if (!el) return false;
+      if (!el) return { ok: false, alasan: `elemen ${a.selector} belum ada di halaman` };
       const actual = win.getComputedStyle(el).getPropertyValue(a.property);
-      if (a.tolerance != null) return numericMatch(actual, a.expected, a.tolerance);
-      return normalizeValue(doc, a.property, actual) === normalizeValue(doc, a.property, a.expected);
+      const harapan = expectedComputed(doc, el, a.property, a.expected);
+      const ok = a.tolerance != null
+        ? numericMatch(actual, harapan, a.tolerance)
+        : normalizeValue(doc, a.property, actual) === normalizeValue(doc, a.property, harapan);
+      // Menyebut nilai yang terbaca jauh lebih mendidik daripada sekadar tanda
+      // silang, dan membuat selisih semacam ini langsung kelihatan.
+      return ok ? true : {
+        ok: false,
+        alasan: `${a.property} terbaca "${actual || '(kosong)'}", seharusnya "${a.expected}"`
+      };
     }
 
     case 'computed_style_one_of': {
@@ -457,7 +502,8 @@ function evaluate(assertion, doc, win, code) {
         if (syarat.computed_style_equals) {
           const { property, expected } = syarat.computed_style_equals;
           const aktual = win.getComputedStyle(el).getPropertyValue(property);
-          if (normalizeValue(doc, property, aktual) !== normalizeValue(doc, property, expected)) return false;
+          const harapan = expectedComputed(doc, el, property, expected);
+          if (normalizeValue(doc, property, aktual) !== normalizeValue(doc, property, harapan)) return false;
         }
         return true;
       });
