@@ -298,6 +298,17 @@ utuh yang harus terpenuhi lebih dulu — dan `"butuh_pesan"` sebagai penjelasann
 penjaga ini, mengirim template tanpa mengetik apa pun sempat bernilai sampai 62.
 Perbedaan spasi tidak dihitung sebagai pekerjaan.
 
+### Baris CSS yang dibuang browser
+
+CSS tidak punya pesan kesalahan. Satu huruf tertukar — `fornt-size: 2rem` — dan
+seluruh baris itu lenyap tanpa jejak: editor tidak menandainya, preview tampak
+wajar, dan siswa bisa memelototi kode yang "sudah benar" berjam-jam.
+
+Setelah menilai, mesin memindai deklarasi CSS siswa dan menampilkan yang dibuang
+browser (nama properti tidak dikenali, atau nilainya tidak terbaca). Ini
+**tidak memengaruhi nilai** — hanya penunjuk arah, dan muncul di latihan maupun
+ujian. Diuji terhadap 630 deklarasi nyata tanpa satu pun alarm palsu.
+
 ---
 
 ## Alat guru

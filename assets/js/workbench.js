@@ -173,5 +173,10 @@ export function resultPanelHTML(result, { heading = 'Hasil terakhir' } = {}) {
         ${result.results.filter((r) => !r.ok && r.hint).map((r) => `
           <div class="muted">→ ${esc(r.hint)}</div>`).join('')}
       </div>
+      ${(result.peringatan || []).length ? `
+        <div class="assert-warn">
+          <div><strong>Baris CSS ini dibuang browser</strong> — tidak berpengaruh apa pun:</div>
+          ${result.peringatan.map((w) => `<div>• ${esc(w)}</div>`).join('')}
+        </div>` : ''}
     </div>`;
 }

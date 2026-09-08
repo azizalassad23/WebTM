@@ -277,7 +277,7 @@
     "chapterModul": "css",
     "editor": "css",
     "topik": "Warna & Tipografi",
-    "instruksi": "Beri <code>.kotak</code> latar <strong>merah</strong> (bebas: <code>red</code>, <code>#ff0000</code>, atau <code>rgb(255,0,0)</code>). Atur <code>&lt;h1&gt;</code> menjadi <code>2rem</code> dan <code>line-height</code> paragraf menjadi <code>1.6</code>.",
+    "instruksi": "Beri <code>.kotak</code> latar <strong>merah</strong> (bebas: <code>red</code>, <code>#ff0000</code>, atau <code>rgb(255,0,0)</code>). Atur <code>font-size</code> pada <code>&lt;h1&gt;</code> menjadi <code>2rem</code>, lalu <code>line-height</code> pada <code>&lt;p&gt;</code> menjadi <code>1.6</code> — dua aturan terpisah, bukan satu.",
     "starter_code": {
       "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Warna</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"kotak\">Kotak</div>\n  <h1>Judul</h1>\n  <p>Paragraf contoh untuk mengecek line-height.</p>\n\n</body>\n</html>",
       "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"
@@ -304,7 +304,7 @@
           "target": "css",
           "pattern": "h1[^{]*\\{[^}]*font-size"
         },
-        "butuh_pesan": "Ukuran <h1> memang sudah 32px secara bawaan — soal ini minta Anda menuliskannya sendiri."
+        "butuh_pesan": "Tidak ada font-size di dalam aturan h1. Ukuran <h1> memang sudah 32px secara bawaan, jadi kriteria ini hanya lulus bila Anda menuliskannya sendiri — periksa juga ejaan propertinya."
       },
       {
         "type": "computed_style_equals",
@@ -313,7 +313,8 @@
         "expected": "25.6px",
         "tolerance": 0.3,
         "poin": 30,
-        "label": "line-height paragraf = 1.6"
+        "label": "line-height pada <p> = 1.6",
+        "hint": "Aturannya harus ditulis untuk p, bukan di dalam aturan h1 — line-height pada h1 tidak menurun ke paragraf."
       }
     ],
     "total_poin": 100
@@ -951,7 +952,7 @@
     "chapterModul": "css",
     "editor": "css",
     "topik": "CSS Grid",
-    "instruksi": "Buat dua kolom dengan kolom kedua dua kali lebih lebar (<code>1fr 2fr</code>) dan <code>gap: 20px</code>. Buat juga <code>.penuh</code> merentang dari kiri sampai kanan memakai <code>grid-column: 1 / -1</code>.",
+    "instruksi": "Jadikan <code>.tata</code> grid dua kolom dengan kolom kedua dua kali lebih lebar (<code>1fr 2fr</code>) dan <code>gap: 20px</code>. Buat juga <code>.penuh</code> merentang dari kiri sampai kanan memakai <code>grid-column: 1 / -1</code>.",
     "starter_code": {
       "html": "<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Grid 1fr 2fr</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <div class=\"tata\">\n    <aside>Sidebar</aside>\n    <main>Konten utama</main>\n    <footer class=\"penuh\">Footer selebar penuh</footer>\n  </div>\n\n</body>\n</html>",
       "css": "/* ✏️ TULIS CSS ANDA DI SINI */\n"

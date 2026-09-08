@@ -642,6 +642,46 @@ function mountGradingFrame(html, css) {
  * @returns {Promise<{score:number, earned:number, total:number, results:Array}>}
  */
 /**
+ * Deklarasi CSS yang DIBUANG DIAM-DIAM oleh browser.
+ *
+ * CSS tidak punya pesan kesalahan: satu huruf tertukar — `fornt-size: 2rem` —
+ * dan seluruh baris itu lenyap tanpa jejak. Editor tidak menandainya, preview
+ * tampak wajar, dan siswa bisa memelototi kode yang "sudah benar" berjam-jam.
+ * Ini bukan penalti nilai, melainkan penunjuk arah.
+ */
+function cssDiabaikan(css, win) {
+  const dukung = win?.CSS?.supports ? win.CSS.supports.bind(win.CSS) : CSS.supports.bind(CSS);
+  const namaDikenali = (prop) =>
+    prop.startsWith('--') || dukung(prop, 'initial') || dukung(prop, 'inherit');
+
+  const bersih = String(css || '').replace(/\/\*[\s\S]*?\*\//g, '');
+  const temuan = [];
+  const sudah = new Set();
+
+  // Hanya blok terdalam: prelude @media/@keyframes tidak berisi deklarasi.
+  for (const blok of bersih.matchAll(/\{([^{}]*)\}/g)) {
+    for (const potong of blok[1].split(';')) {
+      const i = potong.indexOf(':');
+      if (i < 1) continue;
+      const prop = potong.slice(0, i).trim().toLowerCase();
+      const nilai = potong.slice(i + 1).trim().replace(/\s*!\s*important\s*$/i, '');
+      if (!prop || !nilai) continue;
+      if (!/^-{0,2}[a-z][a-z0-9-]*$/.test(prop)) continue;
+      // Tanda kutip ganjil berarti pemenggalan kami yang salah, bukan kode siswa.
+      if ((nilai.match(/"/g) || []).length % 2 || (nilai.match(/'/g) || []).length % 2) continue;
+
+      let pesan = null;
+      if (!namaDikenali(prop)) pesan = `${prop} — properti ini tidak dikenali browser, periksa ejaannya`;
+      else if (!prop.startsWith('--') && !dukung(prop, nilai)) pesan = `${prop}: ${nilai} — nilainya tidak dikenali browser`;
+
+      if (pesan && !sudah.has(pesan)) { sudah.add(pesan); temuan.push(pesan); }
+      if (temuan.length >= 5) return temuan;
+    }
+  }
+  return temuan;
+}
+
+/**
  * Kode dianggap belum dikerjakan bila kedua panel masih sama persis dengan
  * template — perbedaan spasi tidak dihitung sebagai pekerjaan.
  */
@@ -717,7 +757,8 @@ export async function grade(question, code) {
       score: Math.round((earned / total) * 100),
       earned,
       total,
-      results
+      results,
+      peringatan: cssDiabaikan(code.css, win)
     };
   } finally {
     frame?.remove();
