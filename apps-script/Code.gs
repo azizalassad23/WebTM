@@ -2,7 +2,7 @@
  * WebTM — Google Apps Script Web App.
  *
  * Menerima POST dari situs statis dan menuliskannya sebagai satu baris ke
- * sheet "Latihan", "Ujian", atau "Capstone".
+ * sheet "Latihan", "Ujian", "Kuis", atau "Capstone".
  *
  * Pasang:
  *   1. Buka Google Sheets baru → Extensions → Apps Script.
@@ -41,6 +41,15 @@ var SHEETS = {
     'Timestamp', 'Nama', 'Kelas/NISN', 'Link CV', 'Status Jaringan', 'Status Review Guru'
   ]
 };
+
+/**
+ * Kuis memakai kolom yang sama persis dengan Ujian — sesi berpenilaian yang
+ * sama, hanya aturannya yang berbeda. Selama versi ini BELUM di-deploy, sheet
+ * "Kuis" tidak dikenal dan barisnya akan ditolak; karena itu KUIS.sheet di
+ * assets/js/config.js masih diarahkan ke "Ujian" dan dibedakan lewat kolom Mode.
+ * Setelah versi ini aktif, barulah ubah nilai itu menjadi 'Kuis'.
+ */
+SHEETS.Kuis = SHEETS.Ujian.slice();
 
 /** Nama kolom → nama field pada payload dari klien. */
 var FIELD = {
@@ -125,7 +134,14 @@ function doPost(e) {
         // Sheet "Ujian" memuat dua jenis baris: satu baris per soal yang disubmit,
         // dan satu baris ringkasan berisi nilai akhir sesi. Kolom ini memisahkannya
         // supaya rekap nilai tinggal memfilter "Ringkasan".
-        if (column === 'Jenis') return data.idSoal === 'RINGKASAN' ? 'Ringkasan' : 'Per Soal';
+        if (column === 'Jenis') {
+          if (data.idSoal === 'RINGKASAN') return 'Ringkasan';
+          // Baris BLOKIR dikirim saat siswa dihentikan karena pelanggaran:
+          // sesinya dihapus tanpa nilai akhir, jadi tanpa penanda ini guru
+          // tidak punya jejak apa pun tentang kejadian itu.
+          if (data.idSoal === 'BLOKIR') return 'Blokir';
+          return 'Per Soal';
+        }
         var key = FIELD[column];
         var value = key ? data[key] : '';
         return (value === undefined || value === null) ? '' : value;

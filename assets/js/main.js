@@ -12,6 +12,7 @@ import {
   getStudent, getLockout, getExam, modulePercent
 } from './state.js';
 import { getMateri } from './content.js';
+import { PROFIL, basePath } from './sesi.js';
 
 import identityView from './views/identity.js';
 import dashboardView from './views/dashboard.js';
@@ -57,10 +58,18 @@ const routes = [
   { path: '/dashboard', view: dashboardView },
   { path: '/materi/:modul/:no', view: materiView },
   { path: '/latihan/:soalId', view: latihanView },
-  { path: '/ujian/mulai', view: ujianMulaiView },
-  { path: '/ujian/soal/:n', view: ujianSoalView },
-  { path: '/ujian/hasil', view: ujianHasilView },
-  { path: '/ujian/terblokir', view: terblokirView },
+  /**
+   * Ujian dan Kuis memakai view yang sama persis — hanya profil aturannya yang
+   * berbeda, dan view membacanya dari awalan rute. Mendaftarkannya lewat loop
+   * memastikan keduanya tidak pernah berbeda perilaku karena satu rute lupa
+   * ikut diperbarui.
+   */
+  ...Object.keys(PROFIL).flatMap((key) => [
+    { path: `${basePath(key)}/mulai`, view: ujianMulaiView },
+    { path: `${basePath(key)}/soal/:n`, view: ujianSoalView },
+    { path: `${basePath(key)}/hasil`, view: ujianHasilView },
+    { path: `${basePath(key)}/terblokir`, view: terblokirView }
+  ]),
   { path: '/capstone', view: capstoneView },
 
   /**
@@ -85,11 +94,13 @@ const router = createRouter({
     if (!getStudent() && path !== '/') return '/';
     if (getStudent() && path === '/' && getExam()) return '/dashboard';
 
-    // 2. Masa blokir mengunci seluruh ruang ujian (§8.5 PRD).
-    if (getLockout() && path.startsWith('/ujian') && path !== '/ujian/terblokir') {
-      return '/ujian/terblokir';
+    // 2. Masa blokir mengunci seluruh ruang berpenilaian (§8.5 PRD).
+    const ruang = Object.keys(PROFIL).map(basePath).find((b) => path.startsWith(b + '/'));
+    if (ruang) {
+      const terblokir = `${ruang}/terblokir`;
+      if (getLockout() && path !== terblokir) return terblokir;
+      if (!getLockout() && path === terblokir) return '/dashboard';
     }
-    if (!getLockout() && path === '/ujian/terblokir') return '/dashboard';
 
     // 3. Capstone terbuka setelah kedua modul selesai (§9 PRD).
     if (path === '/capstone' && !capstoneTerbuka()) {

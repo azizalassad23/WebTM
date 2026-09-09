@@ -1,6 +1,7 @@
 /** Layar 2 — Dashboard Modul (route: `/dashboard`, komponen: ModuleCard, ExamBanner). */
 
 import { esc } from '../util.js';
+import { PROFIL } from '../sesi.js';
 import { screen, brand, footer, identityChip } from '../ui.js';
 import { getStudent, clearStudent, modulePercent, getProgress } from '../state.js';
 import { getMateri, getBank } from '../content.js';
@@ -29,6 +30,8 @@ function moduleCard({ key, no, nama, deskripsi, total, done, percent, headClass,
       </div>
     </article>`;
 }
+
+const KUIS = PROFIL.kuis;
 
 export default async function dashboardView(_params, { router }) {
   const student = getStudent();
@@ -107,6 +110,22 @@ export default async function dashboardView(_params, { router }) {
             </div>
           </article>
         </div>
+
+        <section class="exam-banner exam-banner-kuis">
+          <div class="row" style="gap:20px">
+            <div class="exam-banner-icon" aria-hidden="true">✎</div>
+            <div>
+              <div class="kicker" style="margin-bottom:5px">KUIS HARI INI</div>
+              <h4>${esc(KUIS.nama)} — ${KUIS.questionCount} set soal</h4>
+              <div class="small muted" style="color:var(--n800)">
+                ${KUIS.durationMinutes} menit · ${KUIS.komposisi.html} soal HTML (dasar–menengah) ·
+                ${KUIS.komposisi.css} soal CSS (dasar) · diacak per siswa ·
+                <strong>tanpa toleransi: satu pelanggaran = blokir ${KUIS.lockoutMinutes} menit &amp; jawaban dihapus</strong>
+              </div>
+            </div>
+          </div>
+          <a class="btn btn-ink btn-lg nowrap" href="#/kuis/mulai">Masuk Ruang Kuis</a>
+        </section>
 
         <section class="exam-banner">
           <div class="row" style="gap:20px">

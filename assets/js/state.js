@@ -9,7 +9,7 @@
  */
 
 import { local, session, uid } from './util.js';
-import { EXAM } from './config.js';
+import { PROFIL } from './sesi.js';
 
 const K = {
   student: 'webtm.student',
@@ -122,13 +122,20 @@ export function clearExam() {
   session.remove(K.exam);
 }
 
-export function startExam(modul, questionIds) {
+/**
+ * @param {string} modul
+ * @param {string[]} questionIds
+ * @param {'ujian'|'kuis'} [sesi] profil aturan yang dipakai sesi ini
+ */
+export function startExam(modul, questionIds, sesi = 'ujian') {
   const now = Date.now();
+  const R = PROFIL[sesi] || PROFIL.ujian;
   const exam = {
     id: uid('#'),
+    sesi: R.key,
     modul,
     startedAt: now,
-    endsAt: now + EXAM.durationMinutes * 60_000,
+    endsAt: now + R.durationMinutes * 60_000,
     questionIds,
     current: 0,
     answers: {},
@@ -163,15 +170,25 @@ export function lockoutSecondsLeft() {
  * Blokir sesi (§8.5 PRD): progres jawaban dikosongkan, siswa menunggu 60 menit,
  * dan jumlah siklus blokir dicatat agar guru bisa melihat pola.
  */
-export function applyLockout(violations) {
+export function applyLockout(violations, sesi = 'ujian') {
+  const R = PROFIL[sesi] || PROFIL.ujian;
   const previous = local.get('webtm.lockoutCycles', 0);
   const cycles = previous + 1;
   local.set('webtm.lockoutCycles', cycles);
+  // Angka aturan ikut disimpan: halaman blokir harus bisa menampilkan durasi
+  // yang benar dan mengembalikan siswa ke ruang yang benar, bahkan setelah
+  // rekaman sesinya sendiri dihapus.
   const record = {
     startedAt: Date.now(),
-    until: Date.now() + EXAM.lockoutMinutes * 60_000,
+    until: Date.now() + R.lockoutMinutes * 60_000,
     violations: violations || [],
-    cycle: cycles
+    cycle: cycles,
+    sesi: R.key,
+    nama: R.nama,
+    lockoutMinutes: R.lockoutMinutes,
+    maxViolations: R.maxViolations,
+    durationMinutes: R.durationMinutes,
+    questionCount: R.questionCount
   };
   local.set(K.lockout, record);
   clearExam();

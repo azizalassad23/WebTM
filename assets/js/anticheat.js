@@ -11,7 +11,7 @@
  * manual guru tetap diperlukan saat ujian.
  */
 
-import { EXAM } from './config.js';
+import { PROFIL } from './sesi.js';
 import { timeOfDay } from './util.js';
 
 const TYPE_LABEL = {
@@ -43,7 +43,8 @@ const CLIPBOARD_KEYS = (ev) => {
 
 /**
  * @param {object} opts
- * @param {'latihan'|'ujian'} opts.mode
+ * @param {'latihan'|'ujian'|'kuis'} opts.mode
+ * @param {'ujian'|'kuis'} [opts.sesi] profil aturan bila mode berpenilaian
  * @param {boolean} [opts.requireFullscreen]
  * @param {Array}   [opts.initialViolations] lanjutkan hitungan dari sesi tersimpan
  * @param {(violation:object, count:number)=>void} [opts.onViolation]
@@ -53,12 +54,18 @@ const CLIPBOARD_KEYS = (ev) => {
 export function createAntiCheat(opts) {
   const {
     mode = 'latihan',
+    sesi = 'ujian',
     requireFullscreen = false,
     initialViolations = [],
     onViolation = () => {},
     onLockout = () => {},
     onFullscreenChange = () => {}
   } = opts;
+
+  // Aturan sesi ini: batas pelanggaran dan toleransi blur berbeda antara
+  // ujian dan kuis, jadi keduanya dibaca dari profil — bukan dari satu
+  // konstanta global.
+  const R = PROFIL[sesi] || PROFIL.ujian;
 
   const violations = initialViolations.slice();
   const lastAt = Object.create(null);
@@ -84,7 +91,7 @@ export function createAntiCheat(opts) {
 
     // Blokir hanya berlaku pada mode Ujian (§8.5). Latihan tetap mencatat
     // pelanggaran, tetapi percobaannya memang tak terbatas (§8.2).
-    if (mode === 'ujian' && violations.length > EXAM.maxViolations) {
+    if (mode !== 'latihan' && violations.length > R.maxViolations) {
       lockedOut = true;
       stop();
       onLockout(violations.slice());
@@ -101,7 +108,7 @@ export function createAntiCheat(opts) {
     awayAt = 0;
     // [Dikonfirmasi guru] blur < 3 detik diabaikan — mengakomodasi notifikasi
     // sistem yang muncul sekilas.
-    if (away >= EXAM.blurToleranceMs) {
+    if (away >= R.blurToleranceMs) {
       record('blur', `${Math.round(away / 1000)} detik`);
     }
   };

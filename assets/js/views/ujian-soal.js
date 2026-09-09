@@ -1,6 +1,9 @@
-/** Layar 6 & 6b — Ujian split-screen (route: `/ujian/soal/:n`, komponen: ExamHeader, ViolationDots, SplitEditor). */
+/**
+ * Layar 6 & 6b — sesi split-screen (route: `/ujian/soal/:n` dan `/kuis/soal/:n`).
+ * Satu view untuk dua profil; aturannya dibaca dari rekaman sesi yang berjalan.
+ */
 
-import { EXAM } from '../config.js';
+import { aturanSesi, basePath, sesiDariPath } from '../sesi.js';
 import { esc, clock, toast, debounce } from '../util.js';
 import { screen, footer, narrowNotice, openModal, violationDots, violationLog } from '../ui.js';
 import {
@@ -20,7 +23,7 @@ export function finalScore(exam) {
   return Math.round(total / exam.questionIds.length);
 }
 
-/** Menutup sesi, mengirim ringkasan ke sheet "Ujian", lalu pindah ke layar hasil. */
+/** Menutup sesi, mengirim ringkasan ke sheet tujuan, lalu pindah ke layar hasil. */
 export async function finishExam(reason = 'manual') {
   const exam = getExam();
   if (!exam || exam.finished) return exam;
@@ -31,11 +34,12 @@ export async function finishExam(reason = 'manual') {
   exam.finalScore = finalScore(exam);
   setExam(exam);
 
+  const R = aturanSesi(exam);
   const student = getStudent();
-  await submitRow('Ujian', {
+  await submitRow(R.sheet, {
     nama: student?.nama || '',
     kelas: student?.kelas || '',
-    mode: 'Ujian',
+    mode: R.mode,
     modul: exam.modul.toUpperCase(),
     idSoal: 'RINGKASAN',
     sesi: exam.id,
@@ -56,15 +60,28 @@ export async function finishExam(reason = 'manual') {
 }
 
 export default async function ujianSoalView({ n }, { router, examRuntime }) {
-  if (getLockout()) { router.navigate('/ujian/terblokir', true); return blank(); }
+  const KEY = sesiDariPath(router.path);
+  const base = basePath(KEY);
+
+  if (getLockout()) { router.navigate(`${base}/terblokir`, true); return blank(); }
 
   let exam = getExam();
-  if (!exam) { router.navigate('/ujian/mulai', true); return blank(); }
-  if (exam.finished) { router.navigate('/ujian/hasil', true); return blank(); }
+  if (!exam) { router.navigate(`${base}/mulai`, true); return blank(); }
+
+  // Sesi yang berjalan menentukan aturannya, bukan alamat yang diketik. Siswa
+  // yang sedang ujian lalu mengetik /kuis/soal/1 dikembalikan ke ujiannya —
+  // kalau tidak, ia akan dinilai dengan aturan yang bukan miliknya.
+  const R = aturanSesi(exam);
+  if ((exam.sesi || 'ujian') !== KEY) {
+    router.navigate(`${basePath(exam.sesi || 'ujian')}/soal/${exam.current + 1}`, true);
+    return blank();
+  }
+
+  if (exam.finished) { router.navigate(`${base}/hasil`, true); return blank(); }
 
   if (examSecondsLeft(exam) <= 0) {
     await finishExam('timeout');
-    router.navigate('/ujian/hasil', true);
+    router.navigate(`${base}/hasil`, true);
     return blank();
   }
 
@@ -72,14 +89,14 @@ export default async function ujianSoalView({ n }, { router, examRuntime }) {
   // dikembalikan ke soal yang sedang dikerjakan.
   const index = Number(n) - 1;
   if (!Number.isInteger(index) || index !== exam.current) {
-    router.navigate(`/ujian/soal/${exam.current + 1}`, true);
+    router.navigate(`${base}/soal/${exam.current + 1}`, true);
     return blank();
   }
 
   const questionId = exam.questionIds[index];
   const question = await getQuestion(questionId);
   if (!question) {
-    return { el: screen({ body: `<div class="loading">Soal ${esc(questionId)} tidak ada di bank soal.</div>`, foot: footer('route: /ujian/soal') }) };
+    return { el: screen({ body: `<div class="loading">Soal ${esc(questionId)} tidak ada di bank soal.</div>`, foot: footer(`route: ${base}/soal`) }) };
   }
 
   const student = getStudent();
@@ -95,16 +112,16 @@ export default async function ujianSoalView({ n }, { router, examRuntime }) {
       </div>
       <header class="topbar" style="padding:12px 24px">
         <div class="row" style="gap:14px">
-          <span class="mode-badge mode-badge-exam">● UJIAN BERLANGSUNG</span>
+          <span class="mode-badge mode-badge-exam">● ${esc(R.ringkas)} BERLANGSUNG</span>
           <span class="crumbs">${esc(student?.nama || '')} · ${esc(student?.kelas || '')} · sesi ${esc(exam.id)}</span>
         </div>
         <div class="row" style="gap:12px">
           <span class="row" style="gap:7px;font:400 11px var(--font-mono);color:var(--s200)"
                 data-fs-indicator><i class="dot dot-ok"></i>layar penuh aktif</span>
           <div class="violation-dots" data-dots
-               aria-label="Pelanggaran ${exam.violations.length} dari ${EXAM.maxViolations}">
+               aria-label="Pelanggaran ${exam.violations.length} dari ${R.maxViolations}">
             <span class="label">PELANGGARAN</span>
-            ${violationDots(exam.violations.length, EXAM.maxViolations)}
+            ${violationDots(exam.violations.length, Math.max(1, R.maxViolations))}
           </div>
           <div class="timer-card" data-timer>
             <div class="t">--:--</div>
@@ -162,7 +179,7 @@ export default async function ujianSoalView({ n }, { router, examRuntime }) {
           </div>
         </div>
       </div>`,
-    foot: footer(`route: /ujian/soal/${index + 1}  ·  komponen: ExamHeader, ViolationDots, SplitEditor`)
+    foot: footer(`route: ${base}/soal/${index + 1}  ·  komponen: ExamHeader, ViolationDots, SplitEditor`)
   });
 
   /* ------------------------------------------------------------ workbench */
@@ -200,10 +217,10 @@ export default async function ujianSoalView({ n }, { router, examRuntime }) {
     const left = examSecondsLeft();
     timerValue.textContent = clock(left);
 
-    const warn = left <= EXAM.warnAtMinutes * 60;
+    const warn = left <= R.warnAtMinutes * 60;
     banner.classList.toggle('hidden', !warn);
     timerCard.classList.toggle('warn', warn);
-    timerCard.classList.toggle('blink', left <= EXAM.blinkAtMinutes * 60);
+    timerCard.classList.toggle('blink', left <= R.blinkAtMinutes * 60);
 
     if (left <= 0 && !finishing) {
       finishing = true;
@@ -217,7 +234,7 @@ export default async function ujianSoalView({ n }, { router, examRuntime }) {
     try { await gradeAndStore({ silent: true }); } catch { /* skor 0 bila gagal */ }
     await finishExam('timeout');
     await examRuntime.stop();
-    router.navigate('/ujian/hasil');
+    router.navigate(`${base}/hasil`);
   }
 
   const timer = setInterval(tickTimer, 1000);
@@ -232,9 +249,9 @@ export default async function ujianSoalView({ n }, { router, examRuntime }) {
   const unsubscribe = examRuntime.subscribe((event, payload) => {
     if (event === 'violation') {
       const { count } = payload;
-      dots.innerHTML = `<span class="label">PELANGGARAN</span>${violationDots(count, EXAM.maxViolations)}`;
-      dots.setAttribute('aria-label', `Pelanggaran ${count} dari ${EXAM.maxViolations}`);
-      if (count <= EXAM.maxViolations) showWarning(payload.violation, count);
+      dots.innerHTML = `<span class="label">PELANGGARAN</span>${violationDots(count, Math.max(1, R.maxViolations))}`;
+      dots.setAttribute('aria-label', `Pelanggaran ${count} dari ${R.maxViolations}`);
+      if (count <= R.maxViolations) showWarning(payload.violation, count);
     }
 
     if (event === 'fullscreen') {
@@ -246,30 +263,30 @@ export default async function ujianSoalView({ n }, { router, examRuntime }) {
     if (event === 'lockout') {
       clearInterval(timer);
       openWarning?.close();
-      router.navigate('/ujian/terblokir');
+      router.navigate(`${base}/terblokir`);
     }
   });
 
   function showWarning(violation, count) {
     openWarning?.close();
-    const last = count === EXAM.maxViolations;
+    const last = count === R.maxViolations;
     openWarning = openModal(`
       <div class="modal" role="alertdialog" aria-labelledby="ac-title">
         <div class="modal-head">
           <span class="t">PERINGATAN ANTI-CHEAT</span>
-          <div class="modal-dots">${violationDots(count, EXAM.maxViolations + 1)}</div>
+          <div class="modal-dots">${violationDots(count, R.maxViolations + 1)}</div>
         </div>
         <div class="modal-body">
           <div class="modal-icon" aria-hidden="true">!</div>
           <div class="kicker" style="margin-bottom:10px">
-            PELANGGARAN KE-${count} DARI MAKSIMAL ${EXAM.maxViolations}
+            PELANGGARAN KE-${count} DARI MAKSIMAL ${R.maxViolations}
           </div>
           <h3 id="ac-title">${last ? 'Ini peringatan terakhir Anda' : 'Pelanggaran tercatat'}</h3>
           <p class="lead">
             Sistem mendeteksi: <strong>${esc(violation.label)}</strong>.
             ${last
               ? `Satu pelanggaran lagi akan memblokir sesi ini: jawaban dikosongkan dan Anda
-                 harus menunggu ${EXAM.lockoutMinutes} menit sebelum bisa memulai ulang.`
+                 harus menunggu ${R.lockoutMinutes} menit sebelum bisa memulai ulang.`
               : 'Sesi berlanjut normal, tetapi kejadian ini ikut terkirim ke rekap guru.'}
           </p>
           <div class="log-box">
@@ -317,10 +334,10 @@ export default async function ujianSoalView({ n }, { router, examRuntime }) {
         result.score === 100 ? 'ok' : '');
     }
 
-    await submitRow('Ujian', {
+    await submitRow(R.sheet, {
       nama: student?.nama || '',
       kelas: student?.kelas || '',
-      mode: 'Ujian',
+      mode: R.mode,
       modul: question.modul,
       idSoal: question.id,
       sesi: live.id,
@@ -362,12 +379,12 @@ export default async function ujianSoalView({ n }, { router, examRuntime }) {
       clearInterval(timer);
       await finishExam('manual');
       await examRuntime.stop();
-      router.navigate('/ujian/hasil');
+      router.navigate(`${base}/hasil`);
       return;
     }
     live.current = index + 1;
     setExam(live);
-    router.navigate(`/ujian/soal/${index + 2}`);
+    router.navigate(`${base}/soal/${index + 2}`);
   });
 
   return {

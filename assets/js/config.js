@@ -64,6 +64,48 @@ export const EXAM = {
   blinkAtMinutes: 3
 };
 
+/**
+ * Kuis Daring 9/9 — sesi pendek dengan aturan lebih ketat daripada ujian.
+ *
+ * Mesinnya sama persis dengan ujian (anti-cheat, layar penuh, penilaian
+ * otomatis, pengiriman ke Sheets); yang berbeda hanya angka dan kolam soalnya.
+ *
+ * [Yang perlu guru tahu tentang maxViolations: 0]
+ * Nol berarti TANPA PERINGATAN: pelanggaran pertama langsung memblokir siswa
+ * 15 menit dan menghapus jawabannya. Itu memang yang diminta, tetapi perlu
+ * disadari risikonya — pindah tab lebih dari 3 detik, notifikasi yang ditekan
+ * tak sengaja, atau Ctrl+C refleks sudah cukup. Ubah ke 1 bila ingin memberi
+ * satu peringatan lebih dulu.
+ */
+export const KUIS = {
+  nama: 'Kuis Daring 9/9',
+  /** Kolam soal dibatasi per bank menurut tingkatnya. */
+  levelPerBank: { html: ['Dasar', 'Menengah'], css: ['Dasar'] },
+  komposisi: { html: 3, css: 2 },
+  durationMinutes: 45,
+  questionCount: 5,
+  maxViolations: 0,
+  lockoutMinutes: 15,
+  blurToleranceMs: 3000,
+  warnAtMinutes: 5,
+  blinkAtMinutes: 2,
+  /**
+   * Sheet tujuan. Apps Script yang aktif sekarang hanya mengenal "Latihan",
+   * "Ujian", dan "Capstone" — sheet lain akan DITOLAK. Karena itu baris kuis
+   * ikut masuk ke sheet "Ujian" dan dibedakan lewat kolom Mode.
+   * Setelah apps-script/Code.gs yang baru di-deploy, ganti nilai ini
+   * menjadi 'Kuis' agar punya sheet sendiri.
+   *
+   * JANGAN mengubahnya sebelum deploy: baris yang ditolak server saat ini
+   * dilaporkan sebagai terkirim (respons no-cors bersifat opaque) sehingga
+   * nilai siswa hilang tanpa peringatan. Sudah diuji langsung ke endpoint yang
+   * aktif: sheet 'Ujian' dijawab {ok:true}, sheet 'Kuis' dijawab
+   * "Sheet tidak dikenal".
+   */
+  sheet: 'Ujian',
+  mode: 'Kuis 9/9'
+};
+
 /** Lebar minimum untuk halaman split-screen (§11 PRD: desktop-first). */
 export const MIN_SPLIT_WIDTH = 1024;
 

@@ -357,6 +357,55 @@ Bank soal ujian adalah bank yang sama dengan latihan (tiap sesi mengacak 2 HTML
 
 ---
 
+---
+
+## Kuis Daring 9/9
+
+Kuis memakai **mesin ujian yang sama persis** — anti-cheat, layar penuh, timer,
+penilaian otomatis, dan pengiriman ke Sheets. Yang berbeda hanya angkanya dan
+kolam soalnya, dan semuanya ada di satu tempat: `KUIS` di `assets/js/config.js`.
+
+| | Ujian | Kuis Daring 9/9 |
+|---|---|---|
+| Alamat | `#/ujian/mulai` | `#/kuis/mulai` |
+| Durasi | 90 menit | 45 menit |
+| Soal | 2 HTML · 2 CSS · 1 campuran | 3 HTML · 2 CSS |
+| Kolam soal | seluruh bank | HTML Dasar+Menengah, CSS Dasar |
+| Toleransi pelanggaran | 2 (ke-3 memblokir) | **0 — sekali langsung blokir** |
+| Blokir | 60 menit | 15 menit |
+| Kolom `Mode` di sheet | `Ujian` | `Kuis 9/9` |
+
+> **Tanpa toleransi itu memang keras.** Pindah tab lebih dari 3 detik,
+> notifikasi yang tak sengaja ditekan, atau Ctrl+C refleks sudah cukup untuk
+> memblokir siswa 15 menit dan menghapus jawabannya. Ubah `maxViolations` ke `1`
+> bila ingin memberi satu peringatan lebih dulu.
+
+### Ke mana hasilnya masuk
+
+Baris kuis masuk ke sheet **Ujian** dan dibedakan lewat kolom `Mode` = `Kuis 9/9`.
+Alasannya: Apps Script yang aktif hanya mengenal Latihan / Ujian / Capstone, dan
+**menolak** sheet lain. Diuji langsung ke endpoint yang aktif — sheet `Ujian`
+dijawab `{ok:true}`, sheet `Kuis` dijawab "Sheet tidak dikenal".
+
+Tiga jenis baris, dibedakan kolom `Jenis` dan `ID Soal`:
+
+| `ID Soal` | Isinya |
+|---|---|
+| id soal | satu baris tiap kali siswa submit satu soal |
+| `RINGKASAN` | nilai akhir sesi |
+| `BLOKIR` | siswa dihentikan karena pelanggaran — berisi pelanggarannya, soal keberapa, dan skor yang sempat terkumpul |
+
+Baris `BLOKIR` penting: sesi yang diblokir dihapus tanpa nilai akhir, jadi tanpa
+baris itu siswa yang curang di soal pertama tidak meninggalkan jejak apa pun.
+
+**Ingin sheet "Kuis" sendiri?** Deploy ulang `apps-script/Code.gs` (Deploy →
+Manage deployments → ✏️ → New version, agar URL `/exec` tidak berubah), baru
+ubah `KUIS.sheet` menjadi `'Kuis'`. Jangan dibalik urutannya: baris yang ditolak
+server dilaporkan sebagai terkirim (respons no-cors bersifat opaque), sehingga
+nilai siswa akan hilang tanpa peringatan.
+
+---
+
 ## Aturan ujian
 
 Diatur di `assets/js/config.js` → `EXAM`:

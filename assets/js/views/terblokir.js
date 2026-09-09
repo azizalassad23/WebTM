@@ -1,6 +1,12 @@
-/** Layar 9 — Halaman blokir 60 menit (route: `/ujian/terblokir`). */
+/**
+ * Layar 9 — halaman blokir (route: `/ujian/terblokir` dan `/kuis/terblokir`).
+ *
+ * Angka aturannya dibaca dari REKAMAN blokir, bukan dari profil aktif: saat
+ * blokir dijatuhkan, rekaman sesinya sudah dihapus (itulah "reset progres"),
+ * jadi profil aktif tidak lagi bisa disimpulkan dari sesi yang berjalan.
+ */
 
-import { EXAM } from '../config.js';
+import { PROFIL } from '../sesi.js';
 import { clock } from '../util.js';
 import { screen, footer, violationLog } from '../ui.js';
 import { getLockout, lockoutSecondsLeft, lockoutCycles } from '../state.js';
@@ -9,24 +15,28 @@ export default async function terblokirView(_params, { router }) {
   const lock = getLockout();
   if (!lock) { router.navigate('/dashboard', true); return { el: document.createElement('div') }; }
 
-  const totalSeconds = EXAM.lockoutMinutes * 60;
+  const EXAM = { ...(PROFIL[lock.sesi] || PROFIL.ujian), ...lock };
+  const base = '/' + (lock.sesi || 'ujian');
+  const totalSeconds = (lock.lockoutMinutes || EXAM.lockoutMinutes) * 60;
   const endsAt = new Date(lock.until).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
   const el = screen({
     top: `<header class="topbar topbar-plain" style="background:var(--ink)">
-            <span class="brand-name">WebTM · RUANG UJIAN</span>
-            <span class="crumbs">akses ujian ditangguhkan</span>
+            <span class="brand-name">WebTM · RUANG ${(EXAM.ringkas || 'UJIAN')}</span>
+            <span class="crumbs">akses ${(lock.nama || 'ujian')} ditangguhkan</span>
           </header>`,
     body: `
       <section class="lockout">
         <div class="lockout-inner">
           <div class="lockout-mark" aria-hidden="true">✕</div>
           <div class="kicker" style="color:var(--a400);letter-spacing:.2em;margin-bottom:12px">
-            SESI DIBLOKIR — PELANGGARAN KE-${EXAM.maxViolations + 1}
+            SESI DIBLOKIR${EXAM.maxViolations === 0 ? '' : ` — PELANGGARAN KE-${EXAM.maxViolations + 1}`}
           </div>
-          <h2>Ujian Anda dihentikan</h2>
+          <h2>${lock.nama || 'Ujian'} Anda dihentikan</h2>
           <p style="max-width:48ch;margin:0 auto 28px">
-            Jumlah pelanggaran melewati batas maksimal ${EXAM.maxViolations}. Seluruh jawaban
+            ${EXAM.maxViolations === 0
+              ? `${lock.nama || 'Sesi ini'} berjalan tanpa toleransi: satu pelanggaran langsung memblokir.`
+              : `Jumlah pelanggaran melewati batas maksimal ${EXAM.maxViolations}.`} Seluruh jawaban
             pada sesi ini dikosongkan dan dicatat di rekap guru. Anda dapat memulai sesi baru
             setelah masa tunggu berakhir.
           </p>
@@ -57,11 +67,11 @@ export default async function terblokirView(_params, { router }) {
             baru dan ${EXAM.questionCount} soal yang diacak ulang.
           </p>
           <button class="btn" type="button" data-act="mulai" disabled>
-            Mulai Ujian Baru — tersedia dalam <span data-countdown-inline>--:--</span>
+            Mulai ${lock.nama || 'Ujian'} Baru — tersedia dalam <span data-countdown-inline>--:--</span>
           </button>
         </div>
       </section>`,
-    foot: footer('route: /ujian/terblokir', true)
+    foot: footer(`route: ${base}/terblokir`, true)
   });
 
   const countdown = el.querySelector('[data-countdown]');
@@ -78,7 +88,7 @@ export default async function terblokirView(_params, { router }) {
     if (left <= 0) {
       clearInterval(timer);
       button.disabled = false;
-      button.textContent = 'Mulai Ujian Baru';
+      button.textContent = `Mulai ${lock.nama || 'Ujian'} Baru`;
       button.classList.add('btn-primary', 'btn-on-dark');
     }
   }
@@ -88,7 +98,7 @@ export default async function terblokirView(_params, { router }) {
 
   button.addEventListener('click', () => {
     if (button.disabled) return;
-    router.navigate('/ujian/mulai');
+    router.navigate(`${base}/mulai`);
   });
 
   return { el, destroy() { clearInterval(timer); } };

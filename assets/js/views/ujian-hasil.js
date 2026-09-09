@@ -1,6 +1,6 @@
-/** Layar Hasil Ujian (route: `/ujian/hasil`, komponen: ScoreCard, AssertionBreakdown). */
+/** Layar Hasil sesi (route: `/ujian/hasil` dan `/kuis/hasil`). */
 
-import { EXAM } from '../config.js';
+import { aturanSesi, basePath } from '../sesi.js';
 import { esc, stamp } from '../util.js';
 import { screen, footer } from '../ui.js';
 import { getExam, clearExam, lockoutCycles } from '../state.js';
@@ -11,6 +11,8 @@ const BANK_LABEL = { html: 'HTML', css: 'CSS', campuran: 'HTML + CSS' };
 export default async function ujianHasilView(_params, { router }) {
   const exam = getExam();
   if (!exam || !exam.finished) { router.navigate('/dashboard', true); return { el: document.createElement('div') }; }
+  const R = aturanSesi(exam);
+  const base = basePath(R.key);
 
   const questions = await Promise.all(exam.questionIds.map((id) => getQuestion(id)));
   const durasiMenit = Math.round((exam.finishedAt - exam.startedAt) / 60000);
@@ -62,14 +64,14 @@ export default async function ujianHasilView(_params, { router }) {
       <div class="wrap result-layout">
         <div>
           <div class="score-card${low ? ' low' : ''}">
-            <div class="kicker ${low ? '' : 'kicker-sage'}" style="margin-bottom:14px">NILAI AKHIR UJIAN</div>
+            <div class="kicker ${low ? '' : 'kicker-sage'}" style="margin-bottom:14px">NILAI AKHIR ${esc(R.ringkas)}</div>
             <div class="big">${exam.finalScore}</div>
             <div class="sub">dari 100 · rata-rata ${exam.questionIds.length} soal</div>
             <div class="rule"></div>
             <div class="score-meta">
               <div><span>Durasi pengerjaan</span><span>${durasiMenit} menit</span></div>
               <div><span>Jumlah submit</span><span>${exam.submitCount} kali</span></div>
-              <div><span>Pelanggaran</span><span>${exam.violations.length} dari maks. ${EXAM.maxViolations}</span></div>
+              <div><span>Pelanggaran</span><span>${exam.violations.length} dari maks. ${R.maxViolations}</span></div>
               <div><span>Status blokir</span><span>${lockoutCycles() ? `${lockoutCycles()} siklus tercatat` : 'tidak ada'}</span></div>
               <div><span>Cara selesai</span><span>${exam.finishReason === 'timeout' ? 'auto-submit' : 'submit manual'}</span></div>
             </div>
@@ -97,7 +99,7 @@ export default async function ujianHasilView(_params, { router }) {
           </div>
         </div>
       </div>`,
-    foot: footer('route: /ujian/hasil  ·  komponen: ScoreCard, AssertionBreakdown')
+    foot: footer(`route: ${base}/hasil  ·  komponen: ScoreCard, AssertionBreakdown`)
   });
 
   el.querySelector('[data-act="dasbor"]').addEventListener('click', () => {

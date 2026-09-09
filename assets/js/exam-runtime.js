@@ -9,9 +9,11 @@
  * supaya refresh halaman di tengah ujian tidak mengosongkan riwayatnya.
  */
 
-import { EXAM } from './config.js';
+import { PROFIL, aturanSesi } from './sesi.js';
 import { createAntiCheat } from './anticheat.js';
-import { getExam, setExam, applyLockout } from './state.js';
+import { getExam, setExam, applyLockout, getStudent } from './state.js';
+import { submitRow } from './submit.js';
+import { summarizeViolations } from './anticheat.js';
 
 const listeners = new Set();
 let engine = null;
@@ -23,8 +25,10 @@ function emit(event, payload) {
 function ensureEngine() {
   if (engine) return engine;
   const exam = getExam();
+  const sesi = exam?.sesi || 'ujian';
   engine = createAntiCheat({
-    mode: 'ujian',
+    mode: sesi,
+    sesi,
     requireFullscreen: true,
     initialViolations: exam?.violations || [],
     onViolation(violation, count) {
@@ -36,12 +40,49 @@ function ensureEngine() {
       emit('violation', { violation, count });
     },
     onLockout(violations) {
-      applyLockout(violations);
+      // Rekamnya DULU: applyLockout menghapus sesi, dan tanpa baris ini siswa
+      // yang curang di soal pertama tidak meninggalkan jejak apa pun di rekap
+      // guru — padahal layar blokir menjanjikan sebaliknya.
+      laporkanBlokir(getExam(), violations, sesi);
+      applyLockout(violations, sesi);
       emit('lockout', { violations });
     },
     onFullscreenChange(active) { emit('fullscreen', { active }); }
   });
   return engine;
+}
+
+/**
+ * Satu baris "BLOKIR" ke sheet: siapa, kapan, pelanggaran apa, dan skor yang
+ * sempat terkumpul. Sengaja tidak di-await — kegagalan jaringan sudah ditangani
+ * antrean lokal di submit.js, dan siswa tidak boleh tertahan di layar mana pun
+ * hanya karena Apps Script sedang lambat.
+ */
+function laporkanBlokir(exam, violations, sesi) {
+  if (!exam) return;
+  const R = PROFIL[sesi] || PROFIL.ujian;
+  const siswa = getStudent();
+  const skor = exam.questionIds.map((id) => `${id}=${exam.scores[id]?.score ?? 0}`).join(' | ');
+  submitRow(R.sheet, {
+    nama: siswa?.nama || '',
+    kelas: siswa?.kelas || '',
+    mode: R.mode,
+    modul: (exam.modul || '').toUpperCase(),
+    idSoal: 'BLOKIR',
+    sesi: exam.id,
+    nomorSoal: `${exam.current + 1}/${exam.questionIds.length}`,
+    daftarSoal: exam.questionIds.join(', '),
+    skor: 0,
+    rincianSkor: skor,
+    jumlahSubmit: exam.submitCount,
+    waktuMulai: new Date(exam.startedAt).toISOString(),
+    waktuSubmit: new Date().toISOString(),
+    durasiDetik: Math.round((Date.now() - exam.startedAt) / 1000),
+    jumlahPelanggaran: violations.length,
+    detailPelanggaran: summarizeViolations(violations),
+    statusBlokir: `diblokir ${R.lockoutMinutes} menit — jawaban dihapus`,
+    alasanSelesai: 'dihentikan karena pelanggaran'
+  }).catch(() => { /* sudah masuk antrean lokal */ });
 }
 
 export const examRuntime = {
@@ -62,7 +103,7 @@ export const examRuntime = {
 
   get violations() { return engine ? engine.violations : (getExam()?.violations || []); },
   get count() { return this.violations.length; },
-  get max() { return EXAM.maxViolations; },
+  get max() { return aturanSesi(getExam()).maxViolations; },
   get isFullscreen() { return !!document.fullscreenElement; },
 
   /** Berlangganan kejadian: 'violation' | 'lockout' | 'fullscreen'. */
@@ -73,7 +114,7 @@ export const examRuntime = {
    * soal ujian, dan dimatikan begitu siswa keluar dari sana.
    */
   syncWithRoute(path) {
-    const inExam = /^\/ujian\/soal\//.test(path);
+    const inExam = Object.keys(PROFIL).some((k) => path.startsWith('/' + k + '/soal/'));
     if (inExam) {
       if (getExam()) this.start();
     } else if (engine) {

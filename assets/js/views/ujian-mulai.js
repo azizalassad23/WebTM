@@ -1,6 +1,12 @@
-/** Layar 5 — Pra-ujian (route: `/ujian/mulai`, komponen: ExamBriefing, QuestionOutline). */
+/**
+ * Layar 5 — Pra-sesi (route: `/ujian/mulai` dan `/kuis/mulai`).
+ *
+ * Satu view untuk dua profil. Ujian dan kuis berbagi seluruh mesin; yang
+ * berbeda hanya angka aturannya dan kolam soalnya, dan keduanya datang dari
+ * profil di sesi.js.
+ */
 
-import { EXAM } from '../config.js';
+import { aturan, basePath, sesiDariPath } from '../sesi.js';
 import { esc, shuffle, toast } from '../util.js';
 import { screen, footer } from '../ui.js';
 import { getExam, startExam, examSecondsLeft, getLockout } from '../state.js';
@@ -10,29 +16,41 @@ import { getBank } from '../content.js';
 const BANK_LABEL = { html: 'HTML', css: 'CSS', campuran: 'HTML + CSS' };
 
 export default async function ujianMulaiView(_params, { router, examRuntime }) {
-  if (getLockout()) { router.navigate('/ujian/terblokir', true); return { el: document.createElement('div') }; }
+  const KEY = sesiDariPath(router.path);
+  const EXAM = aturan(KEY);
+  const base = basePath(KEY);
+
+  if (getLockout()) { router.navigate(`${base}/terblokir`, true); return { el: document.createElement('div') }; }
 
   // Sesi yang masih berjalan tidak boleh diacak ulang — lanjutkan di tempatnya.
+  // Sesi milik profil LAIN juga tidak boleh dibajak: siswa yang sedang ujian
+  // lalu membuka /kuis/mulai harus dikembalikan ke ujiannya.
   const running = getExam();
   if (running && !running.finished && examSecondsLeft(running) > 0) {
-    router.navigate(`/ujian/soal/${running.current + 1}`, true);
+    router.navigate(`${basePath(running.sesi || 'ujian')}/soal/${running.current + 1}`, true);
     return { el: document.createElement('div') };
   }
 
   const wanted = Object.entries(EXAM.komposisi).filter(([, n]) => n > 0);
+  // Kuis hanya memakai sebagian bank — dibatasi menurut tingkat soal, supaya
+  // materi yang belum diajarkan tidak ikut keluar.
+  const saring = (name, bank) => {
+    const level = EXAM.levelPerBank?.[name];
+    return level ? bank.filter((q) => level.includes(q.level)) : bank;
+  };
   const banks = Object.fromEntries(await Promise.all(
-    wanted.map(async ([name]) => [name, await getBank(name)])
+    wanted.map(async ([name]) => [name, saring(name, await getBank(name))])
   ));
 
   const kurang = wanted.filter(([name, n]) => (banks[name]?.length ?? 0) < n);
   if (kurang.length) {
     return {
       el: screen({
-        body: `<div class="loading">Bank soal belum cukup untuk menyusun ujian:<br><br>
+        body: `<div class="loading">Bank soal belum cukup untuk menyusun ${esc(EXAM.nama)}:<br><br>
                ${kurang.map(([name, n]) =>
                  `<code>data/soal-${esc(name)}.json</code> berisi ${banks[name]?.length ?? 0} soal, dibutuhkan ${n}.`
                ).join('<br>')}</div>`,
-        foot: footer('route: /ujian/mulai')
+        foot: footer(`route: ${base}/mulai`)
       })
     };
   }
@@ -52,26 +70,27 @@ export default async function ujianMulaiView(_params, { router, examRuntime }) {
 
   const el = screen({
     top: `<header class="topbar topbar-plain" style="background:var(--ink)">
-            <span class="brand-name">WebTM · RUANG UJIAN</span>
+            <span class="brand-name">WebTM · RUANG ${esc(EXAM.ringkas)}</span>
             <span class="crumbs">sesi belum dimulai — timer belum berjalan</span>
           </header>`,
     body: `
       <section class="briefing">
         <div class="briefing-left">
           <span class="pill-outline-accent">SEBELUM MULAI — BACA SAMPAI HABIS</span>
-          <h2>Ujian HTML &amp; CSS</h2>
+          <h2>${esc(EXAM.nama)}</h2>
           <p style="font-size:16px;max-width:52ch;margin-bottom:30px">
             Sesi berlangsung ${EXAM.durationMinutes} menit dan berjalan dalam mode layar penuh.
             Soal ditampilkan satu per satu; setelah disubmit, Anda melanjutkan ke soal
-            berikutnya dan tidak dapat kembali. Ujian ini mencampur soal HTML, soal CSS,
-            dan soal gabungan — pada soal gabungan Anda menulis <em>index.html</em> dan
-            <em>style.css</em> sekaligus, seperti mengerjakan proyek sungguhan.
+            berikutnya dan tidak dapat kembali. ${EXAM.maxViolations === 0
+              ? '<strong>Sesi ini tanpa peringatan: satu pelanggaran saja langsung memblokir Anda '
+                + EXAM.lockoutMinutes + ' menit dan menghapus seluruh jawaban.</strong>'
+              : 'Sesi ini mencampur soal HTML, soal CSS, dan soal gabungan.'}
           </p>
 
           <div class="brief-grid">
             <div class="brief-stat"><div class="n">${EXAM.durationMinutes}:00</div><div class="l">DURASI · AUTO-SUBMIT SAAT HABIS</div></div>
             <div class="brief-stat"><div class="n">${EXAM.questionCount} soal</div><div class="l">KOMPOSISI: ${esc(komposisiTeks.toUpperCase())}</div></div>
-            <div class="brief-stat"><div class="n">maks. ${EXAM.maxViolations}</div><div class="l">PELANGGARAN · KE-${EXAM.maxViolations + 1} = BLOKIR ${EXAM.lockoutMinutes} MENIT</div></div>
+            <div class="brief-stat"><div class="n">${EXAM.maxViolations === 0 ? 'nol' : 'maks. ' + EXAM.maxViolations}</div><div class="l">PELANGGARAN · ${EXAM.maxViolations === 0 ? 'SEKALI SAJA' : 'KE-' + (EXAM.maxViolations + 1)} = BLOKIR ${EXAM.lockoutMinutes} MENIT + JAWABAN DIHAPUS</div></div>
             <div class="brief-stat"><div class="n">bebas</div><div class="l">JUMLAH SUBMIT SELAMA WAKTU TERSISA</div></div>
           </div>
 
@@ -90,7 +109,7 @@ export default async function ujianMulaiView(_params, { router, examRuntime }) {
               Aktifkan Layar Penuh &amp; Mulai
             </button>
             <span class="small" style="color:var(--n500);max-width:24ch">
-              Browser akan meminta izin layar penuh. Ujian tidak dapat dimulai tanpa izin ini.
+              Browser akan meminta izin layar penuh. ${esc(EXAM.nama)} tidak dapat dimulai tanpa izin ini.
             </span>
           </div>
           <p class="small" style="color:var(--n600);margin-top:22px;max-width:56ch">
@@ -120,18 +139,18 @@ export default async function ujianMulaiView(_params, { router, examRuntime }) {
           </div>
         </aside>
       </section>`,
-    foot: footer('route: /ujian/mulai  ·  komponen: ExamBriefing, QuestionOutline', true)
+    foot: footer(`route: ${base}/mulai  ·  komponen: ExamBriefing, QuestionOutline`, true)
   });
 
   el.querySelector('[data-act="mulai"]').addEventListener('click', async () => {
     // Fullscreen API menuntut gestur pengguna, jadi permintaan dilakukan di sini.
     const ok = await examRuntime.requestFullscreen();
     if (!ok) {
-      toast('Izin layar penuh ditolak. Ujian tidak dapat dimulai tanpa izin ini.', 'warn', 6000);
+      toast(`Izin layar penuh ditolak. ${EXAM.nama} tidak dapat dimulai tanpa izin ini.`, 'warn', 6000);
       return;
     }
-    startExam('campuran', picked.map((q) => q.id));
-    router.navigate('/ujian/soal/1');
+    startExam('campuran', picked.map((q) => q.id), KEY);
+    router.navigate(`${base}/soal/1`);
   });
 
   return { el };
