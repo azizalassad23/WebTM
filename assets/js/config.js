@@ -82,7 +82,7 @@ export const KUIS = {
   /** Kolam soal dibatasi per bank menurut tingkatnya. */
   levelPerBank: { html: ['Dasar', 'Menengah'], css: ['Dasar'] },
   komposisi: { html: 3, css: 2 },
-  durationMinutes: 45,
+  durationMinutes: 90,
   questionCount: 5,
   maxViolations: 0,
   lockoutMinutes: 15,

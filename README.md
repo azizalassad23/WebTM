@@ -368,7 +368,7 @@ kolam soalnya, dan semuanya ada di satu tempat: `KUIS` di `assets/js/config.js`.
 | | Ujian | Kuis Daring 9/9 |
 |---|---|---|
 | Alamat | `#/ujian/mulai` | `#/kuis/mulai` |
-| Durasi | 90 menit | 45 menit |
+| Durasi | 90 menit | 90 menit |
 | Soal | 2 HTML · 2 CSS · 1 campuran | 3 HTML · 2 CSS |
 | Kolam soal | seluruh bank | HTML Dasar+Menengah, CSS Dasar |
 | Toleransi pelanggaran | 2 (ke-3 memblokir) | **0 — sekali langsung blokir** |
