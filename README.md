@@ -398,6 +398,25 @@ Tiga jenis baris, dibedakan kolom `Jenis` dan `ID Soal`:
 Baris `BLOKIR` penting: sesi yang diblokir dihapus tanpa nilai akhir, jadi tanpa
 baris itu siswa yang curang di soal pertama tidak meninggalkan jejak apa pun.
 
+### Sheet "Rekap" — satu baris per siswa
+
+Sheet Ujian menyimpan setiap kejadian (tiap submit, ringkasan, blokir, beserta
+kodenya), sehingga nilai akhir sulit dicari. Sheet **Rekap** menyarikannya:
+
+| Nama | Kelas/NISN | Jenis | **Nilai Akhir** | Status | Soal 1–5 | Jumlah Sesi | Diblokir | Riwayat Nilai | Waktu Terakhir | ID Sesi |
+|---|---|---|---|---|---|---|---|---|---|---|
+
+- Dibangun ulang dari data mentah **setiap spreadsheet dibuka**, dan lewat menu
+  **WebTM → Perbarui Rekap Nilai**. Data mentah tidak pernah diubah.
+- **Nilai akhir = sesi pertama yang selesai.** Siswa yang mengulang tidak bisa
+  memancing soal yang lebih mudah; semua hasilnya tetap tampak di *Riwayat Nilai*
+  (mis. `BLOKIR · 72`).
+- Diblokir tanpa mengulang → 0. Tidak selesai → rata-rata 5 soal, yang belum
+  disubmit dihitung 0.
+- Baris uji yang namanya memuat "boleh dihapus" tidak ikut direkap.
+
+Logikanya diuji di luar Google: `node tools/uji-rekap.mjs`.
+
 **Ingin sheet "Kuis" sendiri?** Deploy ulang `apps-script/Code.gs` (Deploy →
 Manage deployments → ✏️ → New version, agar URL `/exec` tidak berubah), baru
 ubah `KUIS.sheet` menjadi `'Kuis'`. Jangan dibalik urutannya: baris yang ditolak
