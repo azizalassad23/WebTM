@@ -23,7 +23,8 @@ function buatSheet(nama, grid = []) {
   const data = grid.map((r) => r.slice());
   const lebar = () => data.reduce((m, r) => Math.max(m, r.length), 0);
   const sheet = {
-    nama, data, note: null, filter: null,
+    nama, data, note: null, filter: null, lindung: [],
+    getProtections: () => sheet.lindung,
     getLastRow: () => data.length,
     getLastColumn: () => lebar(),
     getRange(r, c, nr = 1, nc = 1) {
@@ -40,7 +41,8 @@ function buatSheet(nama, grid = []) {
         setFontWeight() { return this; }, setBackground() { return this; },
         setFontColor() { return this; }, setNumberFormat() { return this; },
         setNote(n) { sheet.note = n; return this; },
-        createFilter() { sheet.filter = {}; return this; }
+        createFilter() { sheet.filter = {}; return this; },
+        protect() { const pr = { d: '', setDescription(x) { pr.d = x; return pr; }, setWarningOnly() { sheet.lindung.push(pr); return pr; }, getDescription: () => pr.d }; return pr; }
       };
     },
     appendRow(row) { data.push(row.slice()); },
@@ -62,7 +64,7 @@ function buatBook(sheets) {
 
 function jalankan(book) {
   const ctx = {
-    SpreadsheetApp: { getActiveSpreadsheet: () => book, getUi: () => ({ createMenu: () => ({ addItem() { return this; }, addToUi() {} }) }) },
+    SpreadsheetApp: { ProtectionType: { RANGE: 'RANGE' }, getActiveSpreadsheet: () => book, getUi: () => ({ createMenu: () => ({ addItem() { return this; }, addToUi() {} }) }) },
     ContentService: { createTextOutput: (t) => ({ setMimeType: () => JSON.parse(t) }), MimeType: { JSON: 'json' } },
     LockService: { getScriptLock: () => ({ waitLock() {}, releaseLock() {} }) },
     Date, JSON, Math, Object, String, Number, isNaN, Infinity
@@ -204,6 +206,44 @@ cek('Nomor Soal yang diubah Sheets menjadi tanggal: pembagi tetap 5', () => {
   jalankan(b3).perbaruiRekap();
   const [hh, row] = b3.sheets.Rekap.data;
   assert.equal(row[hh.indexOf('Nilai Akhir')], 40);   // (100 + 100) / 5, bukan 100
+});
+
+console.log('\nJudul kolom yang rusak');
+
+// Susunan baku saat ini (dengan kolom "Jenis") dan baris yang ditulis menurutnya.
+const BAKU = ['Timestamp', 'Nama', 'Kelas/NISN', 'Jenis', ...HEADER_LAMA.slice(3)];
+const bakuRow = (o) => { const r = baris(o); r.splice(3, 0, 'Per Soal'); return r; };
+
+cek('kejadian nyata: B1 kosong, C1 "Nama" → judul dipulihkan, nama bukan NISN', () => {
+  const rusak = BAKU.slice(); rusak[1] = ''; rusak[2] = 'Nama';
+  const b4 = buatBook({ Ujian: buatSheet('Ujian', [rusak,
+    bakuRow({ t: t(1), nama: 'Ridho Evrilian', kelas: 'XIIB / 0099240680', id: 'RINGKASAN', sesi: '#R1',
+      skor: 88, daftar: D5, rincian: 'html-dasar-001=88', alasan: 'submit manual' })]) });
+  jalankan(b4).perbaruiRekap();
+  assert.deepEqual(b4.sheets.Ujian.data[0], BAKU);
+  const [hh, row] = b4.sheets.Rekap.data;
+  assert.equal(row[hh.indexOf('Nama')], 'Ridho Evrilian');
+  assert.equal(row[hh.indexOf('Kelas/NISN')], 'XIIB / 0099240680');
+  assert.equal(b4.sheets.Ujian.lindung.length, 1);          // judul kini diberi peringatan
+});
+
+cek('baris baru setelah pemulihan sejajar dengan baris lama', () => {
+  const rusak = BAKU.slice(); rusak[1] = ''; rusak[2] = 'Nama';
+  const b5 = buatBook({ Ujian: buatSheet('Ujian', [rusak]) });
+  jalankan(b5).doPost({ postData: { contents: JSON.stringify({
+    token: 'webtm-OfP6kvulluQE', sheet: 'Ujian',
+    data: { nama: 'Ridho Evrilian', kelas: 'XIIB / 0099240680', idSoal: 'RINGKASAN', sesi: '#R2', skor: 90 }
+  }) } });
+  const [h, r] = b5.sheets.Ujian.data;
+  assert.equal(h.length, BAKU.length);                     // tidak ada kolom liar di kanan
+  assert.equal(r[1], 'Ridho Evrilian');
+  assert.equal(r[2], 'XIIB / 0099240680');
+});
+
+cek('sheet versi lama (tanpa "Jenis") TIDAK ditimpa ke susunan baru', () => {
+  const b6 = buatBook({ Ujian: buatSheet('Ujian', [HEADER_LAMA.slice(), rows[0]]) });
+  jalankan(b6).perbaruiRekap();
+  assert.deepEqual(b6.sheets.Ujian.data[0], HEADER_LAMA);
 });
 
 console.log('\nPenulisan baris ke sheet berheader lama');

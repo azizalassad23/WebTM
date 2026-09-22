@@ -106,6 +106,47 @@ function sheetFor_(name) {
  * setiap nilai bergeser satu kolom tanpa ada yang menyadarinya. Kolom yang
  * belum ada ditambahkan di ujung kanan.
  */
+/**
+ * Memulihkan baris judul yang rusak karena tersunting tangan.
+ *
+ * Kejadian nyata: di sheet Ujian guru, judul B1 menjadi kosong dan C1 menjadi
+ * "Nama" — judul "Kelas/NISN" hilang. Datanya utuh (ditulis skrip dalam urutan
+ * baku), tetapi rekap membaca kolom menurut judulnya, sehingga NISN terbaca
+ * sebagai nama. Lebih buruk lagi, penulisan baris baru yang mengikuti judul
+ * akan menaruh nama di kolom yang salah.
+ *
+ * Judul hanya ditulis ulang bila ketiganya terpenuhi:
+ *   1. ada kolom baku yang hilang dari judul;
+ *   2. lebarnya SAMA PERSIS dengan daftar baku — sheet buatan versi skrip lain
+ *      (mis. sebelum kolom "Jenis" ada) punya lebar berbeda, dan barisnya
+ *      memang tersusun menurut judul lamanya; menimpanya justru merusak;
+ *   3. selisihnya hanya beberapa sel — tanda sunting tak sengaja, bukan
+ *      susunan yang memang lain.
+ * Selain itu judul dibiarkan apa adanya.
+ */
+function pulihkanJudul_(sheet, wajib) {
+  var lastCol = sheet.getLastColumn();
+  if (lastCol !== wajib.length) return false;
+  var header = sheet.getRange(1, 1, 1, lastCol).getValues()[0]
+    .map(function (h) { return String(h).trim(); });
+  var hilang = wajib.some(function (c) { return header.indexOf(c) === -1; });
+  var beda = wajib.filter(function (c, i) { return header[i] !== c; }).length;
+  if (!hilang || beda > 3) return false;
+  sheet.getRange(1, 1, 1, wajib.length).setValues([wajib]);
+  return true;
+}
+
+/** Peringatan saat judul kolom hendak disunting (tidak menghalangi). */
+function lindungiJudul_(sheet, lebar) {
+  var ada = sheet.getProtections(SpreadsheetApp.ProtectionType.RANGE).some(function (p) {
+    return p.getDescription() === 'Judul kolom WebTM';
+  });
+  if (ada || !lebar) return;
+  sheet.getRange(1, 1, 1, lebar).protect()
+    .setDescription('Judul kolom WebTM')
+    .setWarningOnly(true);
+}
+
 function headerSelaras_(sheet, wajib) {
   var lastCol = sheet.getLastColumn();
   var header = lastCol ? sheet.getRange(1, 1, 1, lastCol).getValues()[0] : [];
@@ -146,6 +187,7 @@ function doPost(e) {
     try { lock.waitLock(5000); punyaLock = true; } catch (lockErr) { /* lanjut tanpa lock */ }
     try {
       var sheet = sheetFor_(name);
+      pulihkanJudul_(sheet, SHEETS[name]);
       var row = headerSelaras_(sheet, SHEETS[name]).map(function (column) {
         if (column === 'Timestamp') return new Date();
         if (column === 'Status Review Guru') return data.statusReviewGuru || 'Menunggu Review';
@@ -386,6 +428,8 @@ function perbaruiRekap() {
   SUMBER_REKAP.forEach(function (nama) {
     var sh = book.getSheetByName(nama);
     if (!sh || sh.getLastRow() < 2) return;
+    pulihkanJudul_(sh, SHEETS[nama]);
+    lindungiJudul_(sh, sh.getLastColumn());
     var semua = sh.getRange(1, 1, sh.getLastRow(), sh.getLastColumn()).getValues();
     tabel.push({ header: semua[0], rows: semua.slice(1) });
   });
